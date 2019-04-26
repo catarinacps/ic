@@ -1,0 +1,24 @@
+#+TITLE: Computational Experiments on Task-based Parallel Applications
+#+AUTHOR: Henrique Silva
+#+email: hcpsilva@inf.ufrgs.br
+#+INFOJS_OPT:
+#+PROPERTY: cache yes
+#+PROPERTY: results graphics
+#+PROPERTY: exports both
+#+PROPERTY: tangle yes
+
+This repository is dedicated to everything related to my scientific initiation
+scholarship program. Here I'll keep my daily notes and thoughts, besides all
+experiments and other additional information.
+
+** Schedule
+
+   This schedule is subject to change as it hasn't been formally discussed yet.
+
+| Day       | Morning       | Afternoon     |
+|-----------+---------------+---------------|
+| Monday    | 09:00 - 12:00 | 17:00 - 18:00 |
+| Tuesday   | 10:30 - 12:00 | 13:00 - 17:00 |
+| Wednesday | 09:00 - 12:00 | 17:00 - 18:00 |
+| Thursday  | 10:30 - 12:00 | 13:00 - 17:00 |
+| Friday    | 09:00 - 12:00 | 13:00 - 17:00 |
