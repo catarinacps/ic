@@ -65,3 +65,13 @@ df %>% pull(Total) %>% sum
 
 [1] 20
 #+end_example
+** Meeting
+*** 2019-04-30 Tips for ORG-Mode                                     :ATTACH:
+    :PROPERTIES:
+    :Attachments: init.org
+    :ID:       428b174d-ec00-474e-b65c-cc8671da1019
+    :END:
+
+See the attached file in
+[[./data/42/8b174d-ec00-474e-b65c-cc8671da1019/init.org]], or follow the
+update instructions [[http://mescal.imag.fr/membres/arnaud.legrand/misc/init.php][here]] that points to the [[https://app-learninglab.inria.fr/gitlab/learning-lab/mooc-rr-ressources/blob/master/module2/ressources/emacs_orgmode.org][learninglab]].
