@@ -6,6 +6,7 @@
 #+PROPERTY: results graphics
 #+PROPERTY: exports both
 #+PROPERTY: tangle yes
+#+EXPORT_EXCLUDE_TAGS: noexport
 
 This repository is dedicated to everything related to my scientific initiation
 scholarship program. Here I'll keep my daily notes and thoughts, besides all
