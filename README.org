@@ -16,13 +16,14 @@ experiments and other additional information.
 
    This schedule is subject to change as it hasn't been formally discussed yet.
 
-| Day       | Morning       | Afternoon     |
-|-----------+---------------+---------------|
-| Monday    | 09:00 - 12:00 | 17:00 - 18:00 |
-| Tuesday   | 10:30 - 12:00 | 13:00 - 17:00 |
-| Wednesday | 09:00 - 12:00 | 17:00 - 18:00 |
-| Thursday  | 10:30 - 12:00 | 13:00 - 17:00 |
-| Friday    | 09:00 - 12:00 | 13:00 - 17:00 |
+#+name: schedule
+| Day      | Morning       | Afternoon     |
+|----------+---------------+---------------|
+| Monday   | 09:30 - 12:00 |               |
+| Tuesday  | 10:30 - 12:00 | 13:00 - 17:00 |
+| Thursday | 10:30 - 12:00 | 13:00 - 17:00 |
+| Friday   | 09:30 - 12:00 | 13:00 - 17:00 |
+
 ** Schedule Analysis                                               :noexport:
 
 #+header: :var dep0=schedule
