@@ -23,3 +23,44 @@ experiments and other additional information.
 | Wednesday | 09:00 - 12:00 | 17:00 - 18:00 |
 | Thursday  | 10:30 - 12:00 | 13:00 - 17:00 |
 | Friday    | 09:00 - 12:00 | 13:00 - 17:00 |
+** Schedule Analysis                                               :noexport:
+
+#+header: :var dep0=schedule
+#+begin_src R :results output :session :exports both
+suppressMessages(library(tidyverse))
+library(lubridate)
+dep0 %>%
+    gather(Variavel, Valor, -Day) %>%
+    filter(Valor != "") %>%
+    select(-Variavel) %>%
+    separate(Valor, into=c("Inicio", "Fim"), sep=" - ") %>%
+    mutate(Data = "2019-05-01") %>%
+    mutate(Inicio = paste(Data, Inicio),
+           Fim = paste(Data, Fim)) %>%
+    mutate(Inicio = ymd_hm(Inicio),
+           Fim = ymd_hm(Fim)) %>%
+    mutate(Segundos = as.duration(interval(Inicio, Fim))) %>%
+    select(Day, Segundos, everything()) %>%
+    select(-Data) %>%
+    group_by(Day) %>%
+    summarize(Total = sum(Segundos)/3600) %>%
+    as_tibble -> df
+df
+df %>% pull(Total) %>% sum
+# %>%
+
+#+end_src
+
+#+RESULTS:
+#+begin_example
+
+# A tibble: 4 x 2
+  Day      Total
+  <chr>    <dbl>
+1 Friday     6.5
+2 Monday     2.5
+3 Thursday   5.5
+4 Tuesday    5.5
+
+[1] 20
+#+end_example
