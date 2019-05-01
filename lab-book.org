@@ -1,0 +1,37 @@
+#+TITLE: Henrique's laboratory book
+#+AUTHOR: Henrique Silva
+#+email: hcpsilva@inf.ufrgs.br
+#+INFOJS_OPT:
+#+PROPERTY: session *R*
+#+PROPERTY: cache yes
+#+PROPERTY: results graphics
+#+PROPERTY: exports both
+#+PROPERTY: tangle yes
+
+For now this is only a scratch, as I'm still reading up others Emacs configs and
+setting up my mobile linux environment.
+
+* Journal
+
+Here I'll write my daily tasks and to-dos so I can keep track of what I'm doing.
+
+** To-do
+** Daily
+* External resources
+
+Here I'll categorize useful resources I've found while "aggressively" googling
+and/or reading papers and other documents.
+
+** Programming
+** Research methodology
+
+* Project schedule
+
+Here is the intended project schedule to me:
+
+| Atividade               | Maio | Junho | Julho |
+|-------------------------+------+-------+-------|
+| Estado da arte / StarPU | x    | x     |       |
+| Experimentação          | x    | x     |       |
+| Análise de desempenho   |      | x     | x     |
+| Redação do relatório    |      |       | x     |

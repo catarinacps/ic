@@ -14,7 +14,8 @@ experiments and other additional information.
 
 ** Schedule
 
-   This schedule is subject to change as it hasn't been formally discussed yet.
+This is the agreed-upon schedule to my scholarship. Things change, so there is
+a possibility of future changes, but these will be notified on this document.
 
 #+name: schedule
 | Day      | Morning       | Afternoon     |
@@ -23,6 +24,8 @@ experiments and other additional information.
 | Tuesday  | 10:30 - 12:00 | 13:00 - 17:00 |
 | Thursday | 10:30 - 12:00 | 13:00 - 17:00 |
 | Friday   | 09:30 - 12:00 | 13:00 - 17:00 |
+
+I'll start on thursday, 2019-05-02.
 
 ** Schedule Analysis                                               :noexport:
 
@@ -65,7 +68,7 @@ df %>% pull(Total) %>% sum
 
 [1] 20
 #+end_example
-** Meeting
+** Meetings
 *** 2019-04-30 Tips for ORG-Mode                                     :ATTACH:
     :PROPERTIES:
     :Attachments: init.org
@@ -73,5 +76,5 @@ df %>% pull(Total) %>% sum
     :END:
 
 See the attached file in
-[[./data/42/8b174d-ec00-474e-b65c-cc8671da1019/init.org]], or follow the
-update instructions [[http://mescal.imag.fr/membres/arnaud.legrand/misc/init.php][here]] that points to the [[https://app-learninglab.inria.fr/gitlab/learning-lab/mooc-rr-ressources/blob/master/module2/ressources/emacs_orgmode.org][learninglab]].
+[[./data/42/8b174d-ec00-474e-b65c-cc8671da1019/init.org]], or follow the update
+instructions [[http://mescal.imag.fr/membres/arnaud.legrand/misc/init.php][here]] that points to the [[https://app-learninglab.inria.fr/gitlab/learning-lab/mooc-rr-ressources/blob/master/module2/ressources/emacs_orgmode.org][learninglab]].
