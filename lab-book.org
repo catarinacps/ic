@@ -19,11 +19,29 @@ Here I'll write my daily tasks and to-dos so I can keep track of what I'm doing.
 
 *Active items*:
 - [ ] set up my table
-- [ ] do the second experiment of schnorr/par
+- [ ] do the first experiment of schnorr/par
 
 *Finished items*:
+- [X] set up the computer
 
 ** Daily
+
+Here will lie my daily thoughts and daily happenings.
+
+*** 2019-05-02
+
+Today the day was basically dedicated to formatting and installing my distro in
+my new computer. It has a 4:3 screen, which will surely be kinda funny to work
+with. Also my computer only have one analog video entry and 2 displayports, for
+some reason.
+
+Anyway, I also researched and learned a lot about =ssh= while I was trying to
+get my public key into =portal.inf.ufrgs.br=. With Pablo's and Jean's help I
+fixed the permissions of my home directory in the server (the =$HOME= directory
+needs the 700 permission to work with =ssh=! Probably someone messed up a few
+years back when they created my user).
+
+Tomorrow I'll finish the setting-up ordeal, I hope.
 
 ** Meetings
 
