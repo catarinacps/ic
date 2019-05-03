@@ -45,6 +45,18 @@ years back when they created my user).
 Tomorrow I'll finish the setting-up ordeal, I hope.
 
 *** 2019-05-03 StarPU Hello World Examples                            :LUCAS:
+
+Before trying anything with StarPU, I tried to run the first experiment in
+schnorr/par, which didn't work. The job quits with the exit code =71=, to which
+I've found no information online. I'm kinda tired today but next week I'll make
+sure that I talk to either Nesi or Marcelo or Matheus about it.
+
+Also I've tried installing StarPU using spack in the cluster, but there was no
+StarPU package available.
+
+In the other hand, I did create some folder in my user to organize things up and
+I've also set up the ssh keys of my new computer in almost every relevant website.
+
 **** Install preliminary software
 ***** spack
 
@@ -136,47 +148,50 @@ and job scheduling system for large and small Linux clusters.
 #+END_QUOTE
 
 - [[https://slurm.schedmd.com/documentation.html][Documentation]]
-- [[https://slurm.schedmd.com/tutorials.html][Tutorials]]
+  - [[https://slurm.schedmd.com/tutorials.html][Tutorials]]
 
 **** Useful commands:
 
 - sacct :: is used to report job or job step accounting information about active
-or completed jobs.
+           or completed jobs.
 
 - salloc :: is used to allocate resources for a job in real time. Typically this
-is used to allocate resources and spawn a shell.
+            is used to allocate resources and spawn a shell.
 
 - sattach :: is used to attach standard input, output, and error plus signal
-capabilities to a currently running job or job step. One can attach to and
-detach from jobs multiple times.
+             capabilities to a currently running job or job step. One can attach
+             to and detach from jobs multiple times.
 
 - sbatch :: is used to submit a job script for later execution. The script will
-typically contain one or more srun commands to launch parallel tasks.
+            typically contain one or more srun commands to launch parallel tasks.
 
 - sbcast :: is used to transfer a file from local disk to local disk on the
-nodes allocated to a job.
+            nodes allocated to a job.
 
 - scancel :: is used to cancel a pending or running job or job step. It can also
-be used to send an arbitrary signal to all processes associated with a running
-job or job step.
+             be used to send an arbitrary signal to all processes associated
+             with a running job or job step.
 
 - sinfo :: reports the state of partitions and nodes managed by Slurm. It has a
-wide variety of filtering, sorting, and formatting options.
+           wide variety of filtering, sorting, and formatting options.
 
 - smap :: reports state information for jobs, partitions, and nodes managed by
-Slurm, but graphically displays the information to reflect network topology.
+          Slurm, but graphically displays the information to reflect network
+          topology.
 
 - squeue :: reports the state of jobs or job steps. By default, it reports the
-running jobs in priority order and then the pending jobs in priority order.
+            running jobs in priority order and then the pending jobs in priority
+            order.
 
 - srun :: is used to submit a job for execution or initiate job steps in real
-time.
+          time.
 
-- strigger ::  is used to set, get or view event triggers. Event triggers
-include things such as nodes going down or jobs approaching their time limit.
+- strigger :: is used to set, get or view event triggers. Event triggers
+              include things such as nodes going down or jobs approaching their
+              time limit.
 
 - sview :: is a graphical user interface to get and update state information for
-jobs, partitions, and nodes managed by Slurm.
+           jobs, partitions, and nodes managed by Slurm.
 
 All command's manuals are in =man=, so no worries if this is to little info.
 
