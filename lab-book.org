@@ -43,6 +43,66 @@ years back when they created my user).
 
 Tomorrow I'll finish the setting-up ordeal, I hope.
 
+*** 2019-05-03 StarPU Hello World Examples                            :LUCAS:
+**** Install preliminary software
+***** spack
+
+See https://github.com/spack/spack to do:
+
+#+begin_src shell :results output
+git clone https://github.com/spack/spack.git
+source spack/share/spack/setup-env.sh
+spack find
+#+end_src
+
+***** starpu with spack
+
+#+begin_src shell :results output
+spack info starpu
+#+end_src
+
+Verify options, then:
+
+#+begin_src shell :results output
+spack install starpu@master~cuda~examples~fast+fortran+fxt+mlr~mpi~nmad~opencl~openmp+poti+shared~simgrid~simgridmc~verbose
+#+end_src
+
+This might take some time, do it in the cluster.
+
+Confirm the location of where starpu has been installed
+
+#+begin_src shell :results output
+spack location -i starpu
+#+end_src
+
+**** StarPU client code of two examples
+
+There are two examples:
+- ~programa.c~ (simple one-task hello world)
+- ~vector_scal.c~ (multiply a vector by a scalar in parallel)
+
+See contents in [[./src/starpu-hello-world/]].
+
+Please note that we are using CMake to find the StarPU libraries.
+
+The, do the following steps (try to understand each one).
+
+Make sure you have ~spack~ in your ~PATH~ variable before going forward.
+
+#+begin_src shell :results output
+cd src/starpu-hello-world
+mkdir -p build
+cd build
+cmake -DSTARPU_DIR=$(spack location -i starpu) ..
+make
+#+end_src
+
+You'll have two binaries: ~programa~ and ~vector_scal~.
+
+Verify that they have the correct libraries linked with ~ldd~.
+
+Run both by launching these binaries in your CLI.
+
 ** Meetings
 
 This could stay inside its respective entry in the daily journal, but I think
