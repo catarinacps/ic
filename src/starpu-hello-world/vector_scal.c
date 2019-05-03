@@ -32,7 +32,6 @@ void cpu_func(void **buffers, void* cl_arg)
   printf("%f Task started %p - %p, begin=%d, end=%d\n", t0,
 	 vec_input, vec_output, par->begin, par->end);
 
-
   //do the job
   for(int i = 0; i < (par->end - par->begin); i++) {
     vec_output[i] = vec_input[i] + par->factor;
@@ -94,7 +93,7 @@ starpu_data_handle_t create_and_submit_task (int blkid,
   printf("%s %p\n", __FUNCTION__,
 	 starpu_data_get_local_ptr(vec_output_handle));
 #endif
-  
+
   struct starpu_task *task = starpu_task_create();
   task->synchronous = 0;
   task->cl =&cl;
@@ -142,7 +141,7 @@ int main(int argc, char** argv)
 	   "%s <problem_size> <n_blocks> <factor>\n", argv[0]);
     exit(0);
   }
-  
+
   unsigned int nx;         //the problem size
   unsigned int n_blocks;   //the number of blocks (defines the granularity)
   int factor;              //the multiplicative factor
@@ -161,14 +160,14 @@ int main(int argc, char** argv)
 
   int ec;
   ec = starpu_init(NULL);
-    
+
   /* //allocate and initialize the input vector */
   starpu_data_handle_t *vec_handle;
   vec_handle = alloc_vectors (n_blocks, block_size, 1);
 
 //  starpu_data_handle_t *vec_output_handle;
 //  vec_output_handle = alloc_vectors (n_blocks, block_size, 0);
-    
+
   double ts0 = get_time();
 
   //submit the tasks that do the job
