@@ -13,7 +13,7 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
 
 * Journal
   :PROPERTIES:
-  :ATTACH_DIR: /home/henrique/Repositories/ic/attachments
+  :ATTACH_DIR: attachments
   :ATTACH_DIR_INHERIT: t
   :END:
 
@@ -174,7 +174,7 @@ and job scheduling system for large and small Linux clusters.
 #+END_QUOTE
 
 - [[https://slurm.schedmd.com/documentation.html][Documentation]]
-  - [[https://slurm.schedmd.com/tutorials.html][Tutorials]]
+- [[https://slurm.schedmd.com/tutorials.html][Tutorials]]
 
 ***** Useful commands:
 

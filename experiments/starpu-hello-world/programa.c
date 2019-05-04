@@ -20,7 +20,7 @@ int main (int argc, char **argv)
   struct starpu_task *task = starpu_task_create();
   task->cl = &cl;
   task->synchronous = 1;
-    
+
   starpu_task_submit(task);
   starpu_shutdown();
   return 0;
