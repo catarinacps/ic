@@ -12,6 +12,10 @@ For now this is only a scratch, as I'm still reading up others Emacs configs and
 setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment.
 
 * Journal
+  :PROPERTIES:
+  :ATTACH_DIR: /home/henrique/Repositories/ic/attachments
+  :ATTACH_DIR_INHERIT: t
+  :END:
 
 Here I'll write my daily tasks and to-dos so I can keep track of what I'm doing.
 
@@ -104,7 +108,7 @@ There are two examples:
 - ~programa.c~ (simple one-task hello world)
 - ~vector_scal.c~ (multiply a vector by a scalar in parallel)
 
-See contents in [[./src/starpu-hello-world/]].
+See contents in [[./experiments/starpu-hello-world/]].
 
 Please note that we are using CMake to find the StarPU libraries.
 
@@ -133,12 +137,10 @@ that separating meetings from the dailies is better.
 
 *** 2019-04-30 Tips for ORG-Mode                                     :ATTACH:
     :PROPERTIES:
-    :Attachments: init.org
     :ID:       428b174d-ec00-474e-b65c-cc8671da1019
     :END:
 
-See the attached file in
-[[./data/42/8b174d-ec00-474e-b65c-cc8671da1019/init.org]], or follow the update
+See the attached file in [[./attachments/init.org]], or follow the update
 instructions [[http://mescal.imag.fr/membres/arnaud.legrand/misc/init.php][here]] that points to the [[https://app-learninglab.inria.fr/gitlab/learning-lab/mooc-rr-ressources/blob/master/module2/ressources/emacs_orgmode.org][learninglab]].
 
 * External resources
