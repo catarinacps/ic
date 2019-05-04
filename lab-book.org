@@ -55,10 +55,19 @@ Also I've tried installing StarPU using spack in the cluster, but there was no
 StarPU package available.
 
 In the other hand, I did create some folder in my user to organize things up and
-I've also set up the ssh keys of my new computer in almost every relevant website.
+I've also set up the ssh keys of my new computer in almost every relevant
+website.
 
-**** Install preliminary software
-***** spack
+UPDATE: So, when I got home I continued trying things out. I've tried to
+allocate some nodes to try the simplest experiment I've tried earlier and, after
+playing around and learning Slurm commands, I've noticed that I cant =ssh= into
+any node because my RSA key doesn't match the one in the cluster (or doesn't
+exist at all there). Maybe that's the culprit for me not being able to even get
+the simplest example running through =sbatch=? I'll contact Schnorr about this.
+
+**** StarPU "Hello World"                                             :LUCAS:
+***** Install preliminary software
+****** spack
 
 See https://github.com/spack/spack to do:
 
@@ -68,7 +77,7 @@ source spack/share/spack/setup-env.sh
 spack find
 #+end_src
 
-***** starpu with spack
+****** starpu with spack
 
 #+begin_src shell :results output
 spack info starpu
@@ -88,7 +97,7 @@ Confirm the location of where starpu has been installed
 spack location -i starpu
 #+end_src
 
-**** StarPU client code of two examples
+***** StarPU client code of two examples
 
 There are two examples:
 - ~programa.c~ (simple one-task hello world)
@@ -152,45 +161,45 @@ and job scheduling system for large and small Linux clusters.
 
 **** Useful commands:
 
-- sacct :: is used to report job or job step accounting information about active
+- =sacct= :: is used to report job or job step accounting information about active
            or completed jobs.
 
-- salloc :: is used to allocate resources for a job in real time. Typically this
+- =salloc= :: is used to allocate resources for a job in real time. Typically this
             is used to allocate resources and spawn a shell.
 
-- sattach :: is used to attach standard input, output, and error plus signal
+- =sattach= :: is used to attach standard input, output, and error plus signal
              capabilities to a currently running job or job step. One can attach
              to and detach from jobs multiple times.
 
-- sbatch :: is used to submit a job script for later execution. The script will
+- =sbatch= :: is used to submit a job script for later execution. The script will
             typically contain one or more srun commands to launch parallel tasks.
 
-- sbcast :: is used to transfer a file from local disk to local disk on the
+- =sbcast= :: is used to transfer a file from local disk to local disk on the
             nodes allocated to a job.
 
-- scancel :: is used to cancel a pending or running job or job step. It can also
+- =scancel= :: is used to cancel a pending or running job or job step. It can also
              be used to send an arbitrary signal to all processes associated
              with a running job or job step.
 
-- sinfo :: reports the state of partitions and nodes managed by Slurm. It has a
+- =sinfo= :: reports the state of partitions and nodes managed by Slurm. It has a
            wide variety of filtering, sorting, and formatting options.
 
-- smap :: reports state information for jobs, partitions, and nodes managed by
+- =smap= :: reports state information for jobs, partitions, and nodes managed by
           Slurm, but graphically displays the information to reflect network
           topology.
 
-- squeue :: reports the state of jobs or job steps. By default, it reports the
+- =squeue= :: reports the state of jobs or job steps. By default, it reports the
             running jobs in priority order and then the pending jobs in priority
             order.
 
-- srun :: is used to submit a job for execution or initiate job steps in real
+- =srun= :: is used to submit a job for execution or initiate job steps in real
           time.
 
-- strigger :: is used to set, get or view event triggers. Event triggers
+- =strigger= :: is used to set, get or view event triggers. Event triggers
               include things such as nodes going down or jobs approaching their
               time limit.
 
-- sview :: is a graphical user interface to get and update state information for
+- =sview= :: is a graphical user interface to get and update state information for
            jobs, partitions, and nodes managed by Slurm.
 
 All command's manuals are in =man=, so no worries if this is to little info.
