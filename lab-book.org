@@ -49,7 +49,7 @@ years back when they created my user).
 
 Tomorrow I'll finish the setting-up ordeal, I hope.
 
-*** 2019-05-03 StarPU Hello World Examples                            :LUCAS:
+*** 2019-05-03 StarPU Hello World Examples
 
 Before trying anything with StarPU, I tried to run the first experiment in
 schnorr/par, which didn't work. The job quits with the exit code =71=, to which
@@ -108,7 +108,7 @@ There are two examples:
 - ~programa.c~ (simple one-task hello world)
 - ~vector_scal.c~ (multiply a vector by a scalar in parallel)
 
-See contents in [[./experiments/starpu-hello-world/]].
+See contents in [[./experiments/starpu/hello-world/]].
 
 Please note that we are using CMake to find the StarPU libraries.
 
@@ -166,7 +166,7 @@ so forth.
 - [[https://www.wikiwand.com/en/Computer_cluster][Wikipedia]]
   Explains pretty well in layman terms what is a cluster.
 
-**** Slurm
+*** Slurm
 
 #+BEGIN_QUOTE
 Slurm is an open source, fault-tolerant, and highly scalable cluster management
@@ -176,7 +176,7 @@ and job scheduling system for large and small Linux clusters.
 - [[https://slurm.schedmd.com/documentation.html][Documentation]]
 - [[https://slurm.schedmd.com/tutorials.html][Tutorials]]
 
-***** Useful commands:
+**** Useful commands:
 
  - =sacct= :: is used to report job or job step accounting information about active
             or completed jobs.
@@ -221,7 +221,7 @@ and job scheduling system for large and small Linux clusters.
 
  All command's manuals are in =man=, so no worries if this is to little info.
 
-**** Spack
+*** Spack
 
 #+BEGIN_QUOTE
 Spack is a package management tool designed to support multiple versions and
