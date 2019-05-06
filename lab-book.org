@@ -22,13 +22,13 @@ Here I'll write my daily tasks and to-dos so I can keep track of what I'm doing.
 ** To-do
 
 *Active items*:
-- [ ] do the first experiment of schnorr/par
 - [ ] add more info about cluster and server-side linux
 - [ ] try the starpu examples
 
 *Finished items*:
 - [X] set up the computer
 - [X] set up my table
+- [X] do the first experiment of schnorr/par
 
 ** Daily
 
@@ -129,6 +129,13 @@ You'll have two binaries: ~programa~ and ~vector_scal~.
 Verify that they have the correct libraries linked with ~ldd~.
 
 Run both by launching these binaries in your CLI.
+
+*** 2019-05-06
+
+Today I ran the =hello.slurm= file from the first experiment of schnorr/par. I
+had to do some modifications to the script so that it would actually find the
+executable (as it wasn't finding inside the folder I was running =sbatch= from,
+even though it had no trouble compiling it).
 
 ** Meetings
 
@@ -245,6 +252,17 @@ I'm part of!
 ** Programming
 
 Here lies all programming and HPC-related knowledge.
+
+*** MPI
+
+#+BEGIN_QUOTE
+Message Passing Interface (MPI) is a standardized and portable message-passing
+standard designed by a group of researchers from academia and industry to
+function on a wide variety of parallel computing architectures.
+#+END_QUOTE
+
+- [[https://www.wikiwand.com/en/Message_Passing_Interface][Wikipedia]]
+- [[https://computing.llnl.gov/tutorials/mpi/][LLNL's Tutorial]]
 
 *** StarPU
 
