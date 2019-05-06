@@ -137,6 +137,16 @@ had to do some modifications to the script so that it would actually find the
 executable (as it wasn't finding inside the folder I was running =sbatch= from,
 even though it had no trouble compiling it).
 
+Also I've added info about MPI in the External Resources section, which are
+really just some tutorials and introductions to the matter. I found the MPI
+interface to be rather cumbersome with its C-like functions and inits. Doesn't
+a proper C++ wrapper exist somewhere? Maybe that takes away part of the
+complexity of the syntax choices. I'll look around.
+
+Also, I'm kinda becoming really attached to my Emacs development environment.
+I've gathered quite a few nice =.org= configs and I'm making my own now at
+[[https://github.com/hcpsilva/dotfiles/blob/master/.emacs.d/config.org][this]] link.
+
 ** Meetings
 
 This could stay inside its respective entry in the daily journal, but I think
@@ -263,6 +273,22 @@ function on a wide variety of parallel computing architectures.
 
 - [[https://www.wikiwand.com/en/Message_Passing_Interface][Wikipedia]]
 - [[https://computing.llnl.gov/tutorials/mpi/][LLNL's Tutorial]]
+
+**** C++ wrappers
+
+I've gathered some info about MPI wrappers for C++ (because I like both
+simplicity and C++).
+
+- [[https://blogs.cisco.com/performance/the-mpi-c-bindings-what-happened-and-why][2012 state of affairs]]
+
+Examples:
+
+- [[https://github.com/boostorg/mpi][boost.mpi]]
+- [[https://github.com/patflick/mxx][mxx]]
+
+So it seems to me that either the community has no interest in bindings and
+simplicity or things move really slowly when it comes to standards proposed by
+scholars and academics.
 
 *** StarPU
 
