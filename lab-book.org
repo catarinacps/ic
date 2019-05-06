@@ -82,6 +82,13 @@ source spack/share/spack/setup-env.sh
 spack find
 #+end_src
 
+Then, add the =solverstack= from the INRIA GitLab:
+
+#+BEGIN_SRC shell :tangle yes
+  git clone https://gitlab.inria.fr/solverstack/spack-repo.git solverstack
+  spack repo add solverstack/
+#+END_SRC
+
 ****** starpu with spack
 
 #+begin_src shell :results output
