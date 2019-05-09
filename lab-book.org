@@ -154,6 +154,21 @@ Also, I'm kinda becoming really attached to my Emacs development environment.
 I've gathered quite a few nice =.org= configs and I'm making my own now at
 [[https://github.com/hcpsilva/dotfiles/blob/master/.emacs.d/config.org][this]] link.
 
+*** 2019-05-08
+
+I studied a lot of database fundamentals, as I had it's exam by afternoon.
+
+*** 2019-05-09
+
+I started the day by reading about and learning =tmux=, which is, as it's
+called, an "terminal multiplexer". Knowing how to use =tmux= will help me to run
+commands and close the =ssh= connection, leaving the session open so I can
+easily come back and resume the operations and tasks I was performing.
+
+Also, I read the LLNL's tutorial on Linux clusters and gathered a lot of new
+resources to complement my =External resources= section (besides learning a lot,
+obviously).
+
 ** Meetings
 
 This could stay inside its respective entry in the daily journal, but I think
@@ -171,6 +186,26 @@ instructions [[http://mescal.imag.fr/membres/arnaud.legrand/misc/init.php][here]
 
 Here I'll categorize useful resources I've found while "aggressively" googling
 and/or reading papers and other documents.
+
+** Linux
+
+Any useful Linux knowledge relevant to my activities should stay here.
+
+*** tmux
+
+#+BEGIN_QUOTE
+=tmux= is a terminal multiplexer for Unix-like operating systems. It allows
+multiple terminal sessions to be accessed simultaneously in a single window. It
+is useful for running more than one command-line program at the same time. It
+can also be used to detach processes from their controlling terminals, allowing
+SSH sessions to remain active without being visible.
+#+END_QUOTE
+
+Tutorials:
+
+- [[https://edricteo.com/tmux-tutorial/]]
+- [[https://hackernoon.com/a-gentle-introduction-to-tmux-8d784c404340]]
+- [[https://danielmiessler.com/study/tmux/]]
 
 ** Servers
 
@@ -198,7 +233,11 @@ and job scheduling system for large and small Linux clusters.
 #+END_QUOTE
 
 - [[https://slurm.schedmd.com/documentation.html][Documentation]]
-- [[https://slurm.schedmd.com/tutorials.html][Tutorials]]
+
+Tutorials:
+
+- [[https://slurm.schedmd.com/tutorials.html][Documentation tutorial]]
+- [[https://computing.llnl.gov/tutorials/moab/][LLNL's tutorial]]
 
 **** Useful commands:
 
@@ -297,6 +336,22 @@ So it seems to me that either the community has no interest in bindings and
 simplicity or things move really slowly when it comes to standards proposed by
 scholars and academics.
 
+*** CUDA
+
+#+BEGIN_QUOTE
+CUDA is a parallel computing platform and application programming interface
+(API) model created by Nvidia.[1] It allows software developers and software
+engineers to use a CUDA-enabled graphics processing unit (GPU) for general
+purpose processing — an approach termed GPGPU (General-Purpose computing on
+Graphics Processing Units).
+#+END_QUOTE
+
+Tutorials:
+
+- [[https://computing.llnl.gov/tutorials/linux_clusters/gpu/NVIDIA.Introduction_to_CUDA_C.1.pdf][NVIDIA slides]]
+- [[http://people.maths.ox.ac.uk/~gilesm/cuda/][Oxford course]]
+- [[https://computing.llnl.gov/tutorials/openMP/][LLNL's tutorial]]
+
 *** StarPU
 
 ** Research methodology
@@ -305,9 +360,9 @@ scholars and academics.
 
 Here is the intended project schedule to me:
 
-| Atividade               | Maio | Junho | Julho |
-|-------------------------+------+-------+-------|
-| Estado da arte / StarPU | x    | x     |       |
-| Experimentação          | x    | x     |       |
-| Análise de desempenho   |      | x     | x     |
-| Redação do relatório    |      |       | x     |
+| Activity                  | May | June | July |
+|---------------------------+-----+------+------|
+| State of the art / StarPU | x   | x    |      |
+| Experimentation           | x   | x    |      |
+| Performance analysis      |     | x    | x    |
+| Report writing            |     |      | x    |
