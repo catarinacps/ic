@@ -13,7 +13,7 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
 
 * Journal
   :PROPERTIES:
-  :ATTACH_DIR: attachments
+  :ATTACH_DIR: attachments/
   :ATTACH_DIR_INHERIT: t
   :END:
 
@@ -227,7 +227,7 @@ instructions [[http://mescal.imag.fr/membres/arnaud.legrand/misc/init.php][here]
 
 * External resources
   :PROPERTIES:
-  :ATTACH_DIR: resources
+  :ATTACH_DIR: resources/
   :ATTACH_DIR_INHERIT: t
   :END:
 
@@ -403,6 +403,18 @@ Tutorials:
     :PROPERTIES:
     :Attachments: starpu.pdf
     :END:
+
+#+BEGIN_QUOTE
+StarPU is a software tool aiming to allow programmers to exploit the computing
+power of the available CPUs and GPUs, while relieving them from the need to
+specially adapt their programs to the target machine and processing units.
+#+END_QUOTE
+
+- [[./resources/starpu.pdf][Documentation]]
+
+Tutorials:
+
+- [[http://starpu.gforge.inria.fr/tutorials/2018-07-HPCS-Tutorial-StarPU.pdf][Huge tutorial!]]
 
 ** Research methodology
 
