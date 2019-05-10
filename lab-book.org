@@ -212,6 +212,16 @@ if [[ -z "$TMUX" ]] && [ "$SSH_CONNECTION" != "" ] && [ `hostname` == "gppd-hpc"
 fi
 #+END_SRC
 
+I also furthered the development of my org configuration file for Emacs, and
+very soon I'll be able to test it, initially still with Prelude and then on pure
+Emacs.
+
+Besides that, I talked with professor Erika about the roles of an IC and the
+research process and methodologies. She was very helpful, as always. After that,
+I talked to Schnorr and arranged a meeting next tuesday to talk about that and some
+other things. I shall make a new heading in the "Meetings" to put all the topics
+I wish to talk about there.
+
 ** Meetings
 
 This could stay inside its respective entry in the daily journal, but I think
