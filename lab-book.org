@@ -32,21 +32,6 @@ Here I'll write my daily tasks and to-dos so I can keep track of what I'm doing.
 - [X] set up my table
 - [X] do the first experiment of schnorr/par
 
-*** Stack of knowledge required
-
-1. =ssh= and systems programming
-2. linux servers
-3. clusters and cluster management
-4. parallel programming
-5. task-based programming and message passing interfaces
-6. starpu
-7. performance experiments
-8. methodology of result-gathering
-9. analysis of data
-10. reproductible analysis
-11. text structuring
-12. writing of scientific reports
-
 ** Daily
 
 Here will lie my daily thoughts and daily happenings.
@@ -428,7 +413,11 @@ Tutorials:
 
 ** Research methodology
 
-* Project schedule
+* Project
+
+Here's everything about my scholarship planning and project as a whole.
+
+** Schedule
 
 Here is the intended project schedule to me:
 
@@ -438,3 +427,18 @@ Here is the intended project schedule to me:
 | Experimentation           | x   | x    |      |
 | Performance analysis      |     | x    | x    |
 | Report writing            |     |      | x    |
+
+** Learning path
+
+1. =ssh= and systems programming
+2. linux servers
+3. clusters and cluster management
+4. parallel programming
+5. task-based programming and message passing interfaces
+6. starpu
+7. performance experiments
+8. methodology of result-gathering
+9. analysis of data
+10. reproductible analysis
+11. text structuring
+12. writing of scientific reports
