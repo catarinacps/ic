@@ -22,13 +22,30 @@ Here I'll write my daily tasks and to-dos so I can keep track of what I'm doing.
 ** To-do
 
 *Active items*:
-- [ ] add more info about cluster and server-side linux
 - [ ] try the starpu examples
+- [ ] read more about openmp and mpi
+- [ ] finish my config.org file
 
 *Finished items*:
+- [X] add more info about cluster and server-side linux
 - [X] set up the computer
 - [X] set up my table
 - [X] do the first experiment of schnorr/par
+
+*** Stack of knowledge required
+
+1. =ssh= and systems programming
+2. linux servers
+3. clusters and cluster management
+4. parallel programming
+5. task-based programming and message passing interfaces
+6. starpu
+7. performance experiments
+8. methodology of result-gathering
+9. analysis of data
+10. reproductible analysis
+11. text structuring
+12. writing of scientific reports
 
 ** Daily
 
@@ -168,6 +185,32 @@ easily come back and resume the operations and tasks I was performing.
 Also, I read the LLNL's tutorial on Linux clusters and gathered a lot of new
 resources to complement my =External resources= section (besides learning a lot,
 obviously).
+
+*** 2019-05-10
+
+Today I started the day by fixing the multiple =tmux= sessions while =ssh='ing.
+So, the issue was that, when I =ssh='ed into the /GPPD/ front-end, I'd make a
+check in the =.bashrc= to see if there was a session opened (named "ssh_s") and
+attach to it. Thing is, all nodes share the =.bashrc= file, and this would
+happen when I =ssh= into the nodes as well.
+
+#+BEGIN_SRC bash :tangle yes
+# Start a tmux session automatically if coming in from ssh.
+if [[ -z "$TMUX" ]] && [ "$SSH_CONNECTION" != "" ]; then
+    tmux attach-session -t ssh_s || tmux new-session -s ssh_s
+fi
+#+END_SRC
+
+To fix this, Matheus suggested that I should add an additional check to the =if=
+statement to see the name of the host and only open a new session if the host
+was =gppd-hpc=:
+
+#+BEGIN_SRC bash :tangle yes
+# Start a tmux session automatically if coming in from ssh.
+if [[ -z "$TMUX" ]] && [ "$SSH_CONNECTION" != "" ] && [ `hostname` == "gppd-hpc" ]; then
+    tmux attach-session -t ssh_s || tmux new-session -s ssh_s
+fi
+#+END_SRC
 
 ** Meetings
 
