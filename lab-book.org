@@ -11,6 +11,36 @@
 For now this is only a scratch, as I'm still reading up others Emacs configs and
 setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment.
 
+* Table of contents                                                   :TOC_3:
+- [[#journal][Journal]]
+  - [[#to-do][To-do]]
+  - [[#daily][Daily]]
+    - [[#2019-05-02][2019-05-02]]
+    - [[#2019-05-03-starpu-hello-world-examples][2019-05-03 StarPU Hello World Examples]]
+    - [[#2019-05-06][2019-05-06]]
+    - [[#2019-05-08][2019-05-08]]
+    - [[#2019-05-09][2019-05-09]]
+    - [[#2019-05-10][2019-05-10]]
+  - [[#meetings][Meetings]]
+    - [[#2019-04-30-tips-for-org-mode][2019-04-30 Tips for ORG-Mode]]
+- [[#external-resources][External resources]]
+  - [[#linux][Linux]]
+    - [[#tmux][tmux]]
+  - [[#servers][Servers]]
+    - [[#clusters][Clusters]]
+    - [[#slurm][Slurm]]
+    - [[#spack][Spack]]
+    - [[#pcad][PCAD]]
+  - [[#programming][Programming]]
+    - [[#mpi][MPI]]
+    - [[#cuda][CUDA]]
+    - [[#starpu][StarPU]]
+  - [[#research-methodology][Research methodology]]
+    - [[#literate-programming][Literate programming]]
+- [[#project][Project]]
+  - [[#schedule][Schedule]]
+  - [[#learning-path][Learning path]]
+
 * Journal
   :PROPERTIES:
   :ATTACH_DIR: attachments/
