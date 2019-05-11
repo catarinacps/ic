@@ -413,6 +413,20 @@ Tutorials:
 
 ** Research methodology
 
+Everything related from writing to research methodology should stay here.
+
+*** Literate programming
+    :PROPERTIES:
+    :Attachments: literate-programming.pdf
+    :END:
+
+#+BEGIN_QUOTE
+Literate programming is a programming paradigm introduced by Donald Knuth in
+which a program is given as an explanation of the program logic in a natural
+language, such as English, interspersed with snippets of macros and traditional
+source code, from which a compilable source code can be generated.
+#+END_QUOTE
+
 * Project
 
 Here's everything about my scholarship planning and project as a whole.
