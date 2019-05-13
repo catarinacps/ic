@@ -250,6 +250,14 @@ that separating meetings from the dailies is better.
 See the attached file in [[./attachments/init.org]], or follow the update
 instructions [[http://mescal.imag.fr/membres/arnaud.legrand/misc/init.php][here]] that points to the [[https://app-learninglab.inria.fr/gitlab/learning-lab/mooc-rr-ressources/blob/master/module2/ressources/emacs_orgmode.org][learninglab]].
 
+*** 2019-05-14
+
+Topic I want to talk about:
+
+- Current learning stack/path :: as exposed in [[Learning path][the learning path]]
+- Current progression :: in terms of task completion rate
+- Organization and discipline :: assiduity, compromise and hours completed
+
 * External resources
   :PROPERTIES:
   :ATTACH_DIR: resources/external/
