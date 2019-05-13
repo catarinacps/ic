@@ -252,7 +252,7 @@ instructions [[http://mescal.imag.fr/membres/arnaud.legrand/misc/init.php][here]
 
 * External resources
   :PROPERTIES:
-  :ATTACH_DIR: resources/
+  :ATTACH_DIR: resources/external/
   :ATTACH_DIR_INHERIT: t
   :END:
 
@@ -424,10 +424,7 @@ Tutorials:
 - [[http://people.maths.ox.ac.uk/~gilesm/cuda/][Oxford course]]
 - [[https://computing.llnl.gov/tutorials/openMP/][LLNL's tutorial]]
 
-*** StarPU
-    :PROPERTIES:
-    :Attachments: starpu.pdf
-    :END:
+*** StarPU                                                           :ATTACH:
 
 #+BEGIN_QUOTE
 StarPU is a software tool aiming to allow programmers to exploit the computing
@@ -445,10 +442,7 @@ Tutorials:
 
 Everything related from writing to research methodology should stay here.
 
-*** Literate programming
-    :PROPERTIES:
-    :Attachments: literate-programming.pdf
-    :END:
+*** Literate programming                                             :ATTACH:
 
 #+BEGIN_QUOTE
 Literate programming is a programming paradigm introduced by Donald Knuth in
@@ -458,10 +452,17 @@ source code, from which a compilable source code can be generated.
 #+END_QUOTE
 
 * Project
+  :PROPERTIES:
+  :ATTACH_DIR: resources/project/
+  :ATTACH_DIR_INHERIT: t
+  :END:
 
 Here's everything about my scholarship planning and project as a whole.
 
-** Schedule
+** Schedule                                                          :ATTACH:
+   :PROPERTIES:
+   :Attachments: plano-atividades.pdf
+   :END:
 
 Here is the intended project schedule to me:
 
