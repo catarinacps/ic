@@ -23,6 +23,7 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
     - [[#2019-05-10][2019-05-10]]
   - [[#meetings][Meetings]]
     - [[#2019-04-30-tips-for-org-mode][2019-04-30 Tips for ORG-Mode]]
+    - [[#2019-05-14][2019-05-14]]
 - [[#external-resources][External resources]]
   - [[#linux][Linux]]
     - [[#tmux][tmux]]
