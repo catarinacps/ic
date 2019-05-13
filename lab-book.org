@@ -21,6 +21,7 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
     - [[#2019-05-08][2019-05-08]]
     - [[#2019-05-09][2019-05-09]]
     - [[#2019-05-10][2019-05-10]]
+    - [[#2019-05-13][2019-05-13]]
   - [[#meetings][Meetings]]
     - [[#2019-04-30-tips-for-org-mode][2019-04-30 Tips for ORG-Mode]]
     - [[#2019-05-14][2019-05-14]]
@@ -238,6 +239,11 @@ I talked to Schnorr and arranged a meeting next tuesday to talk about that and s
 other things. I shall make a new heading in the "Meetings" to put all the topics
 I wish to talk about there.
 
+*** 2019-05-13
+
+As of lunch time, I've updated the =resources= directory and added a new heading
+for tomorrow's meeting, in which I've added the topics I wish to discuss.
+
 ** Meetings
 
 This could stay inside its respective entry in the daily journal, but I think
@@ -441,7 +447,7 @@ power of the available CPUs and GPUs, while relieving them from the need to
 specially adapt their programs to the target machine and processing units.
 #+END_QUOTE
 
-- [[./resources/starpu.pdf][Documentation]]
+- [[./resources/external/starpu.pdf][Documentation]]
 
 Tutorials:
 
