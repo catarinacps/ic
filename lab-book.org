@@ -1,8 +1,8 @@
-#+STARTUP: overview indent
 #+TITLE: Henrique's laboratory book
 #+AUTHOR: Henrique Silva
 #+email: hcpsilva@inf.ufrgs.br
 #+INFOJS_OPT:
+#+STARTUP: overview indent
 #+PROPERTY: session *R*
 #+PROPERTY: cache yes
 #+PROPERTY: results graphics
@@ -26,7 +26,7 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
     - [[#2019-05-14][2019-05-14]]
   - [[#meetings][Meetings]]
     - [[#2019-04-30-tips-for-org-mode][2019-04-30 Tips for ORG-Mode]]
-    - [[#2019-05-14-1][2019-05-14]]
+    - [[#2019-05-14-meeting][2019-05-14 Meeting]]
 - [[#external-resources][External resources]]
   - [[#linux][Linux]]
     - [[#tmux][tmux]]
