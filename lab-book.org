@@ -22,9 +22,10 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
     - [[#2019-05-09][2019-05-09]]
     - [[#2019-05-10][2019-05-10]]
     - [[#2019-05-13][2019-05-13]]
+    - [[#2019-05-14][2019-05-14]]
   - [[#meetings][Meetings]]
     - [[#2019-04-30-tips-for-org-mode][2019-04-30 Tips for ORG-Mode]]
-    - [[#2019-05-14][2019-05-14]]
+    - [[#2019-05-14-1][2019-05-14]]
 - [[#external-resources][External resources]]
   - [[#linux][Linux]]
     - [[#tmux][tmux]]
@@ -39,6 +40,7 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
     - [[#starpu][StarPU]]
   - [[#research-methodology][Research methodology]]
     - [[#literate-programming][Literate programming]]
+    - [[#reproducible-analysis][Reproducible analysis]]
 - [[#project][Project]]
   - [[#schedule][Schedule]]
   - [[#learning-path][Learning path]]
@@ -244,6 +246,12 @@ I wish to talk about there.
 As of lunch time, I've updated the =resources= directory and added a new heading
 for tomorrow's meeting, in which I've added the topics I wish to discuss.
 
+*** 2019-05-14
+
+I added a bunch of info on reproducible analysis using =R= and I'm currently
+watching a [[https://www.youtube.com/watch?v=CGnt_PWoM5Y][video]] on =org-mode= and reproducible research while I wait for the
+meeting.
+
 ** Meetings
 
 This could stay inside its respective entry in the daily journal, but I think
@@ -288,7 +296,7 @@ can also be used to detach processes from their controlling terminals, allowing
 SSH sessions to remain active without being visible.
 #+END_QUOTE
 
-Tutorials:
+/Tutorials/:
 
 - [[https://edricteo.com/tmux-tutorial/]]
 - [[https://hackernoon.com/a-gentle-introduction-to-tmux-8d784c404340]]
@@ -303,7 +311,7 @@ so forth.
 
 - [[https://whatis.suse.com/definition/linux-cluster/][Definition]]
 
-Tutorials:
+/Tutorials/:
 
 - [[https://www.ibm.com/developerworks/aix/tutorials/clustering/clustering.html][IBM]]
   From 2002 but still explains a lot of the fundamental concepts.
@@ -321,7 +329,7 @@ and job scheduling system for large and small Linux clusters.
 
 - [[https://slurm.schedmd.com/documentation.html][Documentation]]
 
-Tutorials:
+/Tutorials/:
 
 - [[https://slurm.schedmd.com/tutorials.html][Documentation tutorial]]
 - [[https://computing.llnl.gov/tutorials/moab/][LLNL's tutorial]]
@@ -433,7 +441,7 @@ purpose processing — an approach termed GPGPU (General-Purpose computing on
 Graphics Processing Units).
 #+END_QUOTE
 
-Tutorials:
+/Tutorials/:
 
 - [[https://computing.llnl.gov/tutorials/linux_clusters/gpu/NVIDIA.Introduction_to_CUDA_C.1.pdf][NVIDIA slides]]
 - [[http://people.maths.ox.ac.uk/~gilesm/cuda/][Oxford course]]
@@ -449,7 +457,7 @@ specially adapt their programs to the target machine and processing units.
 
 - [[./resources/external/starpu.pdf][Documentation]]
 
-Tutorials:
+/Tutorials/:
 
 - [[http://starpu.gforge.inria.fr/tutorials/2018-07-HPCS-Tutorial-StarPU.pdf][Huge tutorial!]]
 
@@ -465,6 +473,33 @@ which a program is given as an explanation of the program logic in a natural
 language, such as English, interspersed with snippets of macros and traditional
 source code, from which a compilable source code can be generated.
 #+END_QUOTE
+
+Literate programming can be easily achieved using =.org= files, as they provide
+text intertwined together with source code blocks, as well as providing a way to
+compile these code blocks into one or multiple source files and to execute that
+code natively.
+
+Donald Knuth's original paper is attached to this heading as a reference.
+
+*** Reproducible analysis
+
+#+BEGIN_QUOTE
+The term reproducible research refers to the idea that the ultimate product of
+academic research is the paper along with the laboratory notebooks and full
+computational environment used to produce the results in the paper such as the
+code, data, etc. that can be used to reproduce the results and create new work
+based on the research.
+#+END_QUOTE
+
+Essential to research as a whole, reproducible analysis allows the researcher to
+establish trust, even years after arriving to results, in his conclusions. Using
+common methods comprising data, annotations and code such as a [[https://jupyter.org/][Jupyter]] notebook
+or a =.org= file using =R= script in code blocks, following the literate
+programming paradigm.
+
+/Tutorials/:
+
+- [[http://swcarpentry.github.io/r-novice-gapminder/][R reproducible analysis]]
 
 * Project
   :PROPERTIES:
