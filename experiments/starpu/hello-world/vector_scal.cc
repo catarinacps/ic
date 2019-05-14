@@ -3,6 +3,10 @@
 #include <starpu.h>
 #include <sys/time.h>
 
+class Teste {
+
+};
+
 struct params
 {
   unsigned int begin;
