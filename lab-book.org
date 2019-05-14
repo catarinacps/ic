@@ -1,3 +1,4 @@
+#+STARTUP: overview indent
 #+TITLE: Henrique's laboratory book
 #+AUTHOR: Henrique Silva
 #+email: hcpsilva@inf.ufrgs.br
