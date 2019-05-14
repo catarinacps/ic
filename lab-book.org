@@ -499,9 +499,16 @@ common methods comprising data, annotations and code such as a [[https://jupyter
 or a =.org= file using =R= script in code blocks, following the literate
 programming paradigm.
 
-/Tutorials/:
+/Tutorials/ about how this topic is dealt in the R realm:
 
 - [[http://swcarpentry.github.io/r-novice-gapminder/][R reproducible analysis]]
+
+General culture about this sensitive topic: "The Irreproducibility
+Crisis of Modern Science: Causes, Consequences, and the Road to
+Reform" par Randall et Welser, 2018.
+
+In French by Arnaud Legrand and colleagues:
+https://alegrand.github.io/bookrr/
 
 *** Reproducible research                                            :ATTACH:
     :PROPERTIES:
