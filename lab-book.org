@@ -41,6 +41,7 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
   - [[#research-methodology][Research methodology]]
     - [[#literate-programming][Literate programming]]
     - [[#reproducible-analysis][Reproducible analysis]]
+    - [[#reproducible-research][Reproducible research]]
 - [[#project][Project]]
   - [[#schedule][Schedule]]
   - [[#learning-path][Learning path]]
@@ -500,6 +501,13 @@ programming paradigm.
 /Tutorials/:
 
 - [[http://swcarpentry.github.io/r-novice-gapminder/][R reproducible analysis]]
+
+*** Reproducible research                                            :ATTACH:
+    :PROPERTIES:
+    :Attachments: reproducible-research-org-mode.pdf
+    :END:
+
+...
 
 * Project
   :PROPERTIES:
