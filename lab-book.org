@@ -297,14 +297,14 @@ Topic I want to talk about:
 - Current progression :: in terms of task completion rate
 - Organization and discipline :: assiduity, compromise and hours completed
 
-Goals
+Goals:
 - [ ] Change starpu hello-world ~vector_scal.cc~ to have a new task with
   a new code to compute the reduction of the resulting vectors. The
   reduction has to be the sum operation.
 - [ ] Implement a new starpu program to compute the dot product as
   defined in https://pt.wikipedia.org/wiki/Produto_escalar
 
-Think about
+Think about:
 - [ ] Try to remember how the LU decomposition algorithm works, and
   think about how to implement using tasks.
 - [ ] How to implement the Mandelbrot with StarPU tasks?
