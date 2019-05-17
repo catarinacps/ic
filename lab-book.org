@@ -24,6 +24,8 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
     - [[#2019-05-10][2019-05-10]]
     - [[#2019-05-13][2019-05-13]]
     - [[#2019-05-14][2019-05-14]]
+    - [[#2019-05-16][2019-05-16]]
+    - [[#2019-05-17][2019-05-17]]
   - [[#meetings][Meetings]]
     - [[#2019-04-30-tips-for-org-mode][2019-04-30 Tips for ORG-Mode]]
     - [[#2019-05-14-meeting][2019-05-14 Meeting]]
@@ -38,6 +40,7 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
   - [[#programming][Programming]]
     - [[#mpi][MPI]]
     - [[#cuda][CUDA]]
+    - [[#cmake][CMake]]
     - [[#starpu][StarPU]]
   - [[#research-methodology][Research methodology]]
     - [[#literate-programming][Literate programming]]
@@ -254,6 +257,25 @@ I added a bunch of info on reproducible analysis using =R= and I'm currently
 watching a [[https://www.youtube.com/watch?v=CGnt_PWoM5Y][video]] on =org-mode= and reproducible research while I wait for the
 meeting.
 
+*** 2019-05-16
+
+We decided in the last meeting that I should modify the StarPU vector example to
+do a reduction of the generated vectors. Also I've proposed an object-oriented
+approach to the problem using C++, so what I'll do first is set up my Emacs
+environment and learn CMake.
+
+Update: Yesterday I was so tired I forgot to push. Also, I had some issues with
+a short circuit in my desktop. Thankfully I solved it by removing the CD drive,
+which probably was grounding the motherboard.
+
+*** 2019-05-17
+
+My Emacs configuration file has advanced a lot in the last few days. From
+yesterday until today I've been trying to get the =cmake-ide= package to
+work. Even though I've been failing pretty miserably, I'm getting close.
+
+[[https://github.com/hcpsilva/dotfiles/blob/master/.emacs.d/config.org][Here's]] the link to my config file, by the way.
+
 ** Meetings
 
 This could stay inside its respective entry in the daily journal, but I think
@@ -463,6 +485,19 @@ Graphics Processing Units).
 - [[http://people.maths.ox.ac.uk/~gilesm/cuda/][Oxford course]]
 - [[https://computing.llnl.gov/tutorials/openMP/][LLNL's tutorial]]
 
+*** CMake
+
+#+BEGIN_QUOTE
+CMake is an open-source, cross-platform family of tools designed to build, test
+and package software. CMake is used to control the software compilation process
+using simple platform and compiler independent configuration files, and generate
+native makefiles and workspaces that can be used in the compiler environment of
+your choice.
+#+END_QUOTE
+
+/Tutorials/:
+- [[https://github.com/ttroy50/cmake-examples][A bunch of examples]]
+
 *** StarPU                                                           :ATTACH:
 
 #+BEGIN_QUOTE
@@ -513,7 +548,7 @@ common methods comprising data, annotations and code such as a [[https://jupyter
 or a =.org= file using =R= script in code blocks, following the literate
 programming paradigm.
 
-/Tutorials/ about how this topic is dealt in the R realm:
+Tutorials about how this topic is dealt in the R realm:
 
 - [[http://swcarpentry.github.io/r-novice-gapminder/][R reproducible analysis]]
 
