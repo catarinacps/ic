@@ -164,11 +164,9 @@ int main(int argc, char **argv) {
   //  starpu_data_handle_t input = alloc_one_vector(block_size, 1);
 
   for (int ts = 0; ts < 10; ts++) {
-    starpu_data_handle_t output;
     for (int blkid = 0; blkid < n_blocks; blkid++) {
-      starpu_data_handle_t output =
+      vec_handle[blkid] =
           create_and_submit_task(blkid, block_size, factor, vec_handle[blkid]);
-      vec_handle[blkid] = output;
     }
   }
 
