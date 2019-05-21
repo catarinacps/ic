@@ -511,7 +511,10 @@ Graphics Processing Units).
 - [[http://people.maths.ox.ac.uk/~gilesm/cuda/][Oxford course]]
 - [[https://computing.llnl.gov/tutorials/openMP/][LLNL's tutorial]]
 
-*** CMake
+*** CMake                                                          :ATTACH:
+:PROPERTIES:
+:Attachments: cmake-ninja.pdf
+:END:
 
 #+BEGIN_QUOTE
 CMake is an open-source, cross-platform family of tools designed to build, test
@@ -523,8 +526,9 @@ your choice.
 
 /Tutorials/:
 - [[https://github.com/ttroy50/cmake-examples][A bunch of examples]]
+- [[./resources/external/cmake-ninja.pdf][With the Ninja build system]]
 
-*** StarPU                                                           :ATTACH:
+*** StarPU                                                         :ATTACH:
 
 #+BEGIN_QUOTE
 StarPU is a software tool aiming to allow programmers to exploit the computing
