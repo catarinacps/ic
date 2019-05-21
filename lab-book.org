@@ -26,6 +26,8 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
     - [[#2019-05-14][2019-05-14]]
     - [[#2019-05-16][2019-05-16]]
     - [[#2019-05-17][2019-05-17]]
+    - [[#2019-05-20][2019-05-20]]
+    - [[#2019-05-21][2019-05-21]]
   - [[#meetings][Meetings]]
     - [[#2019-04-30-tips-for-org-mode][2019-04-30 Tips for ORG-Mode]]
     - [[#2019-05-14-meeting][2019-05-14 Meeting]]
@@ -275,6 +277,16 @@ yesterday until today I've been trying to get the =cmake-ide= package to
 work. Even though I've been failing pretty miserably, I'm getting close.
 
 [[https://github.com/hcpsilva/dotfiles/blob/master/.emacs.d/config.org][Here's]] the link to my config file, by the way.
+
+*** 2019-05-20
+
+I had to scramble in the morning to finish part of an assignment that one of my
+group colleagues couldn't finish and which presentation was also today. For that
+I couldn't contribute or work in my scholarship project.
+
+*** 2019-05-21
+
+...
 
 ** Meetings
 
