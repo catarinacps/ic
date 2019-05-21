@@ -284,7 +284,10 @@ I had to scramble in the morning to finish part of an assignment that one of my
 group colleagues couldn't finish and which presentation was also today. For that
 I couldn't contribute or work in my scholarship project.
 
-*** 2019-05-21
+*** 2019-05-21                                                     :ATTACH:
+:PROPERTIES:
+:Attachments: notas-funcionamento-starpu.pdf
+:END:
 
 Today I researched a bunch about CMake and how to structure a project that uses
 it. CMake in itself is very powerful but with it you can use something like the
