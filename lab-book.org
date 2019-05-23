@@ -28,6 +28,7 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
     - [[#2019-05-17][2019-05-17]]
     - [[#2019-05-20][2019-05-20]]
     - [[#2019-05-21][2019-05-21]]
+    - [[#2019-05-23][2019-05-23]]
   - [[#meetings][Meetings]]
     - [[#2019-04-30-tips-for-org-mode][2019-04-30 Tips for ORG-Mode]]
     - [[#2019-05-14-meeting][2019-05-14 Meeting]]
@@ -304,6 +305,11 @@ In other news, I'm kinda overwhelmed emotionally right now so it's very hard to
 keep my focus on things. These are personal issues, I know, but I should be
 clear about it, as it impacts my abilities to be effective and to make progress
 in my scholarship goals.
+
+*** 2019-05-23                                                     :ATTACH:
+
+Changed the project structure, finished the CMake files and though more about
+the wrapper classes and their possible solutions.
 
 ** Meetings
 
