@@ -307,8 +307,11 @@ clear about it, as it impacts my abilities to be effective and to make progress
 in my scholarship goals.
 
 *** 2019-05-23                                                     :ATTACH:
+:PROPERTIES:
+:Attachments: sobre-as-classes.pdf
+:END:
 
-Changed the project structure, finished the CMake files and though more about
+Changed the project structure, finished the CMake files and thought more about
 the wrapper classes and their possible solutions.
 
 ** Meetings
