@@ -54,10 +54,10 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
   - [[#learning-path][Learning path]]
 
 * Journal
-  :PROPERTIES:
-  :ATTACH_DIR: attachments/
-  :ATTACH_DIR_INHERIT: t
-  :END:
+:PROPERTIES:
+:ATTACH_DIR: attachments/
+:ATTACH_DIR_INHERIT: t
+:END:
 
 Here I'll write my daily tasks and to-dos so I can keep track of what I'm doing.
 
@@ -320,9 +320,9 @@ This could stay inside its respective entry in the daily journal, but I think
 that separating meetings from the dailies is better.
 
 *** 2019-04-30 Tips for ORG-Mode                                     :ATTACH:
-    :PROPERTIES:
-    :ID:       428b174d-ec00-474e-b65c-cc8671da1019
-    :END:
+:PROPERTIES:
+:ID:       428b174d-ec00-474e-b65c-cc8671da1019
+:END:
 
 See the attached file in [[./attachments/init.org]], or follow the update
 instructions [[http://mescal.imag.fr/membres/arnaud.legrand/misc/init.php][here]] that points to the [[https://app-learninglab.inria.fr/gitlab/learning-lab/mooc-rr-ressources/blob/master/module2/ressources/emacs_orgmode.org][learninglab]].
@@ -350,10 +350,10 @@ Think about:
   - Promote discussing about load imbalance
 
 * External resources
-  :PROPERTIES:
-  :ATTACH_DIR: resources/external/
-  :ATTACH_DIR_INHERIT: t
-  :END:
+:PROPERTIES:
+:ATTACH_DIR: resources/external/
+:ATTACH_DIR_INHERIT: t
+:END:
 
 Here I'll categorize useful resources I've found while "aggressively" googling
 and/or reading papers and other documents.
@@ -602,17 +602,17 @@ In French by Arnaud Legrand and colleagues:
 https://alegrand.github.io/bookrr/
 
 *** Reproducible research                                            :ATTACH:
-    :PROPERTIES:
-    :Attachments: reproducible-research-org-mode.pdf
-    :END:
+:PROPERTIES:
+:Attachments: reproducible-research-org-mode.pdf
+:END:
 
 ...
 
 * Project
-  :PROPERTIES:
-  :ATTACH_DIR: resources/project/
-  :ATTACH_DIR_INHERIT: t
-  :END:
+:PROPERTIES:
+:ATTACH_DIR: resources/project/
+:ATTACH_DIR_INHERIT: t
+:END:
 
 Here's everything about my scholarship planning and project as a whole.
 
