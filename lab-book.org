@@ -29,6 +29,7 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
     - [[#2019-05-20][2019-05-20]]
     - [[#2019-05-21][2019-05-21]]
     - [[#2019-05-23][2019-05-23]]
+    - [[#2019-05-24][2019-05-24]]
   - [[#meetings][Meetings]]
     - [[#2019-04-30-tips-for-org-mode][2019-04-30 Tips for ORG-Mode]]
     - [[#2019-05-14-meeting][2019-05-14 Meeting]]
@@ -64,15 +65,16 @@ Here I'll write my daily tasks and to-dos so I can keep track of what I'm doing.
 ** To-do
 
 *Active items*:
-- [ ] try the starpu examples
 - [ ] read more about openmp and mpi
 - [ ] finish my config.org file
+- [ ] get the starpu wrapper classes started
 
 *Finished items*:
 - [X] add more info about cluster and server-side linux
 - [X] set up the computer
 - [X] set up my table
 - [X] do the first experiment of schnorr/par
+- [X] try the starpu examples
 
 ** Daily
 
@@ -313,6 +315,10 @@ in my scholarship goals.
 
 Changed the project structure, finished the CMake files and thought more about
 the wrapper classes and their possible solutions.
+
+*** 2019-05-24
+
+...
 
 ** Meetings
 
