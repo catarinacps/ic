@@ -69,7 +69,9 @@ starpu_data_handle_t alloc_one_vector(int block_size, int init_value)
     return handle;
 }
 
-starpu_data_handle_t create_and_submit_task(int blkid, unsigned int block_size,
+starpu_data_handle_t create_and_submit_task(
+    int blkid,
+    unsigned int block_size,
     int factor,
     starpu_data_handle_t vec_handle)
 {
@@ -121,10 +123,14 @@ starpu_data_handle_t* alloc_vectors(int n_blocks, int block_size,
         }
 
         // register with starpu
-        starpu_vector_data_register(&handle[blkid], STARPU_MAIN_RAM, (uintptr_t)vec,
+        starpu_vector_data_register(
+            &handle[blkid],
+            STARPU_MAIN_RAM,
+            (uintptr_t)vec,
             block_size, // number of elements
             sizeof(vec[0])); // size of the type of elements
     }
+
     return handle;
 }
 

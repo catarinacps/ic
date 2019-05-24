@@ -65,9 +65,10 @@ Here I'll write my daily tasks and to-dos so I can keep track of what I'm doing.
 ** To-do
 
 *Active items*:
+- [ ] start the vector reduction code going
 - [ ] read more about openmp and mpi
 - [ ] finish my config.org file
-- [ ] get the starpu wrapper classes started
+- [ ] start bringing snacks to the lab
 
 *Finished items*:
 - [X] add more info about cluster and server-side linux
@@ -75,6 +76,7 @@ Here I'll write my daily tasks and to-dos so I can keep track of what I'm doing.
 - [X] set up my table
 - [X] do the first experiment of schnorr/par
 - [X] try the starpu examples
+- [X] get the starpu wrapper classes started
 
 ** Daily
 
@@ -130,7 +132,7 @@ spack find
 
 Then, add the =solverstack= from the INRIA GitLab:
 
-#+BEGIN_SRC shell :tangle yes
+#+BEGIN_SRC shell
   git clone https://gitlab.inria.fr/solverstack/spack-repo.git solverstack
   spack repo add solverstack/
 #+END_SRC
@@ -316,9 +318,19 @@ in my scholarship goals.
 Changed the project structure, finished the CMake files and thought more about
 the wrapper classes and their possible solutions.
 
-*** 2019-05-24
+*** 2019-05-24                                                     :ATTACH:
+:PROPERTIES:
+:Attachments: thoughts-2405.pdf
+:END:
 
-...
+Today I advanced somewhat on building the wrapper classes to StarPU, but, while
+I read the documentation, I noticed that the task isn't even easy to begin
+with. After talking to Schnorr about some questions I had, we decided that if I
+focus into getting the vector reduction going I could more easily start working
+in more complex applications of StarPU.
+
+So, we defined that next tuesday, 28/05, I should deliver the code so that we
+analyze it together.
 
 ** Meetings
 
