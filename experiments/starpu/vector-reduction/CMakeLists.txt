@@ -4,8 +4,5 @@ find_package(STARPU)
 include_directories(${STARPU_INCLUDE_DIRS})
 link_directories(${STARPU_LIBRARY_DIRS})
 
-add_executable(programa programa.c)
-target_link_libraries(programa ${STARPU_LIBRARIES_DEP})
-
 add_executable(vector_scal vector_scal.cc)
 target_link_libraries(vector_scal ${STARPU_LIBRARIES_DEP})

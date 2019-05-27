@@ -30,6 +30,7 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
     - [[#2019-05-21][2019-05-21]]
     - [[#2019-05-23][2019-05-23]]
     - [[#2019-05-24][2019-05-24]]
+    - [[#2019-05-27][2019-05-27]]
   - [[#meetings][Meetings]]
     - [[#2019-04-30-tips-for-org-mode][2019-04-30 Tips for ORG-Mode]]
     - [[#2019-05-14-meeting][2019-05-14 Meeting]]
@@ -331,6 +332,12 @@ in more complex applications of StarPU.
 
 So, we defined that next tuesday, 28/05, I should deliver the code so that we
 analyze it together.
+
+*** 2019-05-27
+
+I've modified the [[./experiments/starpu/vector-reduction/vector_scal.cc]] code and
+now it should do the reduction as expected. I couldn't test it though, as I've
+failed to link properly the StarPU libraries. I'll keep trying tomorrow.
 
 ** Meetings
 

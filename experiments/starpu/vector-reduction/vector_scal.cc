@@ -190,7 +190,6 @@ int main(int argc, char** argv)
     double elapsed = ts1 - ts0;
     printf("%f %f %f\n", ts0, ts1, elapsed);
 
-#ifdef VALIDATION_PRINT
     for (int blkid = 0; blkid < n_blocks; blkid++) {
         for (int i; i < block_size; i++) {
             if (vec_output[blkid][i] == factor + 1) {
@@ -200,5 +199,4 @@ int main(int argc, char** argv)
             }
         }
     }
-#endif
 }
