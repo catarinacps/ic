@@ -1,13 +1,11 @@
-cmake_minimum_required(VERSION 3.10)
-set(CMAKE_CXX_STANDARD 17)
+cmake_minimum_required (VERSION 2.8)
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+find_package(STARPU)
+include_directories(${STARPU_INCLUDE_DIRS})
+link_directories(${STARPU_LIBRARY_DIRS})
 
-project(vector_reduction LANGUAGES CXX)
+add_executable(programa programa.c)
+target_link_libraries(programa ${STARPU_LIBRARIES_DEP})
 
-add_subdirectory(starpu-cpp/)
-
-include_directories(inc/)
-
-file(GLOB_RECURSE SOURCES RELATIVE ${PROJECT_SOURCE_DIR}/src/*.cpp)
-
-add_executable(main ${SOURCES})
-target_link_libraries(main starpu-cpp)
+add_executable(vector_scal vector_scal.cc)
+target_link_libraries(vector_scal ${STARPU_LIBRARIES_DEP})
