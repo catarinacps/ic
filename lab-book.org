@@ -374,6 +374,29 @@ Think about:
   - Promote discussing about scheduling algorithms
   - Promote discussing about load imbalance
 
+*** 2019-05-28 Meeting
+
+Fixed implementation of ~vector_scal~
+
+Todo
+- Finished the fixed implementation
+  - Use valgrind to verify memory leaks
+  - Make sure all leaks are gone
+    - All numbers reported by Valgrind should be zero
+- Do a multi-level reduction scheme using an additional parameter that
+  will tell you how much aggregation is carried out in each level
+- Think about an application you are interested in
+  - It can be some simulation, whatever
+  - By default, we go to some linear algebra factorization
+- Perhaps change the ~vector_scal~ problem to a ~vector_multiplication~
+  - The initial task ~cpu_func~ will have two implementations, one in
+    CPU and another for GPU (in this case, use tupi1 with 2 GPUs)
+- Create a SLURM script to run all experiments
+  - Check ERAD/RS shortcourse
+    https://gitlab.com/schnorr/erad19 (tutorial slurm)
+    http://gppd-hpc.inf.ufrgs.br/
+    http://gppd-hpc.inf.ufrgs.br/#orga79ce5a (5.2 Jobs Não-Interativos (sbatch))
+
 * External resources
 :PROPERTIES:
 :ATTACH_DIR: resources/external/
