@@ -34,7 +34,7 @@ void cpu_func(void** buffers, void* cl_arg)
 
     // do the job
     for (int i = 0; i < (par->end - par->begin); i++) {
-        vec_output[par->output_index] = vec_input[i] + par->factor;
+        vec_output[par->output_index] += vec_input[i];
         //    for (int l = 0; l < 100; l++){ double x = x * 2; }
     }
 
@@ -47,10 +47,9 @@ struct starpu_codelet cl = { .where = STARPU_CPU,
     .nbuffers = 2,
     .modes = { STARPU_R, STARPU_W } };
 
-starpu_data_handle_t alloc_one_vector(int block_size, int init_value)
+starpu_data_handle_t alloc_one_vector(int block_size, int init_value, int* vec)
 {
     starpu_data_handle_t handle;
-    int* vec = (int*)malloc(block_size * sizeof(int));
 
     for (int j = 0; j < block_size; j++) {
         vec[j] = init_value;
@@ -63,7 +62,7 @@ starpu_data_handle_t alloc_one_vector(int block_size, int init_value)
     // register with starpu
     starpu_vector_data_register(&handle, STARPU_MAIN_RAM, (uintptr_t)vec,
         block_size, // number of elements
-        sizeof(vec[0])); // size of the type of elements
+        sizeof(int)); // size of the type of elements
     return handle;
 }
 
@@ -72,8 +71,7 @@ starpu_data_handle_t create_and_submit_task(
     unsigned int block_size,
     int factor,
     starpu_data_handle_t vec_handle,
-    starpu_data_handle_t vec_output_handle,
-    int output_index)
+    starpu_data_handle_t vec_output_handle)
 {
     struct params* params;
     params = (struct params*)malloc(sizeof(struct params));
@@ -82,7 +80,7 @@ starpu_data_handle_t create_and_submit_task(
     params->begin = block_size * blkid;
     params->end = block_size * blkid + block_size;
     params->factor = factor;
-    params->output_index = output_index;
+    params->output_index = blkid;
 
     printf("Creating task %d with block_size = %d (%d - %d)\n", blkid, block_size,
         params->begin, params->end);
@@ -128,7 +126,7 @@ starpu_data_handle_t* alloc_vectors(int n_blocks, int block_size,
             STARPU_MAIN_RAM,
             (uintptr_t)vec,
             block_size, // number of elements
-            sizeof(vec[0])); // size of the type of elements
+            sizeof(int)); // size of the type of elements
     }
 
     return handle;
@@ -164,22 +162,31 @@ int main(int argc, char** argv)
 
     /* //allocate and initialize the input vector */
     starpu_data_handle_t* vec_handle;
-    vec_handle = alloc_vectors(n_blocks, block_size, 1);
+    vec_handle = alloc_vectors(n_blocks, block_size, 2);
 
     //  starpu_data_handle_t *vec_output_handle;
     //  vec_output_handle = alloc_vectors (n_blocks, block_size, 0);
 
     double ts0 = get_time();
 
+    int vec[block_size];
+    /* int* vec = (int*)malloc(block_size * sizeof(int)); */
+
     // submit the tasks that do the job
     //  starpu_data_handle_t input = alloc_one_vector(block_size, 1);
-    starpu_data_handle_t vec_output_handle = alloc_one_vector(block_size, 0);
+    starpu_data_handle_t vec_output_handle = alloc_one_vector(block_size, 0, vec);
 
-    for (int ts = 0; ts < 10; ts++) {
-        for (int blkid = 0; blkid < n_blocks; blkid++) {
-            vec_handle[blkid] = create_and_submit_task(blkid, block_size, factor, vec_handle[blkid], vec_output_handle, blkid);
-        }
+    for (int blkid = 0; blkid < n_blocks; blkid++) {
+        create_and_submit_task(blkid, block_size, factor, vec_handle[blkid], vec_output_handle);
     }
+
+    /* int* fim = (int*)malloc(sizeof(int)); */
+    int fim;
+    // submit the tasks that do the job
+    //  starpu_data_handle_t input = alloc_one_vector(block_size, 1);
+    starpu_data_handle_t fim_output_handle = alloc_one_vector(1, 0, &fim);
+
+    create_and_submit_task(0, n_blocks, 1, vec_output_handle, fim_output_handle);
 
     starpu_task_wait_for_all();
     //  starpu_data_unregister(vec_handle);
@@ -189,6 +196,14 @@ int main(int argc, char** argv)
     double ts1 = get_time();
     double elapsed = ts1 - ts0;
     printf("start: %.4f\nend: %.4f\nelapsed: %.4f\n", ts0, ts1, elapsed);
+
+    printf("\n");
+
+    for (int i = 0; i < n_blocks; i++) {
+        printf("mid[%d]: %d\n", i, vec[i]);
+    }
+
+    printf("fim: %d\n", fim);
 
     /* for (int blkid = 0; blkid < n_blocks; blkid++) { */
     /*     for (int i; i < block_size; i++) { */
