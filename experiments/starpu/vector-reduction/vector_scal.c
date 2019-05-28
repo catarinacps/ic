@@ -188,15 +188,15 @@ int main(int argc, char** argv)
 
     double ts1 = get_time();
     double elapsed = ts1 - ts0;
-    printf("%f %f %f\n", ts0, ts1, elapsed);
+    printf("start: %.4f\nend: %.4f\nelapsed: %.4f\n", ts0, ts1, elapsed);
 
-    for (int blkid = 0; blkid < n_blocks; blkid++) {
-        for (int i; i < block_size; i++) {
-            if (vec_output[blkid][i] == factor + 1) {
-                printf("Error, value (%d) of vector position %d is incorrect. "
-                       "It should be %d.\n",
-                    vec_output[i], i, factor);
-            }
-        }
-    }
+    /* for (int blkid = 0; blkid < n_blocks; blkid++) { */
+    /*     for (int i; i < block_size; i++) { */
+    /*         if (vec_output[blkid][i] == factor + 1) { */
+    /*             printf("Error, value (%d) of vector position %d is incorrect. " */
+    /*                    "It should be %d.\n", */
+    /*                 vec_output[i], i, factor); */
+    /*         } */
+    /*     } */
+    /* } */
 }
