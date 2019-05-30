@@ -32,9 +32,11 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
     - [[#2019-05-24][2019-05-24]]
     - [[#2019-05-27][2019-05-27]]
     - [[#2019-05-28][2019-05-28]]
+    - [[#2019-05-30][2019-05-30]]
   - [[#meetings][Meetings]]
     - [[#2019-04-30-tips-for-org-mode][2019-04-30 Tips for ORG-Mode]]
     - [[#2019-05-14-meeting][2019-05-14 Meeting]]
+    - [[#2019-05-28-meeting][2019-05-28 Meeting]]
 - [[#external-resources][External resources]]
   - [[#linux][Linux]]
     - [[#tmux][tmux]]
@@ -355,9 +357,9 @@ then what's the point if I don't know how to take advantage of my know-how (in
 terms of "I somewhat know how to build a simple StarPU application")? Also, I
 tried looking for the slides from the PCAM class but I didn't find them.
 
-That being said, I took the liberty to stop trying to get this thing working and
-I've started to collect resources on PCAM and the designing of parallel
-applications.
+*** 2019-05-30
+
+...
 
 ** Meetings
 
@@ -398,8 +400,8 @@ Think about:
 
 Fixed implementation of ~vector_scal~
 
-Todo
-- Finished the fixed implementation
+To-do:
+- Finish the fixed implementation
   - Use valgrind to verify memory leaks
   - Make sure all leaks are gone
     - All numbers reported by Valgrind should be zero

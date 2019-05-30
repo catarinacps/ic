@@ -18,20 +18,20 @@ double get_time(void)
     return (double)tr.tv_sec + (double)tr.tv_usec / 1000000;
 }
 
-void cpu_func2 (void** buffers, void* cl_arg)
+void cpu_func2(void** buffers, void* cl_arg)
 {
-  int somatorio = 0;
-  struct params2 *par = (struct params2*)cl_arg;
+    int somatorio = 0;
+    struct params2* par = (struct params2*)cl_arg;
 
-  printf("%d\n", par->nbuffers);
-  
-  for (int i = 0; i < par->nbuffers; i++){
-    int *valor = (int*)STARPU_VECTOR_GET_PTR(buffers[i]);
-    printf("%d %p\n", i, valor);
-    printf("%d %d\n", i, *valor);
-    somatorio += *valor;
-  }
-  printf("======> Somatorio = %d\n", somatorio);
+    printf("%d\n", par->nbuffers);
+
+    for (int i = 0; i < par->nbuffers; i++) {
+        int* valor = (int*)STARPU_VECTOR_GET_PTR(buffers[i]);
+        printf("%d %p\n", i, valor);
+        printf("%d %d\n", i, *valor);
+        somatorio += *valor;
+    }
+    printf("======> Somatorio = %d\n", somatorio);
 }
 
 void cpu_func(void** buffers, void* cl_arg)
@@ -49,7 +49,7 @@ void cpu_func(void** buffers, void* cl_arg)
 
     // do the job
     for (int i = 0; i < (par->end - par->begin); i++) {
-      vec_output[0] += vec_input[i];
+        vec_output[0] += vec_input[i];
     }
 
     double t1 = get_time();
@@ -140,10 +140,9 @@ starpu_data_handle_t* alloc_vectors(int n_blocks, int block_size,
             block_size, // number of elements
             sizeof(int)); // size of the type of elements
 
-//	int *p = (int*)starpu_data_get_user_data(handle[blkid]);
-//	printf("%s %p\n", __FUNCTION__, p);
-//	printf("%s %d\n", __FUNCTION__, *p);
-	
+        //	int *p = (int*)starpu_data_get_user_data(handle[blkid]);
+        //	printf("%s %p\n", __FUNCTION__, p);
+        //	printf("%s %d\n", __FUNCTION__, *p);
     }
 
     return handle;
@@ -153,8 +152,7 @@ int main(int argc, char** argv)
 {
     if (argc != 3) {
         printf("Please, provide the following parameters:\n"
-               "%s <problem_size> <n_blocks>\n",
-            argv[0]);
+               "%s <problem_size> <n_blocks>\n", argv[0]);
         exit(0);
     }
 
@@ -169,10 +167,10 @@ int main(int argc, char** argv)
     block_size = nx / n_blocks;
 
     printf("There are %d blocks, each one with %d elements.\n",
-	   n_blocks, block_size);
+        n_blocks, block_size);
 
     int ec = starpu_init(NULL);
-    starpu_profiling_status_set(STARPU_PROFILING_DISABLE); 
+    starpu_profiling_status_set(STARPU_PROFILING_DISABLE);
 
     // INPUT
     starpu_data_handle_t* vec_handle;
@@ -181,61 +179,60 @@ int main(int argc, char** argv)
     double ts0 = get_time();
 
     // OUTPUT
-    starpu_data_handle_t *vec_output_handle;
-    vec_output_handle = alloc_vectors (n_blocks, 1, 0);
+    starpu_data_handle_t* vec_output_handle;
+    vec_output_handle = alloc_vectors(n_blocks, 1, 0);
 
     for (int blkid = 0; blkid < n_blocks; blkid++) {
-      create_and_submit_task(blkid,
-			     block_size,
-			     vec_handle[blkid],
-			     vec_output_handle[blkid]);
+        create_and_submit_task(blkid,
+            block_size,
+            vec_handle[blkid],
+            vec_output_handle[blkid]);
     }
 
     /* Adjust codelet */
     struct starpu_codelet cl1 = {
-      .where = STARPU_CPU,
-      .cpu_funcs = { cpu_func2 },
-      .nbuffers = n_blocks};
+        .where = STARPU_CPU,
+        .cpu_funcs = { cpu_func2 },
+        .nbuffers = n_blocks
+    };
 
-    enum starpu_data_access_mode *modes = malloc(n_blocks*sizeof(enum starpu_data_access_mode));
-    for(int i=0 ; i < n_blocks ; i++) {
-      modes[i] = STARPU_R;
+    enum starpu_data_access_mode* modes = malloc(n_blocks * sizeof(enum starpu_data_access_mode));
+    for (int i = 0; i < n_blocks; i++) {
+        modes[i] = STARPU_R;
     }
     cl1.dyn_modes = modes;
 
     /* Adjust parameters */
-    struct params2 *params = (struct params2*)malloc(sizeof(struct params2));
+    struct params2* params = (struct params2*)malloc(sizeof(struct params2));
 
     // prepare the parameters
     params->nbuffers = n_blocks;
-   
+
     struct starpu_task* task = starpu_task_create();
     task->synchronous = 0;
     task->cl = &cl1;
     task->cl_arg = params;
     task->cl_arg_size = sizeof(struct params2);
     task->dyn_handles = malloc(task->cl->nbuffers * sizeof(starpu_data_handle_t));
-    for(int i=0 ; i < task->cl->nbuffers ; i++) {
-      task->dyn_handles[i] = vec_output_handle[i];
+    for (int i = 0; i < task->cl->nbuffers; i++) {
+        task->dyn_handles[i] = vec_output_handle[i];
     }
     int ec2 = starpu_task_submit(task);
     starpu_task_wait_for_all();
     starpu_shutdown();
 
-    
-//    for (int blkid = 0; blkid < n_blocks; blkid++) {
-//      starpu_data_unregister(vec_output_handle[blkid]);
-//      int *p = (int*)starpu_data_get_user_data(vec_output_handle[blkid]);
-//      printf("%d %p\n", blkid, p);
-//    }
-    
+    //    for (int blkid = 0; blkid < n_blocks; blkid++) {
+    //      starpu_data_unregister(vec_output_handle[blkid]);
+    //      int *p = (int*)starpu_data_get_user_data(vec_output_handle[blkid]);
+    //      printf("%d %p\n", blkid, p);
+    //    }
 
     exit(1);
 
     int fim;
     starpu_data_handle_t fim_output_handle = alloc_one_vector(1, 0, &fim);
 
-//  create_and_submit_task(0, n_blocks, 1, vec_output_handle, fim_output_handle);
+    //  create_and_submit_task(0, n_blocks, 1, vec_output_handle, fim_output_handle);
 
     starpu_task_wait_for_all();
     //  starpu_data_unregister(vec_handle);
