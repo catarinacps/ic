@@ -1,6 +1,9 @@
 cmake_minimum_required (VERSION 2.8)
+
+execute_process(COMMAND spack location -i starpu OUTPUT_VARIABLE OUT_DIR)
+set(STARPU_DIR "${OUT_DIR}" CACHE PATH "The StarPU directory")
+
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
-set(DSTARPU_DIR execute_process(spack location -i starpu))
 
 find_package(STARPU)
 include_directories(${STARPU_INCLUDE_DIRS})
