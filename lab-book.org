@@ -32,7 +32,6 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
     - [[#2019-05-24][2019-05-24]]
     - [[#2019-05-27][2019-05-27]]
     - [[#2019-05-28][2019-05-28]]
-    - [[#2019-05-30][2019-05-30]]
   - [[#meetings][Meetings]]
     - [[#2019-04-30-tips-for-org-mode][2019-04-30 Tips for ORG-Mode]]
     - [[#2019-05-14-meeting][2019-05-14 Meeting]]
@@ -357,10 +356,6 @@ then what's the point if I don't know how to take advantage of my know-how (in
 terms of "I somewhat know how to build a simple StarPU application")? Also, I
 tried looking for the slides from the PCAM class but I didn't find them.
 
-*** 2019-05-30
-
-...
-
 ** Meetings
 
 This could stay inside its respective entry in the daily journal, but I think
@@ -601,7 +596,7 @@ Graphics Processing Units).
 
 *** CMake                                                          :ATTACH:
 :PROPERTIES:
-:Attachments: cmake-ninja.pdf
+:Attachments: cmake-ninja.pdf cmake-tutorial.pdf
 :END:
 
 #+BEGIN_QUOTE
@@ -615,6 +610,13 @@ your choice.
 /Tutorials/:
 - [[https://github.com/ttroy50/cmake-examples][A bunch of examples]]
 - [[./resources/external/cmake-ninja.pdf][With the Ninja build system]]
+- [[./resources/external/cmake-tutorial.pdf][Somewhat extensive tutorial]]
+- [[http://rachid.koucha.free.fr/tech_corner/cmake_manual.html][Empirical approach to CMake]]
+
+/Useful links/:
+- [[https://gitlab.kitware.com/cmake/community/wikis/home][Wiki page]]
+- [[https://gitlab.kitware.com/cmake/community/wikis/doc/cmake/Useful-Variables][Useful variables]]
+- [[https://cmake.org/cmake/help/latest/manual/cmake-variables.7.html][All variables]]
 
 *** StarPU                                                         :ATTACH:
 

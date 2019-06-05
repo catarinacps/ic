@@ -218,6 +218,7 @@ int main(int argc, char** argv)
         task->dyn_handles[i] = vec_output_handle[i];
     }
     int ec2 = starpu_task_submit(task);
+
     starpu_task_wait_for_all();
     starpu_shutdown();
 
