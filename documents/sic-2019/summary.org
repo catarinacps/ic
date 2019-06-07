@@ -1,0 +1,10 @@
+#+TITLE: Experimentos Computacionais com Aplicações Paralelas baseadas em Tarefas
+#+SUBTITLE: Salão de Iniciação Científica 2019
+#+AUTHOR: Henrique Corrêa Pereira da Silva @@latex:\\@@ Institute of Informatics, UFRGS
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS: [twocolumn,a4paper]
+#+OPTIONS: toc:nil
+#+LATEX_HEADER: \usepackage[margin=1in]{geometry}
+#+LATEX_HEADER: \usepackage{lipsum}
+
+\lipsum
