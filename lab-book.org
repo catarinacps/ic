@@ -32,6 +32,7 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
     - [[#2019-05-24][2019-05-24]]
     - [[#2019-05-27][2019-05-27]]
     - [[#2019-05-28][2019-05-28]]
+    - [[#2019-06-07][2019-06-07]]
   - [[#meetings][Meetings]]
     - [[#2019-04-30-tips-for-org-mode][2019-04-30 Tips for ORG-Mode]]
     - [[#2019-05-14-meeting][2019-05-14 Meeting]]
@@ -69,10 +70,11 @@ Here I'll write my daily tasks and to-dos so I can keep track of what I'm doing.
 ** To-do
 
 *Active items*:
-- [ ] start the vector reduction code going
-- [ ] read more about openmp and mpi
+- [ ] write a summary about my internship for the SIC2019 (*DEADLINE* 2019-06-21)
+- [ ] finish the vector reduction code
 - [ ] finish my config.org file
 - [ ] start bringing snacks to the lab
+- [ ] read more about openmp and mpi
 
 *Finished items*:
 - [X] add more info about cluster and server-side linux
@@ -81,6 +83,7 @@ Here I'll write my daily tasks and to-dos so I can keep track of what I'm doing.
 - [X] do the first experiment of schnorr/par
 - [X] try the starpu examples
 - [X] get the starpu wrapper classes started
+- [X] get the vector reduction code going
 
 ** Daily
 
@@ -355,6 +358,15 @@ If I try for long enough, I can get a working version of this code going, but
 then what's the point if I don't know how to take advantage of my know-how (in
 terms of "I somewhat know how to build a simple StarPU application")? Also, I
 tried looking for the slides from the PCAM class but I didn't find them.
+
+*** 2019-06-07
+
+Today I've talked to Schnorr about my interest in staying in the group and in
+the new theme of the internship project (2019 - 2020).
+
+Also I've discussed with him the preparations for the SIC2019. I'll write a
+summary about my internship so far and the themes it encompasses (the deadline
+is 21/06).
 
 ** Meetings
 
