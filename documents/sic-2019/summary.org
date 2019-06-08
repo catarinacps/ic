@@ -1,10 +1,14 @@
 #+TITLE: Experimentos Computacionais com Aplicações Paralelas baseadas em Tarefas
-#+SUBTITLE: Salão de Iniciação Científica 2019
-#+AUTHOR: Henrique Corrêa Pereira da Silva @@latex:\\@@ Institute of Informatics, UFRGS
+#+SUBTITLE: Salão de Iniciação Científica UFRGS 2019
 #+LATEX_CLASS: article
 #+LATEX_CLASS_OPTIONS: [twocolumn,a4paper]
-#+OPTIONS: toc:nil
+#+OPTIONS: toc:nil author:nil
 #+LATEX_HEADER: \usepackage[margin=1in]{geometry}
 #+LATEX_HEADER: \usepackage{lipsum}
+#+LATEX_HEADER: \usepackage[affil-it]{authblk}
+#+LATEX_HEADER: \author[1]{Henrique Corrêa Pereira da Silva}
+#+LATEX_HEADER: \author[1]{Lucas Mello Schnorr}
+#+LATEX_HEADER: \affil[1]{Instituto de Informática\\ Universidade Federal do Rio Grande do Sul}
+#+LATEX_HEADER: \affil[ ]{\normalsize\textup{\texttt{\{hcpsilva, schnorr\}@inf.ufrgs.br}}}
 
 \lipsum
