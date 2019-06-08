@@ -1,14 +1,15 @@
-#+TITLE: Experimentos Computacionais com Aplicações Paralelas baseadas em Tarefas
-#+SUBTITLE: Salão de Iniciação Científica UFRGS 2019
-#+LATEX_CLASS: article
-#+LATEX_CLASS_OPTIONS: [twocolumn,a4paper]
-#+OPTIONS: toc:nil author:nil
-#+LATEX_HEADER: \usepackage[margin=1in]{geometry}
-#+LATEX_HEADER: \usepackage{lipsum}
-#+LATEX_HEADER: \usepackage[affil-it]{authblk}
-#+LATEX_HEADER: \author[1]{Henrique Corrêa Pereira da Silva}
-#+LATEX_HEADER: \author[1]{Lucas Mello Schnorr}
-#+LATEX_HEADER: \affil[1]{Instituto de Informática\\ Universidade Federal do Rio Grande do Sul}
-#+LATEX_HEADER: \affil[ ]{\normalsize\textup{\texttt{\{hcpsilva, schnorr\}@inf.ufrgs.br}}}
+#+title: Experimentos Computacionais com Aplicações Paralelas baseadas em Tarefas
+#+subtitle: Salão de Iniciação Científica UFRGS 2019
+#+date: 08 de junho, 2019
+#+latex_class: article
+#+latex_class_options: [twocolumn,a4paper]
+#+options: toc:nil author:nil
+#+latex_header: \usepackage[margin=1in]{geometry}
+#+latex_header: \usepackage{lipsum}
+#+latex_header: \usepackage{authblk}
+#+latex_header: \author[1]{Henrique Corrêa Pereira da Silva}
+#+latex_header: \author[1]{Lucas Mello Schnorr}
+#+latex_header: \affil[1]{Informatics Institute\\Universidade Federal do Rio Grande do Sul}
+#+latex_header: \affil[ ]{\normalsize\textup{\texttt{\{hcpsilva, schnorr\}@inf.ufrgs.br}}}
 
 \lipsum
