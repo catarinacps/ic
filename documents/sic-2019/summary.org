@@ -1,10 +1,10 @@
 #+title: Experimentos Computacionais com Aplicações Paralelas baseadas em Tarefas
 #+subtitle: Salão de Iniciação Científica UFRGS 2019
 #+date: June 8, 2019 @@latex:\\@@ Porto Alegre, Brazil
-#+latex_class: article
-#+latex_class_options: [twocolumn,a4paper]
 #+options: toc:nil author:nil
 
+#+latex_class: article
+#+latex_class_options: [twocolumn,a4paper]
 #+latex_header: \usepackage[margin=1in]{geometry}
 #+latex_header: \usepackage{lipsum}
 #+latex_header: \usepackage{authblk}
