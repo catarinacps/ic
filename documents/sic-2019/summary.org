@@ -1,6 +1,6 @@
 #+title: Experimentos Computacionais com Aplicações Paralelas baseadas em Tarefas
 #+subtitle: Salão de Iniciação Científica UFRGS 2019
-#+date: June 8, 2019 @@latex:\\@@ Porto Alegre, Brazil
+#+date: June 8, 2019
 #+options: toc:nil author:nil
 
 #+latex_class: article
@@ -24,7 +24,7 @@ as systems comprising of different GPUs and/or older CPUs joined in a /computer/
 development of /middleware/ capable of effectively distributing the workload
 into these hybrid architectures, taking advantage of the whole system and
 providing better performance without the need of huge investments into
-/homogeneous hardware/.
+/homogeneous/ hardware.
 
 We can divide the current parallel programming models into two broad categories:
 *process interaction* and *problem decomposition*. Models that fall into the
