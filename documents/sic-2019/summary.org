@@ -1,19 +1,18 @@
 #+title: Experimentos Computacionais com Aplicações Paralelas baseadas em Tarefas
 #+subtitle: Salão de Iniciação Científica UFRGS 2019
-#+date: June 8, 2019
 #+options: toc:nil author:nil
 
 #+latex_class: article
-#+latex_class_options: [twocolumn,a4paper]
+#+latex_class_options: [twocolumn, a4paper]
 #+latex_header: \usepackage[margin=1in]{geometry}
-#+latex_header: \usepackage{lipsum}
 #+latex_header: \usepackage{authblk}
 #+latex_header: \author[1]{Henrique Corrêa Pereira da Silva}
 #+latex_header: \author[1]{Lucas Mello Schnorr}
 #+latex_header: \affil[1]{Informatics Institute\\Universidade Federal do Rio Grande do Sul}
 #+latex_header: \affil[ ]{}
-#+latex_header: \affil[ ]{\normalsize\textup{\texttt{\{hcpsilva, schnorr\}@inf.ufrgs.br}}}
+#+latex_header: \affil[ ]{\normalsize\texttt{\{hcpsilva, schnorr\}@inf.ufrgs.br}}
 
+# Explain the context more clearly to someone with no background
 The incessant pursuit of ever-more performance in all kinds of computing systems
 led software developers inevitably into the development of parallel
 applications. These applications make use of, traditionally, multiple
@@ -26,6 +25,7 @@ into these hybrid architectures, taking advantage of the whole system and
 providing better performance without the need of huge investments into
 /homogeneous/ hardware.
 
+# This paragraph is a train wreck
 We can divide the current parallel programming models into two broad categories:
 *process interaction* and *problem decomposition*. Models that fall into the
 process interaction category generally deal with more down-to-the-metal
@@ -37,6 +37,7 @@ the execution into threads (also called tasks). Having said that, we can also
 categorize instruction and data parallelism into problem decomposition, even
 though these are generally performed by the compiler and/or hardware.
 
+# Introduce task-based programming more clearly
 One of the efforts into making a middleware capable of such /heterogeneous/
 /computation/ is called /StarPU/, which approaches the problem with a task-based
 model in mind, defining tasks into a directed acyclic graph. While the creation
