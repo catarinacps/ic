@@ -727,6 +727,7 @@ https://alegrand.github.io/bookrr/
 :PROPERTIES:
 :ATTACH_DIR: resources/project/
 :ATTACH_DIR_INHERIT: t
+:Attachments: ic-ufrgs-starpu-2018.pdf
 :END:
 
 Here's everything about my scholarship planning and project as a whole.

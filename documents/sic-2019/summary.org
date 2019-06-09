@@ -1,6 +1,6 @@
 #+title: Experimentos Computacionais com Aplicações Paralelas baseadas em Tarefas
 #+subtitle: Salão de Iniciação Científica UFRGS 2019
-#+date: 08 de junho, 2019
+#+date: 08 de junho, 2019 @@latex:\\@@ Porto Alegre, Brazil
 #+latex_class: article
 #+latex_class_options: [twocolumn,a4paper]
 #+options: toc:nil author:nil
