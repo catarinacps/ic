@@ -10,7 +10,7 @@
 #+latex_header: \author[1]{Lucas Mello Schnorr}
 #+latex_header: \affil[1]{Informatics Institute\\Universidade Federal do Rio Grande do Sul}
 #+latex_header: \affil[ ]{}
-#+latex_header: \affil[ ]{\normalsize\texttt{\{hcpsilva, schnorr\}@inf.ufrgs.br}}
+#+latex_header: \affil[1]{\normalsize\texttt{\{hcpsilva, schnorr\}@inf.ufrgs.br}}
 
 # Explain the context more clearly to someone with no background
 The incessant pursuit of ever-more performance in all kinds of computing systems
