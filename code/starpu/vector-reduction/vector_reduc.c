@@ -14,7 +14,7 @@ double get_time(void)
 void merge_sum(void** buffers, void* cl_arg)
 {
     int somatorio = 0;
-    struct params2* par = (struct params2*)cl_arg;
+    merge_params_t* par = (merge_params_t*)cl_arg;
 
     printf("%d\n", par->nbuffers);
 
@@ -35,7 +35,7 @@ void reduc_sum(void** buffers, void* cl_arg)
     unsigned nx_input = STARPU_VECTOR_GET_NX(buffers[0]);
     unsigned nx_output = STARPU_VECTOR_GET_NX(buffers[1]);
 
-    struct params* par = (struct params*)cl_arg;
+    reduc_params_t* par = (reduc_params_t*)cl_arg;
 
     double t0 = get_time();
     /* printf("%f Task started %p - %p, begin=%d, end=%d\n", */
@@ -138,19 +138,19 @@ int main(int argc, char** argv)
     for (int i = 0; i < n_blocks; i++) {
         modes[i] = STARPU_R;
     }
-    cl1.dyn_modes = modes;
+    merge_cl.dyn_modes = modes;
     merge_cl.nbuffers = n_blocks;
 
     // Parameters for the merge
     merge_params_t params;
 
     // prepare the parameters
-    params->nbuffers = n_blocks;
+    params.nbuffers = n_blocks;
 
     struct starpu_task* task = starpu_task_create();
     task->synchronous = 0;
     task->cl = &merge_cl;
-    task->cl_arg = params;
+    task->cl_arg = &params;
     task->cl_arg_size = sizeof(merge_params_t);
     task->dyn_handles = malloc(task->cl->nbuffers * sizeof(starpu_data_handle_t));
     for (int i = 0; i < task->cl->nbuffers; i++) {
@@ -166,6 +166,4 @@ int main(int argc, char** argv)
     double ts1 = get_time();
     double elapsed = ts1 - ts0;
     printf("start: %.4f\nend: %.4f\nelapsed: %.4f\n", ts0, ts1, elapsed);
-
-    printf("fim: %d\n", fim);
 }
