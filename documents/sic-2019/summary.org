@@ -1,5 +1,5 @@
-#+title: Experimentos Computacionais com Aplicações Paralelas baseadas em Tarefas
-#+subtitle: Salão de Iniciação Científica UFRGS 2019
+#+title: Experimentos Computacionais com @@latex:\\@@Aplicações Paralelas baseadas em Tarefas
+#+subtitle: /Salão de Iniciação Científica UFRGS 2019/
 #+options: toc:nil author:nil
 
 #+latex_class: article
@@ -7,7 +7,7 @@
 #+latex_header: \usepackage[margin=1in]{geometry}
 #+latex_header: \usepackage{authblk}
 #+latex_header: \author[1]{Henrique Corrêa Pereira da Silva}
-#+latex_header: \author[1]{Lucas Mello Schnorr}
+#+latex_header: \author[1]{Lucas Mello Schnorr (advisor)}
 #+latex_header: \affil[1]{Informatics Institute\\Universidade Federal do Rio Grande do Sul}
 #+latex_header: \affil[ ]{}
 #+latex_header: \affil[1]{\normalsize\texttt{\{hcpsilva, schnorr\}@inf.ufrgs.br}}
