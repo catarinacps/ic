@@ -46,3 +46,11 @@ execution and distribution of tasks in the hardware. Besides its
 programmer-friendly way of defining the threads of execution, a graph is a
 powerful way to declare data dependencies between said threads, as shared data
 can also be thought as a node in the graph.
+
+* Comentários                                                      :noexport:
+
+- [X] Contextualização (processamento paralelo e clusters de computadores heterogêneos CPU/GPU)
+- Identificação do problema (execução paralela de aplicações paralelas de maneira eficiente)
+- [X] Motivação (emprego de uma abordagem que se adéqua à computação heterogênea)
+- Metodologia (criação de programas paralelos voltados à tarefas - com o DAG)
+- Resultados até o momento (execuções pequenas) 
