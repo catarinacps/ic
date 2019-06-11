@@ -68,7 +68,7 @@
 #  License text for the above reference.)
 
 if (NOT STARPU_FOUND)
-  set(STARPU_DIR "" CACHE PATH "Installation directory of STARPU library")
+  # set(STARPU_DIR "" CACHE PATH "Installation directory of STARPU library")
   if (NOT STARPU_FIND_QUIETLY)
     message(STATUS "A cache variable, namely STARPU_DIR, has been set to specify the install directory of STARPU")
   endif()
