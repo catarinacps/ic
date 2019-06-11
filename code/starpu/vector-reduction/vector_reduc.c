@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include <sys/time.h>
 
 #include "vector_reduc.h"
@@ -9,6 +10,17 @@ double get_time(void)
     struct timeval tr;
     gettimeofday(&tr, NULL);
     return (double)tr.tv_sec + (double)tr.tv_usec / 1000000;
+}
+
+unsigned int merge_depth(unsigned int items, unsigned int degree)
+{
+    unsigned int ret = 1;
+
+    while (items > pow(degree, ret)) {
+        ret++;
+    }
+
+    return ret;
 }
 
 void merge_sum(void** buffers, void* cl_arg)
@@ -54,24 +66,27 @@ void reduc_sum(void** buffers, void* cl_arg)
 int main(int argc, char** argv)
 {
     if (argc != 3) {
-        printf("Please, provide the following parameters:\n"
+        printf("Please provide the following parameters:\n"
                "%s <problem_size> <n_blocks>\n",
             argv[0]);
-        exit(0);
+        exit(-1);
     }
 
-    unsigned int nx;
-    unsigned int n_blocks;
-    unsigned int block_size;
+    unsigned int nx = atoi(argv[1]);
+    unsigned int n_blocks = atoi(argv[2]);
+    unsigned int degree = atoi(argv[3]);
 
-    nx = atoi(argv[1]);
-    n_blocks = atoi(argv[2]);
+    if (degree == 1) {
+        printf("Please insert a degree of reduction bigger than 1\n");
+        exit(-1);
+    }
 
     // calculating the block_size
-    block_size = nx / n_blocks;
-
+    unsigned int block_size = nx / n_blocks;
     printf("There are %d blocks, each one with %d elements.\n",
         n_blocks, block_size);
+
+    unsigned int reduction_merge_depth = merge_depth(n_blocks, degree);
 
     int ec = starpu_init(NULL);
     starpu_profiling_status_set(STARPU_PROFILING_DISABLE);

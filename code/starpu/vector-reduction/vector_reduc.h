@@ -4,6 +4,8 @@ void merge_sum(void** buffers, void* cl_arg);
 
 void reduc_sum(void** buffers, void* cl_arg);
 
+unsigned int merge_depth(unsigned int items, unsigned int degree);
+
 double get_time(void);
 
 struct starpu_codelet reduc_cl = {
