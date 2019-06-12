@@ -1,13 +1,18 @@
-#+title: Experimentos Computacionais com @@latex:\\@@Aplicações Paralelas baseadas em Tarefas
+#+title: Computational Experiments on Task-Based Parallel Aplications
 #+subtitle: /Salão de Iniciação Científica UFRGS 2019/
 #+options: toc:nil author:nil
 
 #+latex_class: article
 #+latex_class_options: [twocolumn, a4paper]
+
 #+latex_header: \usepackage[margin=1in]{geometry}
 #+latex_header: \usepackage{authblk}
-#+latex_header: \author[1]{Henrique Corrêa Pereira da Silva}
-#+latex_header: \author[1]{Lucas Mello Schnorr (advisor)}
+#+latex_header: \usepackage{lipsum}
+#+latex_header: \usepackage{showframe}
+#+latex_header: \usepackage{titling}
+#+latex_header: \setlength{\droptitle}{-1.2cm}
+#+latex_header: \author{Henrique Corrêa Pereira da Silva}
+#+latex_header: \author{Lucas Mello Schnorr (advisor)}
 #+latex_header: \affil[1]{Informatics Institute\\Universidade Federal do Rio Grande do Sul}
 #+latex_header: \affil[ ]{}
 #+latex_header: \affil[1]{\normalsize\texttt{\{hcpsilva, schnorr\}@inf.ufrgs.br}}
@@ -49,8 +54,14 @@ can also be thought as a node in the graph.
 
 * Comentários                                                      :noexport:
 
-- [X] Contextualização (processamento paralelo e clusters de computadores heterogêneos CPU/GPU)
-- Identificação do problema (execução paralela de aplicações paralelas de maneira eficiente)
-- [X] Motivação (emprego de uma abordagem que se adéqua à computação heterogênea)
-- Metodologia (criação de programas paralelos voltados à tarefas - com o DAG)
-- Resultados até o momento (execuções pequenas) 
+*Roteiro*:
+
+- [X] Contextualização (processamento paralelo e clusters de computadores
+  heterogêneos CPU/GPU)
+- [ ] Identificação do problema (execução paralela de aplicações paralelas de
+  maneira eficiente)
+- [X] Motivação (emprego de uma abordagem que se adéqua à computação
+  heterogênea)
+- [ ] Metodologia (criação de programas paralelos voltados à tarefas - com o
+  DAG)
+- [ ] Resultados até o momento (execuções pequenas)
