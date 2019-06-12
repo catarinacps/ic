@@ -1,8 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <sys/time.h>
-
 #include "vector_reduc.h"
 
 double get_time(void)
@@ -10,6 +5,17 @@ double get_time(void)
     struct timeval tr;
     gettimeofday(&tr, NULL);
     return (double)tr.tv_sec + (double)tr.tv_usec / 1000000;
+}
+
+void alloc_and_register_integer_vector(starpu_data_handle_t* handle, size_t size, int init_value)
+{
+    int* vector = (int*)malloc(size * sizeof(int));
+
+    for (int i; i < size; i++) {
+        vector[i] = init_value;
+    }
+
+    starpu_vector_data_register(handle, STARPU_MAIN_RAM, (uintptr_t)vector, size, sizeof(int));
 }
 
 unsigned int merge_depth(unsigned int items, unsigned int degree)
@@ -149,28 +155,27 @@ int main(int argc, char** argv)
         int ec = starpu_task_submit(task);
     }
 
-
-    //input vector is equal to the output_handle.
-    starpu_data_handle_t *inputs = output_handle;
+    // input vector is equal to the output_handle.
+    starpu_data_handle_t* inputs = output_handle;
     int n_inputs = n_blocks;
-    while(){
-      starpu_data_handle_t *new_outputs = malloc(sizeof(starpu_data_handle_t*) * n_inputs/degree);
-      for(int k, i = 0; i < n_inputs; i += degree, k++){
-	//prepare the input handles according to the i index
-	starpu_data_handle_t *task_inputs = malloc(sizeof(starpu_data_handle_t*) * degree);
-       	for (j = 0; j < degree; j++){
-	  task_inputs[j] = inputs[i+j];
-	}
-        //create an output handle, put in an output vector
-	//register new_outputs[k]
-        //submit_merge_task (inputs, output)
-	submit_merge_task(task_inputs, degree, new_outputs[k]); 
-      }
-      //replace inputs vector by the smaller output vector
-      inputs = new_outputs;
-      n_inputs = n_blocks/degree;
+    while () {
+        starpu_data_handle_t* new_outputs = malloc(sizeof(starpu_data_handle_t*) * n_inputs / degree);
+        for (int k, i = 0; i < n_inputs; i += degree, k++) {
+            //prepare the input handles according to the i index
+            starpu_data_handle_t* task_inputs = malloc(sizeof(starpu_data_handle_t*) * degree);
+            for (j = 0; j < degree; j++) {
+                task_inputs[j] = inputs[i + j];
+            }
+            //create an output handle, put in an output vector
+            //register new_outputs[k]
+            //submit_merge_task (inputs, output)
+            submit_merge_task(task_inputs, degree, new_outputs[k]);
+        }
+        //replace inputs vector by the smaller output vector
+        inputs = new_outputs;
+        n_inputs = n_blocks / degree;
     }
-    
+
     starpu_task_wait_for_all();
     //  starpu_data_unregister(vec_handle);
     //  starpu_data_unregister(vec_output_handle);
@@ -181,28 +186,26 @@ int main(int argc, char** argv)
     printf("start: %.4f\nend: %.4f\nelapsed: %.4f\n", ts0, ts1, elapsed);
 }
 
+/* enum starpu_data_access_mode modes[n_blocks]; */
+/* for (int i = 0; i < n_blocks; i++) { */
+/*     modes[i] = STARPU_R; */
+/* } */
+/* merge_cl.dyn_modes = modes; */
+/* merge_cl.nbuffers = n_blocks; */
 
+/* // Parameters for the merge */
+/* merge_params_t params; */
 
-    /* enum starpu_data_access_mode modes[n_blocks]; */
-    /* for (int i = 0; i < n_blocks; i++) { */
-    /*     modes[i] = STARPU_R; */
-    /* } */
-    /* merge_cl.dyn_modes = modes; */
-    /* merge_cl.nbuffers = n_blocks; */
+/* // prepare the parameters */
+/* params.nbuffers = n_blocks; */
 
-    /* // Parameters for the merge */
-    /* merge_params_t params; */
-
-    /* // prepare the parameters */
-    /* params.nbuffers = n_blocks; */
-
-    /* struct starpu_task* task = starpu_task_create(); */
-    /* task->synchronous = 0; */
-    /* task->cl = &merge_cl; */
-    /* task->cl_arg = &params; */
-    /* task->cl_arg_size = sizeof(merge_params_t); */
-    /* task->dyn_handles = malloc(task->cl->nbuffers * sizeof(starpu_data_handle_t)); */
-    /* for (int i = 0; i < task->cl->nbuffers; i++) { */
-    /*     task->dyn_handles[i] = output_handle[i]; */
-    /* } */
-    /* int ec2 = starpu_task_submit(task); */
+/* struct starpu_task* task = starpu_task_create(); */
+/* task->synchronous = 0; */
+/* task->cl = &merge_cl; */
+/* task->cl_arg = &params; */
+/* task->cl_arg_size = sizeof(merge_params_t); */
+/* task->dyn_handles = malloc(task->cl->nbuffers * sizeof(starpu_data_handle_t)); */
+/* for (int i = 0; i < task->cl->nbuffers; i++) { */
+/*     task->dyn_handles[i] = output_handle[i]; */
+/* } */
+/* int ec2 = starpu_task_submit(task); */

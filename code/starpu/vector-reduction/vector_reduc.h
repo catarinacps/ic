@@ -1,4 +1,10 @@
+#include <math.h>
 #include <starpu.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/time.h>
+
+void alloc_and_register_integer_vector(starpu_data_handle_t* handle, size_t size, int init_value);
 
 void merge_sum(void** buffers, void* cl_arg);
 

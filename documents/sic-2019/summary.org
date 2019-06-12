@@ -8,7 +8,6 @@
 #+latex_header: \usepackage[margin=1in]{geometry}
 #+latex_header: \usepackage{authblk}
 #+latex_header: \usepackage{lipsum}
-#+latex_header: \usepackage{showframe}
 #+latex_header: \usepackage{titling}
 #+latex_header: \setlength{\droptitle}{-1.2cm}
 #+latex_header: \author{Henrique Corrêa Pereira da Silva}
