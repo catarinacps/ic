@@ -7,17 +7,6 @@ double get_time(void)
     return (double)tr.tv_sec + (double)tr.tv_usec / 1000000;
 }
 
-void alloc_and_register_integer_vector(starpu_data_handle_t* handle, size_t size, int init_value)
-{
-    int* vector = (int*)malloc(size * sizeof(int));
-
-    for (int i; i < size; i++) {
-        vector[i] = init_value;
-    }
-
-    starpu_vector_data_register(handle, STARPU_MAIN_RAM, (uintptr_t)vector, size, sizeof(int));
-}
-
 unsigned int merge_depth(unsigned int items, unsigned int degree)
 {
     unsigned int ret = 1;
