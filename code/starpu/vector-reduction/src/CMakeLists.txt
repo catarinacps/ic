@@ -1,7 +1,7 @@
-file(GLOB_RECURSE SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+# Looks for source files in the directory this CMakeLists.txt is
+file(GLOB_RECURSE SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/*.c)
 
 link_directories(${STARPU_LIBRARY_DIRS})
 
-message("${SOURCES}")
 add_executable(vector_reduc ${SOURCES})
 target_link_libraries(vector_reduc ${STARPU_LIBRARIES_DEP})

@@ -38,9 +38,8 @@ void merge_sum(void** buffers, void* cl_arg)
 void reduc_sum(void** buffers, void* cl_arg)
 {
     int* vec_input = (int*)STARPU_VECTOR_GET_PTR(buffers[0]);
-    int* vec_output = (int*)STARPU_VECTOR_GET_PTR(buffers[1]);
+    int* output = (int*)STARPU_VARIABLE_GET_PTR(buffers[1]);
     unsigned nx_input = STARPU_VECTOR_GET_NX(buffers[0]);
-    unsigned nx_output = STARPU_VECTOR_GET_NX(buffers[1]);
 
     reduc_params_t* par = (reduc_params_t*)cl_arg;
 
@@ -49,13 +48,35 @@ void reduc_sum(void** buffers, void* cl_arg)
     /* 	   t0, vec_input, vec_output, par->begin, par->end); */
 
     // do the job
-    for (int i = 0; i < (par->end - par->begin); i++) {
-        vec_output[0] += vec_input[i];
+    for (int i = 0; i < nx_input; i++) {
+        output += vec_input[i];
     }
 
     double t1 = get_time();
     /* printf("%f Task finished to work with begin=%d (%f)\n", */
     /* 	   t1, par->begin, t1 - t0); */
+}
+
+int submit_reduction_task(int blksize, int blkid, starpu_data_handle_t* input_handle, starpu_data_handle_t* output_handle)
+{
+    reduc_params_t* params;
+    params = (reduc_params_t*)malloc(sizeof(reduc_params_t));
+
+    // prepare the parameters
+    params->begin = blksize * blkid;
+    params->end = blksize * blkid + blksize;
+
+    struct starpu_task* task = starpu_task_create();
+
+    task->synchronous = 0;
+    task->cl = &reduc_cl;
+    task->cl_arg = params;
+    task->cl_arg_size = sizeof(reduc_params_t);
+    task->handles[0] = *input_handle;
+    task->handles[1] = *output_handle;
+
+    // return the error code
+    return starpu_task_submit(task);
 }
 
 int main(int argc, char** argv)
@@ -86,62 +107,22 @@ int main(int argc, char** argv)
     int ec = starpu_init(NULL);
     starpu_profiling_status_set(STARPU_PROFILING_DISABLE);
 
+    double ts0 = get_time();
+
     // INPUT
     starpu_data_handle_t input_handle[n_blocks];
-
-    for (int i = 0; i < n_blocks; i++) {
-        int* vec = (int*)malloc(block_size * sizeof(int));
-
-        for (int j = 0; j < block_size; j++) {
-            vec[j] = 2;
-        }
-
-        // register with starpu
-        starpu_vector_data_register(
-            &input_handle[i],
-            STARPU_MAIN_RAM,
-            (uintptr_t)vec,
-            block_size, // number of elements
-            sizeof(int)); // size of the type of elements
-    }
-
-    double ts0 = get_time();
+    int* vectors[n_blocks];
 
     // OUTPUT
     starpu_data_handle_t output_handle[n_blocks];
-
-    for (int i = 0; i < n_blocks; i++) {
-        int* vec = (int*)malloc(sizeof(int));
-
-        *vec = 0;
-
-        // register with starpu
-        starpu_vector_data_register(
-            &output_handle[i],
-            STARPU_MAIN_RAM,
-            (uintptr_t)vec,
-            block_size, // number of elements
-            sizeof(int)); // size of the type of elements
-    }
+    int* initial_reduction[n_blocks];
 
     for (int blkid = 0; blkid < n_blocks; blkid++) {
+        vectors[blkid] = alloc_and_register_integer_vector(&input_handle[blkid], block_size, 2);
 
-        reduc_params_t* params;
-        params = (reduc_params_t*)malloc(sizeof(reduc_params_t));
+        initial_reduction[blkid] = alloc_and_register_integer_variable(&output_handle[blkid], 0);
 
-        // prepare the parameters
-        params->begin = block_size * blkid;
-        params->end = block_size * blkid + block_size;
-
-        struct starpu_task* task = starpu_task_create();
-        task->synchronous = 0;
-        task->cl = &reduc_cl;
-        task->cl_arg = params;
-        task->cl_arg_size = sizeof(reduc_params_t);
-        task->handles[0] = input_handle[blkid];
-        task->handles[1] = output_handle[blkid];
-
-        int ec = starpu_task_submit(task);
+        submit_reduction_task(block_size, blkid, &input_handle[blkid], &output_handle[blkid]);
     }
 
     // input vector is equal to the output_handle.

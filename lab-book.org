@@ -35,6 +35,7 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
     - [[#2019-06-07][2019-06-07]]
     - [[#2019-06-08][2019-06-08]]
     - [[#2019-06-09][2019-06-09]]
+    - [[#2019-06-14][2019-06-14]]
   - [[#meetings][Meetings]]
     - [[#2019-04-30-tips-for-org-mode][2019-04-30 Tips for ORG-Mode]]
     - [[#2019-05-14-meeting][2019-05-14 Meeting]]
@@ -141,10 +142,10 @@ spack find
 
 Then, add the =solverstack= from the INRIA GitLab:
 
-#+BEGIN_SRC shell
-  git clone https://gitlab.inria.fr/solverstack/spack-repo.git solverstack
-  spack repo add solverstack/
-#+END_SRC
+#+begin_src shell
+git clone https://gitlab.inria.fr/solverstack/spack-repo.git solverstack
+spack repo add solverstack/
+#+end_src
 
 ****** starpu with spack
 
@@ -386,6 +387,10 @@ working I'll consider making it public.
 I intend to write some more of the SIC summary today, but I'll focus on trying
 to finish the vector reduction code.
 
+*** 2019-06-14
+
+I've fixed the CMakeLists from the vector reduction code and now it works! Also
+I've made some helper functions and the code is now easier to read.
 
 ** Meetings
 
