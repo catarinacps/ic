@@ -36,6 +36,7 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
     - [[#2019-06-08][2019-06-08]]
     - [[#2019-06-09][2019-06-09]]
     - [[#2019-06-14][2019-06-14]]
+    - [[#2019-06-15][2019-06-15]]
   - [[#meetings][Meetings]]
     - [[#2019-04-30-tips-for-org-mode][2019-04-30 Tips for ORG-Mode]]
     - [[#2019-05-14-meeting][2019-05-14 Meeting]]
@@ -74,7 +75,6 @@ Here I'll write my daily tasks and to-dos so I can keep track of what I'm doing.
 
 *Active items*:
 - [ ] write a summary about my internship for the SIC2019 (*DEADLINE* 2019-06-21)
-- [ ] finish the vector reduction code
 - [ ] finish my config.org file
 - [ ] start bringing snacks to the lab
 - [ ] read more about openmp and mpi
@@ -87,6 +87,7 @@ Here I'll write my daily tasks and to-dos so I can keep track of what I'm doing.
 - [X] try the starpu examples
 - [X] get the starpu wrapper classes started
 - [X] get the vector reduction code going
+- [X] finish the vector reduction code
 
 ** Daily
 
@@ -391,6 +392,14 @@ to finish the vector reduction code.
 
 I've fixed the CMakeLists from the vector reduction code and now it works! Also
 I've made some helper functions and the code is now easier to read.
+
+*** 2019-06-15
+
+The vector reduction code is now working! The development cycle was greatly
+diminished when I installed StarPU in my computer (go figure huh).
+
+There are some not-that-great fixes to make the code work, but in my opinion
+it's pretty good.
 
 ** Meetings
 

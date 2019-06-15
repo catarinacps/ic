@@ -7,6 +7,11 @@ double get_time(void)
     return (double)tr.tv_sec + (double)tr.tv_usec / 1000000;
 }
 
+int generate_random_int(const int max, const int min)
+{
+    return rand() % (max + 1 - min) + min;
+}
+
 unsigned int merge_depth(unsigned int items, unsigned int degree)
 {
     unsigned int ret = 1;
@@ -49,10 +54,12 @@ void reduc_sum(void** buffers, void* cl_arg)
 
     // do the job
     for (int i = 0; i < nx_input; i++) {
-        output += vec_input[i];
+        *output += vec_input[i];
     }
 
     double t1 = get_time();
+
+    printf("======> Sum = %d\n", *output);
     /* printf("%f Task finished to work with begin=%d (%f)\n", */
     /* 	   t1, par->begin, t1 - t0); */
 }
@@ -81,9 +88,9 @@ int submit_reduction_task(int blksize, int blkid, starpu_data_handle_t* input_ha
 
 int main(int argc, char** argv)
 {
-    if (argc != 3) {
+    if (argc != 4) {
         printf("Please provide the following parameters:\n"
-               "%s <problem_size> <n_blocks>\n",
+               "%s <problem_size> <n_blocks> <degree>\n",
             argv[0]);
         exit(-1);
     }
@@ -114,36 +121,58 @@ int main(int argc, char** argv)
     int* vectors[n_blocks];
 
     // OUTPUT
-    starpu_data_handle_t output_handle[n_blocks];
-    int* initial_reduction[n_blocks];
+    starpu_data_handle_t output_elements_handle[n_blocks];
+    // Yes I know that's a lazy solution but hey
+    int initial_reduction[n_blocks + degree];
+    memset(initial_reduction, 0, (n_blocks + degree) * sizeof(int));
 
     for (int blkid = 0; blkid < n_blocks; blkid++) {
-        vectors[blkid] = alloc_and_register_integer_vector(&input_handle[blkid], block_size, 2);
+        vectors[blkid] = alloc_and_register_integer_vector(&input_handle[blkid], block_size, 0);
 
-        initial_reduction[blkid] = alloc_and_register_integer_variable(&output_handle[blkid], 0);
+        for (int i = 0; i < block_size; i++) {
+            vectors[blkid][i] = generate_random_int(MAX_RAND, MIN_RAND);
+            printf("rand = %d\n", vectors[blkid][i]);
+        }
 
-        submit_reduction_task(block_size, blkid, &input_handle[blkid], &output_handle[blkid]);
+        register_integer_variable(&output_elements_handle[blkid], &initial_reduction[blkid]);
+
+        submit_reduction_task(block_size, blkid, &input_handle[blkid], &output_elements_handle[blkid]);
     }
 
-    // input vector is equal to the output_handle.
-    starpu_data_handle_t* inputs = output_handle;
+    starpu_task_wait_for_all();
+
+    // MERGE
     int n_inputs = n_blocks;
-    while () {
-        starpu_data_handle_t* new_outputs = malloc(sizeof(starpu_data_handle_t*) * n_inputs / degree);
-        for (int k, i = 0; i < n_inputs; i += degree, k++) {
-            //prepare the input handles according to the i index
-            starpu_data_handle_t* task_inputs = malloc(sizeof(starpu_data_handle_t*) * degree);
-            for (j = 0; j < degree; j++) {
-                task_inputs[j] = inputs[i + j];
-            }
+
+    int depth = merge_depth(n_blocks, degree);
+    printf("depth = %d\n", depth);
+    int n_merges = (int)ceil((float)n_inputs / degree);
+    printf("n_merges = %d\n", n_merges);
+    int* merge_inputs = initial_reduction;
+    int* merge_outputs;
+
+    starpu_data_handle_t* merge_input_handles;
+
+    for (int i = 0; i < depth; i++) {
+        starpu_data_handle_t* merge_output_handles = malloc(sizeof(starpu_data_handle_t) * n_merges);
+
+        merge_input_handles = malloc(sizeof(starpu_data_handle_t) * n_merges);
+        merge_outputs = (int*)malloc(sizeof(int) * (n_merges + degree));
+        memset(merge_outputs, 0, (n_merges + degree) * sizeof(int));
+
+        for (int k = 0, j = 0; j < n_inputs; j += degree, k++) {
+            register_integer_vector(&merge_input_handles[k], &merge_inputs[j], degree);
+            register_integer_variable(&merge_output_handles[k], &merge_outputs[k]);
+
             //create an output handle, put in an output vector
             //register new_outputs[k]
-            //submit_merge_task (inputs, output)
-            submit_merge_task(task_inputs, degree, new_outputs[k]);
+            submit_reduction_task(degree, k, &merge_input_handles[k], &merge_output_handles[k]);
         }
+
         //replace inputs vector by the smaller output vector
-        inputs = new_outputs;
-        n_inputs = n_blocks / degree;
+        merge_inputs = merge_outputs;
+        n_inputs = n_merges;
+        n_merges = (int)ceil((float)n_inputs / degree);
     }
 
     starpu_task_wait_for_all();

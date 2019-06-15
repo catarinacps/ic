@@ -6,11 +6,16 @@
 
 #include "starpu_helpers.h"
 
+#define MAX_RAND 2048
+#define MIN_RAND -2048
+
 void merge_sum(void** buffers, void* cl_arg);
 
 void reduc_sum(void** buffers, void* cl_arg);
 
 unsigned int merge_depth(unsigned int items, unsigned int degree);
+
+int generate_random_int(const int max, const int min);
 
 int submit_reduction_task(int blksize, int blkid, starpu_data_handle_t* input_handle, starpu_data_handle_t* output_handle);
 
