@@ -9,15 +9,19 @@
 #define MAX_RAND 2048
 #define MIN_RAND -2048
 
-void merge_sum(void** buffers, void* cl_arg);
-
 void reduc_sum(void** buffers, void* cl_arg);
 
 unsigned int merge_depth(unsigned int items, unsigned int degree);
 
 int generate_random_int(const int max, const int min);
 
-int submit_reduction_task(int blksize, int blkid, starpu_data_handle_t* input_handle, starpu_data_handle_t* output_handle);
+struct starpu_task* submit_reduction_task(
+    int blksize,
+    int blkid,
+    starpu_data_handle_t* input_handle,
+    starpu_data_handle_t* output_handle,
+    unsigned int n_deps,
+    struct starpu_task* dependencies[]);
 
 double get_time(void);
 
@@ -27,15 +31,6 @@ struct starpu_codelet reduc_cl = {
     .nbuffers = 2,
     .modes = { STARPU_R, STARPU_W }
 };
-
-struct starpu_codelet merge_cl = {
-    .where = STARPU_CPU,
-    .cpu_funcs = { merge_sum }
-};
-
-typedef struct {
-    unsigned int nbuffers;
-} merge_params_t;
 
 typedef struct {
     unsigned int begin;
