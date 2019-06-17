@@ -33,3 +33,10 @@ void register_integer_vector(starpu_data_handle_t* handle, int vector[], size_t 
 {
     starpu_vector_data_register(handle, STARPU_MAIN_RAM, (uintptr_t)vector, size, sizeof(int));
 }
+
+void partition_vector_handle(starpu_data_handle_t* handle, const unsigned int n_parts)
+{
+    starpu_data_filter_t f = { .filter_func = starpu_vector_filter_block, .nchildren = n_parts };
+
+    starpu_data_partition(*handle, &f);
+}

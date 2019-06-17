@@ -16,9 +16,8 @@ unsigned int merge_depth(unsigned int items, unsigned int degree)
 {
     unsigned int ret = 1;
 
-    while (items > pow(degree, ret)) {
+    while (items > pow(degree, ret))
         ret++;
-    }
 
     return ret;
 }
@@ -36,9 +35,8 @@ void reduc_sum(void** buffers, void* cl_arg)
     /* 	   t0, vec_input, vec_output, par->begin, par->end); */
 
     // do the job
-    for (int i = 0; i < nx_input; i++) {
+    for (int i = 0; i < nx_input; i++)
         *output += vec_input[i];
-    }
 
     double t1 = get_time();
 
@@ -71,9 +69,8 @@ struct starpu_task* submit_reduction_task(
     task->handles[0] = *input_handle;
     task->handles[1] = *output_handle;
 
-    if (dependencies != NULL && n_deps > 0) {
+    if (dependencies != NULL && n_deps > 0)
         starpu_task_declare_deps_array(task, n_deps, dependencies);
-    }
 
     int ec = starpu_task_submit(task);
     return task;
@@ -99,14 +96,11 @@ int main(int argc, char** argv)
     printf("n_merges = %d\n", n_merges);
     printf("depth = %d\n", depth);
 
-    /* const unsigned int degree = atoi(argv[3]); */
-
     if (block_size <= 1) {
         printf("Please insert a block size bigger than 1\n");
         exit(-1);
     }
 
-    // calculating the block_size
     printf("There are %d blocks, each one with %d elements.\n", n_merges, block_size);
 
     int ec = starpu_init(NULL);
@@ -157,7 +151,7 @@ int main(int argc, char** argv)
                 NULL);
         }
 
-        //replace inputs vector by the smaller output vector
+        // replace inputs vector by the smaller output vector
         input_vector = output_vector;
         n_elements = n_merges;
         last_tasks_vector = tasks_vector;
@@ -165,8 +159,8 @@ int main(int argc, char** argv)
     }
 
     starpu_task_wait_for_all();
-    //  starpu_data_unregister(vec_handle);
-    //  starpu_data_unregister(vec_output_handle);
+    // starpu_data_unregister(vec_handle);
+    // starpu_data_unregister(vec_output_handle);
     starpu_shutdown();
 
     double ts1 = get_time();
