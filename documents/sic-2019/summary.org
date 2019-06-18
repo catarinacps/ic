@@ -15,6 +15,8 @@
 #+latex_header: \affil[]{}
 #+latex_header: \affil[]{\normalsize\texttt{\{hcpsilva, schnorr\}@inf.ufrgs.br}}
 
+#+latex: \thispagestyle{empty}
+
 # Explain the context more clearly to someone with no background
 The incessant pursuit of ever-more performance in all kinds of computing systems
 led software developers inevitably into the development of parallel
