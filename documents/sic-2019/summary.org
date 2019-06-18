@@ -1,4 +1,4 @@
-#+title: Computational Experiments on Task-Based @@latex:\\@@ Parallel Applications
+#+title: Computational Experiments on @@latex:\\@@  Task-Based Parallel Applications
 #+subtitle: /Salão de Iniciação Científica UFRGS 2019/
 #+options: toc:nil author:nil
 
@@ -8,11 +8,11 @@
 #+latex_header: \usepackage[margin=1in]{geometry}
 #+latex_header: \usepackage{authblk}
 #+latex_header: \usepackage{titling}
+#+latex_header: \usepackage{palatino}
 #+latex_header: \setlength{\droptitle}{-1.2cm}
 #+latex_header: \author{Henrique Corrêa Pereira da Silva}
 #+latex_header: \author{Lucas Mello Schnorr (advisor)}
 #+latex_header: \affil[]{Informatics Institute\\Universidade Federal do Rio Grande do Sul}
-#+latex_header: \affil[]{}
 #+latex_header: \affil[]{\normalsize\texttt{\{hcpsilva, schnorr\}@inf.ufrgs.br}}
 
 #+latex: \thispagestyle{empty}
