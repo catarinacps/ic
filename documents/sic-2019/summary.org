@@ -1,4 +1,4 @@
-#+title: Computational Experiments on Task-Based Parallel Aplications
+#+title: Computational Experiments on Task-Based @@latex:\\@@ Parallel Applications
 #+subtitle: /Salão de Iniciação Científica UFRGS 2019/
 #+options: toc:nil author:nil
 
@@ -21,37 +21,59 @@ The incessant pursuit of ever-more performance in all kinds of computing systems
 led software developers inevitably into the development of parallel
 applications. These applications make use of, traditionally, multiple
 /homogeneous/ hardware, be it multiple CPU cores or GPU boards. However, these
-implementations often lack the ability to conform to more common realities, such
-as systems comprising of different GPUs and/or older CPUs joined in a /computer/
-/cluster/. Given this demand, there has been considerable effort into the
-development of /middleware/ capable of effectively distributing the workload
+implementations often lack the ability to conform to less homogeneous realities,
+such as systems comprising of different /GPUs/ and/or older /CPUs/ joined in a
+/computer cluster/. Given this demand, there has been considerable effort into
+the development of /middleware/ capable of effectively distributing the workload
 into these hybrid architectures, taking advantage of the whole system and
 providing better performance without the need of huge investments into
-/homogeneous/ hardware.
+monolithic homogeneous hardware.
 
-# This paragraph is a train wreck
-We can divide the current parallel programming models into two broad categories:
-*process interaction* and *problem decomposition*. Models that fall into the
-process interaction category generally deal with more down-to-the-metal
-approaches, such as shared memory, message passing or even implicit interaction
-(mainly present in functional programming). On the other hand, problem
-decomposition deals mainly with higher-level approaches, such as task-based
-programming, where the application is designed with the necessity of splitting
-the execution into threads (also called tasks). Having said that, we can also
-categorize instruction and data parallelism into problem decomposition, even
-though these are generally performed by the compiler and/or hardware.
+# This paragraph is pretty good as is. One thing that could be cleared up is the
+# whole "common realities" thing. Use other words.
+
+There are several popular parallel programming models used currently, be it in
+the /HPC/ (High Performance Computing) environment or not. Some of the more
+popular ones are *message passing*, *shared memory* and *task-based* (and, even
+more common, any combination of the previous, which then is called a /hybrid
+model/). We can also classify said models using a more "high level" approach,
+separating them between SPMD (Single Program Multiple Data) and MPMD (Multiple
+Program Multiple Data), which can be built upon most parallel programming
+models. Having that said, the implementation of any combination of the
+previously cited models has been, characteristically, a very manual process,
+and, consequently, very error-prone, complex and time consuming. In order to
+mitigate that, most popular implementations of those models have tried to
+provide a friendly programming interface to the developer through better APIs or
+through compiler directives.
+
+# Explain better the different kinds of models in parallel programming and
+# problem decomposition. After that, provide some examples and present the
+# task-based approach (fix the next paragraph after that because as is it's
+# explaining that a bit).
 
 # Introduce task-based programming more clearly
 One of the efforts into making a middleware capable of such /heterogeneous/
 /computation/ is called /StarPU/, which approaches the problem with a task-based
 model in mind, defining tasks into a directed acyclic graph. While the creation
-of this graph is made in a more common sequential way, StarPU takes care of the
-execution and distribution of tasks in the hardware. Besides its
-programmer-friendly way of defining the threads of execution, a graph is a
-powerful way to declare data dependencies between said threads, as shared data
-can also be thought as a node in the graph.
+of this graph is made in a common sequential way, StarPU takes care of the
+execution and distribution of tasks in the hardware, freeing the developer from
+most low-level issues. Besides its programmer-friendly way of defining the tasks
+that will carry out the intended computation, a graph is also a powerful way to
+declare data dependencies between said tasks, as the data declared to the API
+data can also be thought as a node in said graph.
 
-* Comentários                                                      :noexport:
+# On this paragraph focus on how StarPU works, how the task declaration works,
+# how it approaches data handling.
+
+# After that, cite the objective of the scholarship, as in it was expected to
+# design and analyze the performance of applications written using said
+# task-based approach. Also talk about the process of writting parallel programs
+# (maybe cite PCAM?).
+
+# Finally, talk about the results obtained so far. Previous work also maybe?
+# Anyway, here it's interesting to maybe show a run example?
+
+* Comments                                                         :noexport:
 
 *Roteiro*:
 
