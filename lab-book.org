@@ -38,6 +38,7 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
     - [[#2019-06-14][2019-06-14]]
     - [[#2019-06-15][2019-06-15]]
     - [[#2019-06-16][2019-06-16]]
+    - [[#2019-06-17][2019-06-17]]
   - [[#meetings][Meetings]]
     - [[#2019-04-30-tips-for-org-mode][2019-04-30 Tips for ORG-Mode]]
     - [[#2019-05-14-meeting][2019-05-14 Meeting]]
@@ -410,6 +411,12 @@ follow some links to help me in the future:
 - [[http://starpu.gforge.inria.fr/doc/html/group__API__Data__Partition.html#gac24101bbe28b1d7d4a0874d349ba8979][get_sub_data]]
 - [[http://starpu.gforge.inria.fr/doc/html/DataManagement.html#PartitioningData][how to partition data]]
 - [[http://starpu.gforge.inria.fr/doc/html/group__API__Standard__Memory__Library.html#ga5a6ea6d03d7b0f4a97a8046b30ecd0bb][starpu memory pin]]
+
+*** 2019-06-17
+
+The following link is /really/ useful when you're introducing loads of concepts
+of parallel computing:
+[[https://computing.llnl.gov/tutorials/parallel_comp/]]
 
 ** Meetings
 
