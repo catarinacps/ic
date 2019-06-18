@@ -66,6 +66,8 @@ declared to the API data can also be thought as a node in said graph.
 # On this paragraph focus on how StarPU works, how the task declaration works,
 # how it approaches data handling.
 
+# This paragraph is very convoluted in its development of sentences and in its
+# natural flow.
 Following the intent behind the efforts of StarPU, we aim to investigate the
 task-based model of designing and implementing parallel applications using
 StarPU. In order to accomplish said work, the application of traditional methods
@@ -98,9 +100,9 @@ while utilizing heterogeneous systems.
 
 ** 2019-06-18 Meeting
 
-2nd par
+*2nd par*
 - [ ] Remove "and task-based"
-- [ ] Transform into a phrase "(and, even more common, any combination
+- [ ] Transform into a sentence "(and, even more common, any combination
   of the previous, which then is called a hybrid model )."
 - [ ] Give examples MPI, OpenMP. Talk about hybrid (MPI+OpenMP, very
   common today)
@@ -110,13 +112,15 @@ while utilizing heterogeneous systems.
   resources, by having different sizes for the pieces of work, if
   there is dynamic load imbalances it becomes harder to obtain good
   performances.
-4th par
+
+*4th par*
 - [ ] The objective of this work is to investigate how StarPU and its
   task-based model can be employed to code typical applications such
   as linear algebra. Once these applications are coded, we intend to
   run them in HPC platforms to evaluate the performance through common
   HPC metrics, such as makespan (execution time), load imbalance,
   occupation, and so on.
-5th par
-- [ ] So far, we have implemented a block vector reduction ... 
+
+*5th par*
+- [ ] So far, we have implemented a block vector reduction ...
   - [ ] How this has been implemented
