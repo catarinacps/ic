@@ -84,15 +84,12 @@ while utilizing heterogeneous systems.
 # visualize in the first place...
 
 * Comments                                                         :noexport:
+** 2019-06-11 Meeting
 
 *Roteiro*:
 
-- [X] Contextualização (processamento paralelo e clusters de computadores
-  heterogêneos CPU/GPU)
-- [ ] Identificação do problema (execução paralela de aplicações paralelas de
-  maneira eficiente)
-- [X] Motivação (emprego de uma abordagem que se adéqua à computação
-  heterogênea)
-- [ ] Metodologia (criação de programas paralelos voltados à tarefas - com o
-  DAG)
+- [X] Contextualização (processamento paralelo e clusters de computadores heterogêneos CPU/GPU)
+- [ ] Identificação do problema (execução paralela de aplicações paralelas de maneira eficiente)
+- [X] Motivação (emprego de uma abordagem que se adéqua à computação heterogênea)
+- [ ] Metodologia (criação de programas paralelos voltados à tarefas - com o DAG)
 - [ ] Resultados até o momento (execuções pequenas)
