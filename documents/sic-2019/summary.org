@@ -35,7 +35,7 @@ There are several popular parallel programming models used currently, be it on
 the /HPC/ (High Performance Computing) environment or not. Some of the more
 popular ones are *message passing*, *shared memory* and *task-based* (and, even
 more common, any combination of the previous, which then is called a /hybrid
-model/). We can also classify said models using a more "high level" approach,
+model/). We can also classify said models using a more ``high level'' approach,
 separating them between /SPMD/ (Single Program Multiple Data) and /MPMD/
 (Multiple Program Multiple Data), which can be built upon most parallel
 programming models. Having that said, the implementation of any combination of
