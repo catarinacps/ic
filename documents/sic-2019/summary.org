@@ -11,9 +11,9 @@
 #+latex_header: \setlength{\droptitle}{-1.2cm}
 #+latex_header: \author{Henrique Corrêa Pereira da Silva}
 #+latex_header: \author{Lucas Mello Schnorr (advisor)}
-#+latex_header: \affil[1]{Informatics Institute\\Universidade Federal do Rio Grande do Sul}
-#+latex_header: \affil[ ]{}
-#+latex_header: \affil[1]{\normalsize\texttt{\{hcpsilva, schnorr\}@inf.ufrgs.br}}
+#+latex_header: \affil[]{Informatics Institute\\Universidade Federal do Rio Grande do Sul}
+#+latex_header: \affil[]{}
+#+latex_header: \affil[]{\normalsize\texttt{\{hcpsilva, schnorr\}@inf.ufrgs.br}}
 
 # Explain the context more clearly to someone with no background
 The incessant pursuit of ever-more performance in all kinds of computing systems
