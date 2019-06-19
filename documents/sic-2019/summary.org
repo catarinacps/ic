@@ -34,18 +34,25 @@ quantities of homogeneous hardware.
 # whole "common realities" thing. Use other words.
 
 There are several popular parallel programming models used currently, be it on
-the /HPC/ (High Performance Computing) environment or not. Some of the more
-popular ones are *message passing*, *shared memory* and *task-based* (and, even
-more common, any combination of the previous, which then is called a /hybrid
-model/). We can also classify said models using a more ``high level'' approach,
-separating them between /SPMD/ (Single Program Multiple Data) and /MPMD/
-(Multiple Program Multiple Data), which can be built upon most parallel
-programming models. Having that said, the implementation of any combination of
-the previously cited models has been, characteristically, a very manual process,
-and, consequently, very error-prone, complex and time consuming. In order to
-mitigate that, most popular implementations of those models sought out to
-provide a friendly programming interface to the developer through better /APIs/
-(Application Programming Interfaces) or through compiler directives.
+the /HPC/ (High-Performance Computing) environment or not. Some of the more
+popular ones are *message passing*, *shared memory* and, even more common, any
+combination of other models, which then is called a *hybrid model*. Furthermore,
+the implementation of any combination of the previously cited models has been,
+characteristically, a very manual process, and, consequently, very error-prone,
+complex, and time-consuming. In order to mitigate that, most popular
+implementations of those models, such as /OpenMPI/, /OpenMP/ and the combination
+of the previous, sought out to provide a friendly programming interface to the
+developer through better /APIs/ (Application Programming Interfaces) or compiler
+directives. Still, a problem with those APIs is that the domain decomposition is
+fixed to the number of resources. So, despite the fact that these APIs can be
+adapted to more heterogeneous resources, by having those unequal pieces of work
+it becomes harder to obtain desirable performance due to dynamic load
+imbalances.
+
+# We can also classify said models using a more ``high level'' approach,
+# separating them between /SPMD/ (Single Program Multiple Data) and /MPMD/
+# (Multiple Program Multiple Data), which can be built upon most parallel
+# programming models.
 
 # Explain better the different kinds of models in parallel programming and
 # problem decomposition. After that, provide some examples and present the
@@ -70,17 +77,39 @@ declared to the API data can also be thought as a node in said graph.
 # natural flow.
 Following the intent behind the efforts of StarPU, we aim to investigate the
 task-based model of designing and implementing parallel applications using
-StarPU. In order to accomplish said work, the application of traditional methods
-of problem decomposition will be unavoidable, as a quality implementation of a
-task-based parallel program heavily relies on said planning. Also, as more
-traditional approaches generally utilize tools such as /OpenMP/ and /MPI/, it's
-also part of our scope of work compare those approaches to a StarPU counterpart
-while utilizing heterogeneous systems.
+StarPU and how StarPU can be employed to code typical applications such as
+linear algebra. Once these applications are coded, we intend to run them in HPC
+platforms to evaluate the performance through common HPC metrics, such as
+/makespan/ (execution time), load imbalance, occupation, and others.
 
 # After that, cite the objective of the scholarship, as in it was expected to
 # design and analyze the performance of applications written using said
 # task-based approach. Also talk about the process of writting parallel programs
 # (maybe cite PCAM?).
+
+Thus far, we have implemented a block vector reduction utilizing the task-based
+model. This implementation uses StarPU's C API to achieve a multi-level
+reduction determined by a block size parameter, which defines the size of each
+block that will be reduced to a single element. That is, the program splits the
+initial vectors in sub-vectors of size determined by parameter and sums the
+elements in these sub-vectors into single elements, which are then the new
+vector in which this split will be reapplied until we have a single element
+representing the sum of all elements. Thus, through the implementation of this
+application, it was shown that the StarPU runtime is a viable way to apply the
+task-based parallel computing method.
+
+#+begin_src emacs-lisp :exports none
+(defun get-selected-text (start end)
+  (interactive "r")
+  (kill-new
+   (replace-regexp-in-string
+    "\n" " "
+    (if (use-region-p)
+        (let ((regionp (buffer-substring start end)))
+          (replace-regexp-in-string "  " " " regionp))))))
+
+(global-set-key (kbd "<f9>") 'get-selected-text)
+#+end_src
 
 # Finally, talk about the results obtained so far. Previous work also maybe?
 # Anyway, here it's interesting to maybe show a run example? Even though that
@@ -101,26 +130,24 @@ while utilizing heterogeneous systems.
 ** 2019-06-18 Meeting
 
 *2nd par*
-- [ ] Remove "and task-based"
-- [ ] Transform into a sentence "(and, even more common, any combination
-  of the previous, which then is called a hybrid model )."
-- [ ] Give examples MPI, OpenMP. Talk about hybrid (MPI+OpenMP, very
-  common today)
-- [ ] A problem of these APIs (the universe based on MPI and OpenMP),
-  the domain decomposition is fixed and equal to the number of
-  resources. Despite the fact that it can be adapted for heterogeneous
-  resources, by having different sizes for the pieces of work, if
-  there is dynamic load imbalances it becomes harder to obtain good
-  performances.
+- [X] Remove "and task-based
+- [X] Transform into a sentence "(and, even more common, any combination of the
+  previous, which then is called a hybrid model )."
+- [X] Give examples MPI, OpenMP. Talk about hybrid (MPI+OpenMP, very common
+  today)
+- [X] A problem of these APIs (the universe based on MPI and OpenMP), the domain
+  decomposition is fixed and equal to the number of resources. Despite the fact
+  that it can be adapted for heterogeneous resources, by having different sizes
+  for the pieces of work, if there is dynamic load imbalances it becomes harder
+  to obtain good performances.
 
 *4th par*
-- [ ] The objective of this work is to investigate how StarPU and its
-  task-based model can be employed to code typical applications such
-  as linear algebra. Once these applications are coded, we intend to
-  run them in HPC platforms to evaluate the performance through common
-  HPC metrics, such as makespan (execution time), load imbalance,
-  occupation, and so on.
+- [X] The objective of this work is to investigate how StarPU and its task-based
+  model can be employed to code typical applications such as linear
+  algebra. Once these applications are coded, we intend to run them in HPC
+  platforms to evaluate the performance through common HPC metrics, such as
+  makespan (execution time), load imbalance, occupation, and so on.
 
 *5th par*
-- [ ] So far, we have implemented a block vector reduction ...
-  - [ ] How this has been implemented
+- [X] So far, we have implemented a block vector reduction ...
+  - [X] How this has been implemented
