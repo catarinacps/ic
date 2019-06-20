@@ -40,6 +40,7 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
     - [[#2019-06-16][2019-06-16]]
     - [[#2019-06-17][2019-06-17]]
     - [[#2019-06-18][2019-06-18]]
+    - [[#2019-06-19][2019-06-19]]
   - [[#meetings][Meetings]]
     - [[#2019-04-30-tips-for-org-mode][2019-04-30 Tips for ORG-Mode]]
     - [[#2019-05-14-meeting][2019-05-14 Meeting]]
@@ -424,6 +425,12 @@ of parallel computing:
 Today I've talked to Schnorr and defined that finishing the summary text for the
 SIC 2019 is the objective for now. We have defined some points of improvement in
 the text and what the last paragraph should talk about.
+
+*** 2019-06-19
+
+With Nesi's help I finished the summary text for SIC 2019. I think there's not
+much else to add, but I suppose we could add some small executions of the code?
+Though talking about that would require more text space.
 
 ** Meetings
 

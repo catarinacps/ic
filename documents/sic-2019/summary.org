@@ -98,25 +98,25 @@ representing the sum of all elements. Thus, through the implementation of this
 application, it was shown that the StarPU runtime is a viable way to apply the
 task-based parallel computing method.
 
-#+begin_src emacs-lisp :exports none
-(defun get-selected-text (start end)
-  (interactive "r")
-  (kill-new
-   (replace-regexp-in-string
-    "\n" " "
-    (if (use-region-p)
-        (let ((regionp (buffer-substring start end)))
-          (replace-regexp-in-string "  " " " regionp))))))
-
-(global-set-key (kbd "<f9>") 'get-selected-text)
-#+end_src
-
 # Finally, talk about the results obtained so far. Previous work also maybe?
 # Anyway, here it's interesting to maybe show a run example? Even though that
 # implies having a finished implementation whose execution data we could
 # visualize in the first place...
 
 * Comments                                                         :noexport:
+
+#+begin_src emacs-lisp :exports none
+(defun get-selected-text (start end)
+  (interactive "r")
+  (kill-new (replace-regexp-in-string
+             "\n" " "
+             (if (use-region-p)
+                 (let ((regionp (buffer-substring start end)))
+                   (replace-regexp-in-string "  " " " regionp))))))
+
+(global-set-key (kbd "<f9>") 'get-selected-text)
+#+end_src
+
 ** 2019-06-11 Meeting
 
 *Roteiro*:
