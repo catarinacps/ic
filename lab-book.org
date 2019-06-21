@@ -3,8 +3,6 @@
 #+email: hcpsilva@inf.ufrgs.br
 #+INFOJS_OPT:
 #+STARTUP: overview indent
-#+PROPERTY: session *R*
-#+PROPERTY: cache yes
 #+PROPERTY: results graphics
 #+PROPERTY: exports both
 #+PROPERTY: tangle yes
@@ -63,6 +61,8 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
     - [[#literate-programming][Literate programming]]
     - [[#reproducible-analysis][Reproducible analysis]]
     - [[#reproducible-research][Reproducible research]]
+  - [[#documents-and-presentations][Documents and presentations]]
+    - [[#posters][Posters]]
 - [[#project][Project]]
   - [[#schedule][Schedule]]
   - [[#learning-path][Learning path]]
@@ -78,8 +78,8 @@ Here I'll write my daily tasks and to-dos so I can keep track of what I'm doing.
 ** To-do
 
 *Active items*:
-- [ ] write a summary about my internship for the SIC2019 (*DEADLINE* 2019-06-21)
 - [ ] finish my config.org file
+- [ ] rewrite the vector reduction code using StarPU's data partitioning
 - [ ] start bringing snacks to the lab
 - [ ] read more about openmp and mpi
 
@@ -92,6 +92,7 @@ Here I'll write my daily tasks and to-dos so I can keep track of what I'm doing.
 - [X] get the starpu wrapper classes started
 - [X] get the vector reduction code going
 - [X] finish the vector reduction code
+- [X] write a summary about my internship for the SIC2019 (*DEADLINE* 2019-06-21)
 
 ** Daily
 
@@ -779,6 +780,28 @@ https://alegrand.github.io/bookrr/
 :END:
 
 ...
+
+** Documents and presentations
+
+Here I'll put everything related to creating quality presentations and documents
+overall.
+
+*** Posters
+
+#+begin_quote
+O regramento é que o poster deve ser de 120cm de altura por 80cm de largura,
+equipados com madeira (na parte superior) e corda para fixação nos suportes. No
+pôster devem constar o título do trabalho, nomes dos autores e respectivas
+afiliações. É bem importante levar em conta que o papel do pôster é dar uma
+visão geral do trabalho, logo algumas dicas importantes podem ser levadas em
+conta, tais como pouco texto (como em uma apresentação de slides), uso de
+figuras para transmitir ideias, ser legível a pelo menos dois metros de
+distância.
+#+end_quote
+
+/Tutorials/:
+- https://guides.nyu.edu/posters
+- http://hsp.berkeley.edu/sites/default/files/ScientificPosters.pdf
 
 * Project
 :PROPERTIES:
