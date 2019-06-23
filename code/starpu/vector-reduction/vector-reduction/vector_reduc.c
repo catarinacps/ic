@@ -104,7 +104,7 @@ int main(int argc, char** argv)
 
     printf("block size = %d\n", starpu_vector_get_nx(starpu_data_get_sub_data(input_handle, 1, 9)));
 
-    uint not_top_level = 0;
+    bool not_top_level = false;
     while (n_blocks >= 1 && n_elements > 1) {
         n_elements = n_blocks;
         n_blocks = (int)ceil((float)n_blocks / decay_factor);
@@ -137,7 +137,7 @@ int main(int argc, char** argv)
         }
 
         // replace inputs vector by the smaller output vector
-        not_top_level++;
+        not_top_level = true;
         input_handle = output_handle;
     }
 

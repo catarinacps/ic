@@ -2,6 +2,7 @@
 #include <starpu.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <sys/time.h>
 
 #include "starpu_helpers.h"
