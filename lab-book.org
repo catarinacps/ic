@@ -39,6 +39,7 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
     - [[#2019-06-17][2019-06-17]]
     - [[#2019-06-18][2019-06-18]]
     - [[#2019-06-19][2019-06-19]]
+    - [[#2019-06-22][2019-06-22]]
   - [[#meetings][Meetings]]
     - [[#2019-04-30-tips-for-org-mode][2019-04-30 Tips for ORG-Mode]]
     - [[#2019-05-14-meeting][2019-05-14 Meeting]]
@@ -432,6 +433,12 @@ the text and what the last paragraph should talk about.
 With Nesi's help I finished the summary text for SIC 2019. I think there's not
 much else to add, but I suppose we could add some small executions of the code?
 Though talking about that would require more text space.
+
+*** 2019-06-22
+
+I've made a working vector reduction using StarPU's vector partition and
+unpartition (as in using sub-handles and such). Some preliminary testing has
+shown that it works kinda well.
 
 ** Meetings
 

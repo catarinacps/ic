@@ -13,6 +13,6 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 # You may have to run the cmake invocation twice to actually find it
 find_package(STARPU REQUIRED)
 
-include_directories(${CMAKE_SOURCE_DIR}/inc ${STARPU_INCLUDE_DIRS})
+include_directories(${STARPU_INCLUDE_DIRS})
 
-add_subdirectory(${CMAKE_SOURCE_DIR}/src ${CMAKE_SOURCE_DIR}/bin)
+add_subdirectory(${CMAKE_SOURCE_DIR}/vector-reduction ${CMAKE_SOURCE_DIR}/bin)
