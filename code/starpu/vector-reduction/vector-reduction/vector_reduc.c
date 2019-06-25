@@ -102,10 +102,13 @@ int main(int argc, char** argv)
 
     partition_vector_handle(&input_handle, n_blocks);
 
-    printf("block size = %d\n", starpu_vector_get_nx(starpu_data_get_sub_data(input_handle, 1, 9)));
-
     bool not_top_level = false;
     while (n_blocks >= 1 && n_elements > 1) {
+        printf("block size = %d\n"
+               "number of blocks = %d\n"
+               "number of elements = %d\n",
+            block_size, n_blocks, n_elements);
+
         n_elements = n_blocks;
         n_blocks = (int)ceil((float)n_blocks / decay_factor);
         block_size = (uint)ceil((float)n_elements / n_blocks);
@@ -136,9 +139,8 @@ int main(int argc, char** argv)
             }
         }
 
-        // replace inputs vector by the smaller output vector
         not_top_level = true;
-        input_handle = output_handle;
+        input_handle = output_handle; // replace inputs vector by the smaller output vector
     }
 
     //--------------------------------------------------------------------------
