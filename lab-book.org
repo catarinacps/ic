@@ -80,9 +80,8 @@ Here I'll write my daily tasks and to-dos so I can keep track of what I'm doing.
 ** To-do
 
 *Active items*:
+- [ ] experiment with the vector reduction code
 - [ ] finish my config.org file
-- [ ] rewrite the vector reduction code using StarPU's data partitioning
-- [ ] start bringing snacks to the lab
 - [ ] read more about openmp and mpi
 
 *Finished items*:
@@ -94,7 +93,9 @@ Here I'll write my daily tasks and to-dos so I can keep track of what I'm doing.
 - [X] get the starpu wrapper classes started
 - [X] get the vector reduction code going
 - [X] finish the vector reduction code
-- [X] write a summary about my internship for the SIC2019 (*DEADLINE* 2019-06-21)
+- [X] write a summary about my internship for the SIC2019
+- [X] start bringing snacks to the lab
+- [X] rewrite the vector reduction code using StarPU's data partitioning
 
 ** Daily
 
@@ -524,13 +525,13 @@ Any useful Linux knowledge relevant to my activities should stay here.
 
 *** tmux
 
-#+BEGIN_QUOTE
+#+begin_quote
 =tmux= is a terminal multiplexer for Unix-like operating systems. It allows
 multiple terminal sessions to be accessed simultaneously in a single window. It
 is useful for running more than one command-line program at the same time. It
 can also be used to detach processes from their controlling terminals, allowing
 SSH sessions to remain active without being visible.
-#+END_QUOTE
+#+end_quote
 
 /Tutorials/:
 
@@ -558,10 +559,10 @@ so forth.
 
 *** Slurm
 
-#+BEGIN_QUOTE
+#+begin_quote
 Slurm is an open source, fault-tolerant, and highly scalable cluster management
 and job scheduling system for large and small Linux clusters.
-#+END_QUOTE
+#+end_quote
 
 - [[https://slurm.schedmd.com/documentation.html][Documentation]]
 
@@ -617,13 +618,13 @@ and job scheduling system for large and small Linux clusters.
 
 *** Spack
 
-#+BEGIN_QUOTE
+#+begin_quote
 Spack is a package management tool designed to support multiple versions and
 configurations of software on a wide variety of platforms and environments. It
 was designed for large supercomputing centers, where many users and application
 teams share common installations of software on clusters with exotic
 architectures, using libraries that do not have a standard ABI.
-#+END_QUOTE
+#+end_quote
 
 - [[https://github.com/spack/spack][GitHub page]]
 - [[https://spack.readthedocs.io/en/latest/][Documentation]]
@@ -642,11 +643,11 @@ Here lies all programming and HPC-related knowledge.
 
 *** MPI
 
-#+BEGIN_QUOTE
+#+begin_quote
 Message Passing Interface (MPI) is a standardized and portable message-passing
 standard designed by a group of researchers from academia and industry to
 function on a wide variety of parallel computing architectures.
-#+END_QUOTE
+#+end_quote
 
 - [[https://www.wikiwand.com/en/Message_Passing_Interface][Wikipedia]]
 - [[https://computing.llnl.gov/tutorials/mpi/][LLNL's Tutorial]]
@@ -669,13 +670,13 @@ scholars and academics.
 
 *** CUDA
 
-#+BEGIN_QUOTE
+#+begin_quote
 CUDA is a parallel computing platform and application programming interface
 (API) model created by Nvidia.It allows software developers and software
 engineers to use a CUDA-enabled graphics processing unit (GPU) for general
 purpose processing — an approach termed GPGPU (General-Purpose computing on
 Graphics Processing Units).
-#+END_QUOTE
+#+end_quote
 
 /Tutorials/:
 
@@ -688,13 +689,13 @@ Graphics Processing Units).
 :Attachments: cmake-ninja.pdf cmake-tutorial.pdf
 :END:
 
-#+BEGIN_QUOTE
+#+begin_quote
 CMake is an open-source, cross-platform family of tools designed to build, test
 and package software. CMake is used to control the software compilation process
 using simple platform and compiler independent configuration files, and generate
 native makefiles and workspaces that can be used in the compiler environment of
 your choice.
-#+END_QUOTE
+#+end_quote
 
 /Tutorials/:
 - [[https://github.com/ttroy50/cmake-examples][A bunch of examples]]
@@ -709,11 +710,11 @@ your choice.
 
 *** StarPU                                                         :ATTACH:
 
-#+BEGIN_QUOTE
+#+begin_quote
 StarPU is a software tool aiming to allow programmers to exploit the computing
 power of the available CPUs and GPUs, while relieving them from the need to
 specially adapt their programs to the target machine and processing units.
-#+END_QUOTE
+#+end_quote
 
 - [[./resources/external/starpu.pdf][Documentation]]
 
@@ -723,13 +724,13 @@ specially adapt their programs to the target machine and processing units.
 
 *** Design of parallel applications
 
-#+BEGIN_QUOTE
+#+begin_quote
 Parallel algorithm design is not easily reduced to simple recipes. Rather, it
 requires the sort of integrative thought that is commonly referred to as
 "creativity.'' However, it can benefit from a methodical approach that maximizes
 the range of options considered, that provides mechanisms for evaluating
 alternatives, and that reduces the cost of backtracking from bad choices.
-#+END_QUOTE
+#+end_quote
 
 Slides:
 - [[http://www.math-cs.gordon.edu/courses/cps343/presentations/Parallel_Alg_Design.pdf][Gordon Uni]]
@@ -745,12 +746,12 @@ Everything related from writing to research methodology should stay here.
 
 *** Literate programming                                             :ATTACH:
 
-#+BEGIN_QUOTE
+#+begin_quote
 Literate programming is a programming paradigm introduced by Donald Knuth in
 which a program is given as an explanation of the program logic in a natural
 language, such as English, interspersed with snippets of macros and traditional
 source code, from which a compilable source code can be generated.
-#+END_QUOTE
+#+end_quote
 
 Literate programming can be easily achieved using =.org= files, as they provide
 text intertwined together with source code blocks, as well as providing a way to
@@ -761,13 +762,13 @@ Donald Knuth's original paper is attached to this heading as a reference.
 
 *** Reproducible analysis
 
-#+BEGIN_QUOTE
+#+begin_quote
 The term reproducible research refers to the idea that the ultimate product of
 academic research is the paper along with the laboratory notebooks and full
 computational environment used to produce the results in the paper such as the
 code, data, etc. that can be used to reproduce the results and create new work
 based on the research.
-#+END_QUOTE
+#+end_quote
 
 Essential to research as a whole, reproducible analysis allows the researcher to
 establish trust, even years after arriving to results, in his conclusions. Using
