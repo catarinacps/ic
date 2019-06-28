@@ -102,12 +102,14 @@ int main(int argc, char** argv)
 
     partition_vector_handle(&input_handle, n_blocks);
 
+    uint depth = 0;
     bool not_top_level = false;
     while (n_blocks >= 1 && n_elements > 1) {
-        printf("block size = %d\n"
+        printf("depth = %d\n"
+               "block size = %d\n"
                "number of blocks = %d\n"
                "number of elements = %d\n",
-            block_size, n_blocks, n_elements);
+            depth++, block_size, n_blocks, n_elements);
 
         n_elements = n_blocks;
         n_blocks = (int)ceil((float)n_blocks / decay_factor);

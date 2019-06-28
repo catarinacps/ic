@@ -5,9 +5,9 @@ cmake_minimum_required (VERSION 3.10)
 execute_process(COMMAND spack location -i starpu OUTPUT_VARIABLE STARPU_PATH)
 
 # Now we define the important build variables
-set(ENV{PKG_CONFIG_PATH} ${PKG_CONFIG_PATH}:${STARPU_PATH}/lib/pkgconfig)
-set(STARPU_DIR ${STARPU_PATH} CACHE PATH "The StarPU directory")
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+set(ENV{PKG_CONFIG_PATH} "$ENV{PKG_CONFIG_PATH}:${STARPU_PATH}/lib/pkgconfig")
+set(ENV{STARPU_DIR} "${STARPU_PATH}" CACHE PATH "The StarPU directory")
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 # The finder function is inside cmake/
 # You may have to run the cmake invocation twice to actually find it
