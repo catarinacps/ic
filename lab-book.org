@@ -41,6 +41,7 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
     - [[#2019-06-19][2019-06-19]]
     - [[#2019-06-22][2019-06-22]]
     - [[#2019-06-23][2019-06-23]]
+    - [[#2019-07-02][2019-07-02]]
   - [[#meetings][Meetings]]
     - [[#2019-04-30-tips-for-org-mode][2019-04-30 Tips for ORG-Mode]]
     - [[#2019-05-14-meeting][2019-05-14 Meeting]]
@@ -445,6 +446,17 @@ shown that it works kinda well.
 *** 2019-06-23
 
 Small code fix and that's it.
+
+*** 2019-07-02
+
+In order to get myself back on track, I'll do here a to-do list of what I think
+should be done next.
+
+/To-do/:
+
+1. *Experiment with the vector reduction code*
+2. *Talk more with people about writing that article to WSCAD*
+3. *Make a vector or matrix multiplication version*
 
 ** Meetings
 
