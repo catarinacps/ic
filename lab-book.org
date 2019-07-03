@@ -522,6 +522,350 @@ cmake -DSTARPU_DIR=$(spack location -i starpu) ..
 
 Or use ~stow~ for a more amateur approach.
 
+*** 2019-07-03 Meeting
+
+- [ ] Bureaucracy with next scholarship
+  - Deadline 22/07 (Henrique resolve)
+- [ ] Discussion about the SIC 2019 Poster
+  - 15/08 a 16/09, according to http://www.ufrgs.br/propesq1/sic2019/wp-content/uploads/2019/05/Cronograma-DIVULGA%C3%87%C3%83O-SIC-2019.pdf
+- [ ] Data da semana acadêmica mudou para
+  - De 21 a 25/10/2019
+
+~vector_reduc~
+- [ ] Valgrind check: make the run fully clean (all zeroes at the end)
+- [ ] Verify all ~malloc~ calls and exit cleanly if they return zero
+- [ ] Remove debug messages when in production
+  - Keep only fundamental statistics and messages about the run like
+    - elapsed time
+    - number of elements
+    - block size
+    - ...
+- [ ] Use startpu iteration push and pop to automatically tag tasks
+  against your main loop iteration which basically represents the
+  level of the reduction
+  - http://starpu.gforge.inria.fr/doc/html/group__API__Codelet__And__Tasks.html#gad3adbc7185e231bf23c94c76b85c3047
+
+Deal with trace files from ~vector_reduc~
+- Take a look at https://github.com/schnorr/starvz/tree/master/src
+  - Copy ~fxt2paje~ and ~paje_sort~
+- Usage example
+  #+begin_src shell :results output
+  pushd ~/svn/henrique/ic/code/starpu/vector-reduction/build/
+  ../bin/vector_reduc 1000 50 2
+  popd
+  source ~/spack/share/spack/setup-env.sh
+  export PATH=$(spack location -i starpu/l43k3yq)/bin/:$PATH
+  wget -nc https://raw.githubusercontent.com/schnorr/starvz/master/src/fxt2paje.sh
+  wget -nc https://raw.githubusercontent.com/schnorr/starvz/master/src/paje_sort.sh
+  chmod 755 fxt2paje.sh paje_sort.sh
+  export PATH=$(pwd):$PATH
+  mkdir -p /tmp/teste/
+  cp /tmp/prof_file_* /tmp/teste/
+  cd /tmp/teste/
+  fxt2paje.sh
+  twopi dag.dot -Tpng -o x.png
+  pj_dump --user-defined paje.sorted.trace > paje.sorted.csv
+  cat paje.sorted.csv | grep ^State | grep Worker\ State | grep Reduction | grep -v "0.000000, 0.000000" > rastro.csv
+  cat rastro.csv
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  ~/svn/henrique/ic/code/starpu/vector-reduction/build ~/svn/henrique/ic
+  number of blocks = 50
+  There are 50 blocks, each one with 20 elements.
+  depth = 0
+  block size = 20
+  number of blocks = 50
+  number of elements = 1000
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  depth = 1
+  block size = 2
+  number of blocks = 25
+  number of elements = 50
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 80
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 80
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 80
+  ======> Sum = 40
+  ======> Sum = 40
+  ======> Sum = 80
+  ======> Sum = 80
+  ======> Sum = 80
+  ======> Sum = 80
+  ======> Sum = 80
+  ======> Sum = 80
+  ======> Sum = 80
+  ======> Sum = 80
+  ======> Sum = 80
+  ======> Sum = 80
+  ======> Sum = 80
+  ======> Sum = 80
+  ======> Sum = 80
+  ======> Sum = 80
+  ======> Sum = 80
+  ======> Sum = 80
+  ======> Sum = 80
+  ======> Sum = 80
+  ======> Sum = 80
+  ======> Sum = 80
+  ======> Sum = 80
+  depth = 2
+  block size = 2
+  number of blocks = 13
+  number of elements = 26
+  ======> Sum = 80
+  ======> Sum = 160
+  ======> Sum = 160
+  ======> Sum = 160
+  ======> Sum = 160
+  ======> Sum = 160
+  ======> Sum = 160
+  ======> Sum = 160
+  ======> Sum = 160
+  ======> Sum = 160
+  ======> Sum = 160
+  ======> Sum = 160
+  ======> Sum = 160
+  depth = 3
+  block size = 2
+  number of blocks = 7
+  number of elements = 14
+  ======> Sum = 80
+  ======> Sum = 320
+  ======> Sum = 320
+  ======> Sum = 320
+  ======> Sum = 320
+  ======> Sum = 320
+  ======> Sum = 320
+  depth = 4
+  block size = 2
+  number of blocks = 4
+  number of elements = 8
+  ======> Sum = 80
+  ======> Sum = 640
+  ======> Sum = 640
+  ======> Sum = 640
+  depth = 5
+  block size = 2
+  number of blocks = 2
+  number of elements = 4
+  ======> Sum = 80
+  ======> Sum = 1280
+  depth = 6
+  block size = 2
+  number of blocks = 1
+  number of elements = 2
+  ======> Sum = 720
+  ======> Sum = 2000
+  start: 1562167625.0796
+  end: 1562167625.0908
+  elapsed: 0.0112
+  ~/svn/henrique/ic
+  State, CPU1, Worker State, 31.860744, 31.866201, 0.005457, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 55, 55, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 31.874258, 31.877741, 0.003483, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 61, 61, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 31.884381, 31.887669, 0.003288, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 65, 65, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 31.894302, 31.897510, 0.003208, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 69, 69, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 31.904213, 31.907368, 0.003155, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 73, 73, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 31.914225, 31.917505, 0.003280, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 77, 77, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 31.924221, 31.927573, 0.003352, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 79, 79, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 31.934373, 31.937700, 0.003327, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 81, 81, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 31.944306, 31.947869, 0.003563, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 85, 85, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 31.954239, 31.957464, 0.003225, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 89, 89, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 31.963644, 31.966852, 0.003208, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 91, 91, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 31.973230, 31.976537, 0.003307, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 95, 95, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 31.983283, 31.986279, 0.002996, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 99, 99, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 31.993261, 31.996236, 0.002975, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 101, 101, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 32.002796, 32.006227, 0.003431, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 103, 103, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 32.013430, 32.016271, 0.002841, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 147, 147, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 32.022996, 32.026003, 0.003007, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 167, 167, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 32.039192, 32.042149, 0.002957, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 177, 177, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 32.067477, 32.070503, 0.003026, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 187, 187, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 32.096891, 32.099870, 0.002979, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 197, 197, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 32.127392, 32.130362, 0.002970, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 207, 207, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 32.155907, 32.158849, 0.002942, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 217, 217, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 32.184751, 32.187716, 0.002965, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 227, 227, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 32.213325, 32.216360, 0.003035, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 237, 237, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 32.241519, 32.244502, 0.002983, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 247, 247, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 32.271415, 32.274387, 0.002972, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 257, 257, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 32.707970, 32.712018, 0.004048, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 373, 373, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 32.736041, 32.738993, 0.002952, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 383, 383, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 32.793313, 32.796604, 0.003291, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 399, 399, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 32.822232, 32.825102, 0.002870, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 409, 409, 0.000000, 0, 0, -1, -1
+  State, CPU1, Worker State, 32.866871, 32.869805, 0.002934, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 423, 423, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.531205, 31.544246, 0.013041, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 56, 56, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.554988, 31.558482, 0.003494, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 58, 58, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.564776, 31.567964, 0.003188, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 60, 60, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.574686, 31.577712, 0.003026, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 62, 62, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.584201, 31.587390, 0.003189, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 64, 64, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.593935, 31.597116, 0.003181, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 66, 66, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.603942, 31.607212, 0.003270, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 68, 68, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.613972, 31.617280, 0.003308, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 70, 70, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.625869, 31.628920, 0.003051, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 72, 72, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.635757, 31.638983, 0.003226, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 74, 74, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.645870, 31.648889, 0.003019, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 76, 76, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.658371, 31.661589, 0.003218, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 78, 78, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.668244, 31.671469, 0.003225, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 80, 80, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.678245, 31.681383, 0.003138, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 82, 82, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.688758, 31.691836, 0.003078, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 84, 84, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.698702, 31.701768, 0.003066, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 86, 86, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.709432, 31.712552, 0.003120, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 88, 88, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.719131, 31.722083, 0.002952, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 90, 90, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.728606, 31.731623, 0.003017, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 92, 92, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.740325, 31.743311, 0.002986, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 94, 94, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.771124, 31.774776, 0.003652, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 96, 96, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.781292, 31.784194, 0.002902, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 98, 98, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.790713, 31.793830, 0.003117, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 100, 100, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.800429, 31.803519, 0.003090, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 102, 102, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.817572, 31.820825, 0.003253, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 104, 104, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.857374, 31.860680, 0.003306, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 57, 57, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.868523, 31.871849, 0.003326, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 59, 59, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.879086, 31.882549, 0.003463, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 63, 63, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.889717, 31.893178, 0.003461, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 67, 67, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.901396, 31.905011, 0.003615, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 71, 71, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.912538, 31.916245, 0.003707, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 75, 75, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.923491, 31.926837, 0.003346, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 142, 142, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.935731, 31.939222, 0.003491, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 83, 83, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.946606, 31.949976, 0.003370, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 87, 87, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.957535, 31.960805, 0.003270, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 152, 152, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.968909, 31.972209, 0.003300, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 93, 93, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.979983, 31.983566, 0.003583, 0.000000, Reduction, 84, V20x4_V1x4, bc460b28, 0000000000000000, 97, 97, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 31.991224, 31.994692, 0.003468, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 162, 162, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.004727, 32.008030, 0.003303, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 137, 137, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.018934, 32.022251, 0.003317, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 157, 157, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.029642, 32.032789, 0.003147, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 172, 172, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.053494, 32.056722, 0.003228, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 182, 182, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.083445, 32.086538, 0.003093, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 192, 192, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.111800, 32.115234, 0.003434, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 202, 202, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.142211, 32.145411, 0.003200, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 212, 212, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.170563, 32.173691, 0.003128, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 222, 222, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.198801, 32.201947, 0.003146, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 232, 232, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.227308, 32.230589, 0.003281, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 242, 242, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.257369, 32.260604, 0.003235, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 252, 252, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.353166, 32.356390, 0.003224, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 278, 278, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.370793, 32.374011, 0.003218, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 283, 283, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.385965, 32.389098, 0.003133, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 288, 288, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.402761, 32.405783, 0.003022, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 293, 293, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.417595, 32.420831, 0.003236, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 298, 298, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.435431, 32.438483, 0.003052, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 303, 303, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.450915, 32.454128, 0.003213, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 308, 308, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.482479, 32.485727, 0.003248, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 313, 313, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.497697, 32.500857, 0.003160, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 318, 318, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.514502, 32.517581, 0.003079, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 323, 323, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.529445, 32.532532, 0.003087, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 328, 328, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.544659, 32.547859, 0.003200, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 333, 333, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.561248, 32.564267, 0.003019, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 338, 338, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.643303, 32.646703, 0.003400, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 353, 353, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.658774, 32.661878, 0.003104, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 358, 358, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.676024, 32.679280, 0.003256, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 363, 363, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.691282, 32.694429, 0.003147, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 368, 368, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.722890, 32.726069, 0.003179, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 378, 378, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.777445, 32.780638, 0.003193, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 394, 394, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.809088, 32.812206, 0.003118, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 404, 404, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.853776, 32.856978, 0.003202, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 418, 418, 0.000000, 0, 0, -1, -1
+  State, CPU0, Worker State, 32.894937, 32.897775, 0.002838, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 432, 432, 0.000000, 0, 0, -1, -1
+  #+end_example
+- [ ] Read about ~pj_dump~ (the CSV output)
+  - https://github.com/schnorr/pajeng/wiki/pj_dump
+- [ ] Learn about http://paje.sourceforge.net/
+  - https://github.com/schnorr/pajeng/raw/master/doc/lang-paje/lang-paje.pdf
+
+Read ~rastro.csv~ in R.
+
+#+begin_src R :results output :session :exports both
+suppressMessages(library(tidyverse))
+read_csv("/tmp/teste/rastro.csv", col_names=FALSE, col_types=cols()) %>%
+    select(-X1, -X3, -X7) %>%
+    rename(Thread = X2,
+           Start = X4,
+           End = X5,
+           Duration = X6,
+           State = X8) %>%
+    mutate(Thread = gsub("CPU", "", Thread) %>% as.integer) %>%
+    mutate(End = End - min(Start),
+           Start = Start - min(Start)) %>%
+    print -> df;
+#+end_src
+
+#+RESULTS:
+#+begin_example
+
+# A tibble: 102 x 16
+   Thread Start   End Duration State    X9 X10   X11   X12     X13   X14   X15
+    <int> <dbl> <dbl>    <dbl> <chr> <dbl> <chr> <chr> <chr> <dbl> <dbl> <dbl>
+ 1      1 0.330 0.335  0.00546 Redu…    84 V20x… bc46… 0000…    55    55     0
+ 2      1 0.343 0.347  0.00348 Redu…    84 V20x… bc46… 0000…    61    61     0
+ 3      1 0.353 0.356  0.00329 Redu…    84 V20x… bc46… 0000…    65    65     0
+ 4      1 0.363 0.366  0.00321 Redu…    84 V20x… bc46… 0000…    69    69     0
+ 5      1 0.373 0.376  0.00316 Redu…    84 V20x… bc46… 0000…    73    73     0
+ 6      1 0.383 0.386  0.00328 Redu…    84 V20x… bc46… 0000…    77    77     0
+ 7      1 0.393 0.396  0.00335 Redu…    84 V20x… bc46… 0000…    79    79     0
+ 8      1 0.403 0.406  0.00333 Redu…    84 V20x… bc46… 0000…    81    81     0
+ 9      1 0.413 0.417  0.00356 Redu…    84 V20x… bc46… 0000…    85    85     0
+10      1 0.423 0.426  0.00322 Redu…    84 V20x… bc46… 0000…    89    89     0
+# … with 92 more rows, and 4 more variables: X16 <dbl>, X17 <dbl>, X18 <dbl>,
+#   X19 <dbl>
+#+end_example
+
+#+begin_src R :results output graphics :file img/first_plot.png :exports both :width 600 :height 200 :session
+df %>%
+    ggplot(aes(xmin=Start, xmax=End, ymin=Thread, ymax=Thread+0.9, fill=State)) +
+    geom_rect() +
+    theme_bw(base_size=16) +
+    theme(legend.position="top",
+          legend.justification="left")
+#+end_src
+
+#+RESULTS:
+[[file:img/first_plot.png]]
+
+
 * External resources
 :PROPERTIES:
 :ATTACH_DIR: resources/external/
