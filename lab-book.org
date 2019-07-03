@@ -548,6 +548,7 @@ See [[./documents/sic-2019/summary.org]].
   against your main loop iteration which basically represents the
   level of the reduction
   - http://starpu.gforge.inria.fr/doc/html/group__API__Codelet__And__Tasks.html#gad3adbc7185e231bf23c94c76b85c3047
+- [ ] Try to understand why the DAG is messy
 
 Deal with trace files from ~vector_reduc~
 - Take a look at https://github.com/schnorr/starvz/tree/master/src
