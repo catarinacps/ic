@@ -1,5 +1,7 @@
 #include "vector_reduc.h"
 
+int debug = 0;
+
 double get_time(void)
 {
     struct timeval tr;

@@ -7,6 +7,20 @@
 
 #include "starpu_helpers.h"
 
+/* //version #1
+extern int debug;
+#define printf(...) { \
+  if(debug) {					\
+  }						\
+}
+*/
+
+/* //version #2
+#ifndef DEBUG_INACTIVE
+#define printf(...)
+#endif
+*/
+
 #define MAX_RAND 2048
 #define MIN_RAND -2048
 
