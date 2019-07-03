@@ -3,6 +3,7 @@
 int* alloc_and_register_integer_vector(starpu_data_handle_t* handle, size_t size)
 {
     int* vector = (int*)malloc(size * sizeof(int));
+    if (vector == NULL) return NULL;
 
     memset(vector, 0, size * sizeof(int));
 
