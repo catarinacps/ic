@@ -522,6 +522,10 @@ cmake -DSTARPU_DIR=$(spack location -i starpu) ..
 
 Or use ~stow~ for a more amateur approach.
 
+*** 2019-06-11 Meeting
+See [[./documents/sic-2019/summary.org]].
+*** 2019-06-18 Meeting
+See [[./documents/sic-2019/summary.org]].
 *** 2019-07-03 Meeting
 
 - [ ] Bureaucracy with next scholarship
