@@ -58,15 +58,15 @@ int main(int argc, char** argv)
     // cli arguments
     //--------------------------------------------------------------------------
 
-    const uint original_n_elements = atoi(argv[1]);
-    uint n_blocks = atoi(argv[2]);
-    const uint decay_factor = atoi(argv[3]);
+    const long long original_n_elements = atoll(argv[1]);
+    long long n_blocks = atoi(argv[2]);
+    const long long decay_factor = atoi(argv[3]);
 
-    uint block_size = (uint)ceil((float)original_n_elements / n_blocks);
+    long long block_size = (long long)ceil((double)original_n_elements / n_blocks);
 
     printf("number of blocks = %d\n", n_blocks);
 
-    uint n_elements = n_blocks * block_size;
+    long long n_elements = n_blocks * block_size;
 
     if (n_blocks < 1 || n_blocks > n_elements) {
         printf("Please provide a number of blocks bigger than 0 and smaller than the number of elements\n");
@@ -112,8 +112,8 @@ int main(int argc, char** argv)
             depth++, block_size, n_blocks, n_elements);
 
         n_elements = n_blocks;
-        n_blocks = (int)ceil((float)n_blocks / decay_factor);
-        block_size = (uint)ceil((float)n_elements / n_blocks);
+        n_blocks = (long long)ceil((double)n_blocks / decay_factor);
+        block_size = (long long)ceil((double)n_elements / n_blocks);
         n_elements = n_blocks * block_size;
 
         // here we don't need the actual vector as we won't be initializing it
