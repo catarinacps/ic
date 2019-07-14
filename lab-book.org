@@ -42,10 +42,14 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
     - [[#2019-06-22][2019-06-22]]
     - [[#2019-06-23][2019-06-23]]
     - [[#2019-07-02][2019-07-02]]
+    - [[#2019-07-14][2019-07-14]]
   - [[#meetings][Meetings]]
     - [[#2019-04-30-tips-for-org-mode][2019-04-30 Tips for ORG-Mode]]
     - [[#2019-05-14-meeting][2019-05-14 Meeting]]
     - [[#2019-05-28-meeting][2019-05-28 Meeting]]
+    - [[#2019-06-11-meeting][2019-06-11 Meeting]]
+    - [[#2019-06-18-meeting][2019-06-18 Meeting]]
+    - [[#2019-07-03-meeting][2019-07-03 Meeting]]
 - [[#external-resources][External resources]]
   - [[#linux][Linux]]
     - [[#tmux][tmux]]
@@ -82,7 +86,19 @@ Here I'll write my daily tasks and to-dos so I can keep track of what I'm doing.
 
 *Active items*:
 - [ ] experiment with the vector reduction code
+  - [ ] free all allocated memory
+  - [ ] verify malloc returns (big allocs are possible)
+  - [ ] create verbose flag (compile time!)
+    - only essential data should be displayed (time, #elem, block size)
+    - the rest should be turned off at compile time
+  - [ ] use starpu's push and pop to tag tasks
+  - [ ] see why the dag is messy
+- [ ] learn about paje traces and files
+- [ ] learn more about r data analysis and plotting
+
+*Fluff items* (for now):
 - [ ] finish my config.org file
+- [ ] restock the snacks
 - [ ] read more about openmp and mpi
 
 *Finished items*:
@@ -458,6 +474,12 @@ should be done next.
 2. *Talk more with people about writing that article to WSCAD*
 3. *Make a vector or matrix multiplication version*
 
+*** 2019-07-14
+
+So, my semester has ended! I'm updating the to-do list and getting what I need
+to do under control. That being said, I should recap things with either Nesi or
+Schnorr.
+
 ** Meetings
 
 This could stay inside its respective entry in the daily journal, but I think
@@ -528,11 +550,11 @@ See [[./documents/sic-2019/summary.org]].
 See [[./documents/sic-2019/summary.org]].
 *** 2019-07-03 Meeting
 
-- [ ] Bureaucracy with next scholarship
+- Bureaucracy with next scholarship
   - Deadline 22/07 (Henrique resolve)
-- [ ] Discussion about the SIC 2019 Poster
+- Discussion about the SIC 2019 Poster
   - 15/08 a 16/09, according to http://www.ufrgs.br/propesq1/sic2019/wp-content/uploads/2019/05/Cronograma-DIVULGA%C3%87%C3%83O-SIC-2019.pdf
-- [ ] Data da semana acadêmica mudou para
+- Data da semana acadêmica mudou para
   - De 21 a 25/10/2019
 
 ~vector_reduc~
@@ -553,7 +575,8 @@ See [[./documents/sic-2019/summary.org]].
 Deal with trace files from ~vector_reduc~
 - Take a look at https://github.com/schnorr/starvz/tree/master/src
   - Copy ~fxt2paje~ and ~paje_sort~
-- Usage example
+- Usage example:
+
   #+begin_src shell :results output
   pushd ~/svn/henrique/ic/code/starpu/vector-reduction/build/
   ../bin/vector_reduc 1000 50 2
@@ -816,6 +839,7 @@ Deal with trace files from ~vector_reduc~
   State, CPU0, Worker State, 32.853776, 32.856978, 0.003202, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 418, 418, 0.000000, 0, 0, -1, -1
   State, CPU0, Worker State, 32.894937, 32.897775, 0.002838, 0.000000, Reduction, 12, V2x4_V1x4, 108b70d8, 0000000000000000, 432, 432, 0.000000, 0, 0, -1, -1
   #+end_example
+
 - [ ] Read about ~pj_dump~ (the CSV output)
   - https://github.com/schnorr/pajeng/wiki/pj_dump
 - [ ] Learn about http://paje.sourceforge.net/
@@ -869,7 +893,6 @@ df %>%
 
 #+RESULTS:
 [[file:img/first_plot.png]]
-
 
 * External resources
 :PROPERTIES:
