@@ -13,6 +13,7 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
 * Table of contents                                                   :TOC_3:
 - [[#journal][Journal]]
   - [[#to-do][To-do]]
+    - [[#archive][Archive]]
   - [[#daily][Daily]]
     - [[#2019-05-02][2019-05-02]]
     - [[#2019-05-03-starpu-hello-world-examples][2019-05-03 StarPU Hello World Examples]]
@@ -102,6 +103,13 @@ Here I'll write my daily tasks and to-dos so I can keep track of what I'm doing.
 - [ ] read more about openmp and mpi
 
 *Finished items*:
+- [X] test the timestamp thingy <2019-07-14 dom>
+
+*** Archive
+
+When To-do items are old enough (the criteria is "when I want"), they go here.
+
+*Archive*:
 - [X] add more info about cluster and server-side linux
 - [X] set up the computer
 - [X] set up my table
