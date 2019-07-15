@@ -96,7 +96,7 @@ int main(int argc, char** argv)
     int* input_vector = alloc_and_register_integer_vector(&input_handle, n_elements);
 
     if (!input_vector) {
-        perror("Bad malloc: ");
+        perror("Bad malloc");
         exit(2);
     }
 
@@ -128,7 +128,7 @@ int main(int argc, char** argv)
         int* alloc_return = alloc_and_register_integer_vector(&output_handle, n_elements);
 
         if (!alloc_return) {
-            perror("Bad malloc: ");
+            perror("Bad malloc");
             exit(2);
         }
 

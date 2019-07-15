@@ -44,6 +44,7 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
     - [[#2019-06-23][2019-06-23]]
     - [[#2019-07-02][2019-07-02]]
     - [[#2019-07-14][2019-07-14]]
+    - [[#2019-07-15][2019-07-15]]
   - [[#meetings][Meetings]]
     - [[#2019-04-30-tips-for-org-mode][2019-04-30 Tips for ORG-Mode]]
     - [[#2019-05-14-meeting][2019-05-14 Meeting]]
@@ -94,6 +95,7 @@ Here I'll write my daily tasks and to-dos so I can keep track of what I'm doing.
     - the rest should be turned on or off at compile time
   - [ ] use starpu's push and pop to tag tasks
   - [ ] see why the dag is messy
+    - [ ] check [[http://starpu.gforge.inria.fr/doc/html/DataManagement.html#DataReduction][this]] out
 - [ ] learn about paje traces and files
 - [ ] learn more about r data analysis and plotting
 
@@ -488,6 +490,16 @@ should be done next.
 So, my semester has ended! I'm updating the to-do list and getting what I need
 to do under control. That being said, I should recap things with either Nesi or
 Schnorr.
+
+*** 2019-07-15
+
+It's one thing to check the malloc returns and to create a macro to print log
+messages, but it's a whole different ordeal to free all mallocs with
+StarPU. I'll look into the runtime's own ways to do this.
+
+Also (and kinda related to the previous point) I should check out the supported
+data reduction mechanism that StarPU provides. If I follow the rules of the
+game, the malloc freeing thing shouldn't be an issue.
 
 ** Meetings
 
