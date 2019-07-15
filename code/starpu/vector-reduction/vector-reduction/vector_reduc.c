@@ -95,6 +95,11 @@ int main(int argc, char** argv)
     starpu_data_handle_t input_handle;
     int* input_vector = alloc_and_register_integer_vector(&input_handle, n_elements);
 
+    if (!input_vector) {
+        perror("Bad malloc: ");
+        exit(2);
+    }
+
     // initialize the vector
     for (int i = 0; i < original_n_elements; i++)
         input_vector[i] = INITIAL_VALUE;
@@ -120,7 +125,12 @@ int main(int argc, char** argv)
 
         // here we don't need the actual vector as we won't be initializing it
         // to any arbitrary value
-        alloc_and_register_integer_vector(&output_handle, n_elements);
+        int* alloc_return = alloc_and_register_integer_vector(&output_handle, n_elements);
+
+        if (!alloc_return) {
+            perror("Bad malloc: ");
+            exit(2);
+        }
 
         starpu_data_filter_t f_b = { .filter_func = starpu_vector_filter_block, .nchildren = n_blocks };
         starpu_data_filter_t f_e = { .filter_func = starpu_vector_filter_block, .nchildren = block_size };
