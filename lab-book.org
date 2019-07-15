@@ -86,24 +86,25 @@ Here I'll write my daily tasks and to-dos so I can keep track of what I'm doing.
 ** To-do
 
 *Active items*:
-- [ ] experiment with the vector reduction code
+- [-] experiment with the vector reduction code
   - [ ] free all allocated memory
   - [ ] verify malloc returns (big allocs are possible)
-  - [ ] create verbose flag (compile time!)
+  - [X] create verbose flag (compile time!) <2019-07-15 seg>
     - only essential data should be displayed (time, #elem, block size)
-    - the rest should be turned off at compile time
+    - the rest should be turned on or off at compile time
   - [ ] use starpu's push and pop to tag tasks
   - [ ] see why the dag is messy
 - [ ] learn about paje traces and files
 - [ ] learn more about r data analysis and plotting
 
 *Fluff items* (for now):
+- [ ] push the config.org file when home
 - [ ] finish my config.org file
-- [ ] restock the snacks
 - [ ] read more about openmp and mpi
 
 *Finished items*:
 - [X] test the timestamp thingy <2019-07-14 dom>
+- [X] restock the snacks <2019-07-15 seg>
 
 *** Archive
 

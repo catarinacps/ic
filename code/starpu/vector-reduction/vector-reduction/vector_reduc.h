@@ -7,26 +7,16 @@
 
 #include "starpu_helpers.h"
 
-/* //version #1
-extern int debug;
-#define printf(...) { \
-  if(debug) {					\
-  }						\
-}
-*/
-
-/* //version #2
-#ifndef DEBUG_INACTIVE
-#define printf(...)
+#ifdef VERBOSE_ENABLED
+#define V_PRINTF(f_, ...) printf((f_), ##__VA_ARGS__)
+#else
+#define V_PRINTF(f_, ...) ((void)0)
 #endif
-*/
-
-#define MAX_RAND 2048
-#define MIN_RAND -2048
 
 #define INITIAL_VALUE 2
 
 typedef unsigned int uint;
+typedef unsigned long long ullint;
 
 void reduc_sum(void** buffers, void* cl_arg);
 

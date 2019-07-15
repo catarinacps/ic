@@ -30,9 +30,9 @@ void reduc_sum(void** buffers, void* cl_arg)
 
     double t1 = get_time();
 
-    printf("======> Sum = %d\n", *output);
-    /* printf("%f Task finished to work with begin=%d (%f)\n", */
-    /* 	   t1, par->begin, t1 - t0); */
+    V_PRINTF("SUM = %d\n"
+             "Task finished work with elapsed time %f\n",
+        *output, t1 - t0);
 }
 
 int submit_reduction_task(starpu_data_handle_t* input_handle, starpu_data_handle_t* output_handle)
@@ -60,15 +60,15 @@ int main(int argc, char** argv)
     // cli arguments
     //--------------------------------------------------------------------------
 
-    const long long original_n_elements = atoll(argv[1]);
-    long long n_blocks = atoi(argv[2]);
-    const long long decay_factor = atoi(argv[3]);
+    const ullint original_n_elements = atoll(argv[1]);
+    ullint n_blocks = atoi(argv[2]);
+    const ullint decay_factor = atoi(argv[3]);
 
-    long long block_size = (long long)ceil((double)original_n_elements / n_blocks);
+    ullint block_size = (long long)ceil((double)original_n_elements / n_blocks);
 
     printf("number of blocks = %d\n", n_blocks);
 
-    long long n_elements = n_blocks * block_size;
+    ullint n_elements = n_blocks * block_size;
 
     if (n_blocks < 1 || n_blocks > n_elements) {
         printf("Please provide a number of blocks bigger than 0 and smaller than the number of elements\n");
@@ -107,10 +107,10 @@ int main(int argc, char** argv)
     uint depth = 0;
     bool not_top_level = false;
     while (n_blocks >= 1 && n_elements > 1) {
-        printf("depth = %d\n"
-               "block size = %d\n"
-               "number of blocks = %d\n"
-               "number of elements = %d\n",
+        V_PRINTF("depth = %d\n"
+                 "block size = %d\n"
+                 "number of blocks = %d\n"
+                 "number of elements = %d\n",
             depth++, block_size, n_blocks, n_elements);
 
         n_elements = n_blocks;
