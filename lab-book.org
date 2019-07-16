@@ -45,6 +45,7 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
     - [[#2019-07-02][2019-07-02]]
     - [[#2019-07-14][2019-07-14]]
     - [[#2019-07-15][2019-07-15]]
+    - [[#2019-07-16][2019-07-16]]
   - [[#meetings][Meetings]]
     - [[#2019-04-30-tips-for-org-mode][2019-04-30 Tips for ORG-Mode]]
     - [[#2019-05-14-meeting][2019-05-14 Meeting]]
@@ -100,13 +101,13 @@ Here I'll write my daily tasks and to-dos so I can keep track of what I'm doing.
 - [ ] learn more about r data analysis and plotting
 
 *Fluff items* (for now):
-- [ ] push the config.org file when home
 - [ ] finish my config.org file
 - [ ] read more about openmp and mpi
 
 *Finished items*:
 - [X] test the timestamp thingy <2019-07-14 dom>
 - [X] restock the snacks <2019-07-15 seg>
+- [X] push the config.org file when home <2019-07-15 seg>
 
 *** Archive
 
@@ -500,6 +501,10 @@ StarPU. I'll look into the runtime's own ways to do this.
 Also (and kinda related to the previous point) I should check out the supported
 data reduction mechanism that StarPU provides. If I follow the rules of the
 game, the malloc freeing thing shouldn't be an issue.
+
+*** 2019-07-16
+
+Today there was not much progress today but I did some reading of papers!
 
 ** Meetings
 
