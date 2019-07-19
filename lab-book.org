@@ -53,6 +53,7 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
     - [[#2019-06-11-meeting][2019-06-11 Meeting]]
     - [[#2019-06-18-meeting][2019-06-18 Meeting]]
     - [[#2019-07-03-meeting][2019-07-03 Meeting]]
+    - [[#2019-07-19-meeting][2019-07-19 Meeting]]
 - [[#external-resources][External resources]]
   - [[#linux][Linux]]
     - [[#tmux][tmux]]
@@ -921,13 +922,16 @@ df %>%
 [[file:img/first_plot.png]]
 
 *** 2019-07-19 Meeting
+
+Talk about possible future paths:
 - Partial Differential Equations
 - 1D CFD (rod as in 3blue1brown)
-- Ondes3D
+- *Ondes3D*
 - Gaps in the DAG (aka gapness of scheduler decisions)
-- Back to the current problem (reduction)
-  - Full factorial design -> CSV -> Slurm script -> execute
-    - Check ERAD/RS 2019 mini course "Boas práticas"
+
+About the current objective (DAG and StarPU):
+- Full factorial design -> CSV -> Slurm script -> execute
+  - Check ERAD/RS 2019 mini course "Boas práticas"
 
 
 #+begin_src R :results output :session :exports both
@@ -955,8 +959,12 @@ fac.design (
 #+end_src
 
 #+RESULTS:
-: 
+:
 : creating full factorial with 27 runs ...
+
+For WSPPD we established that this small case study should be our object. So, we
+analyze the execution times for the experiment above, given the defined
+variables, in a bunch of partitions in the cluster.
 
 * External resources
 :PROPERTIES:
