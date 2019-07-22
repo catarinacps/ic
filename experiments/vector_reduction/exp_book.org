@@ -1,0 +1,42 @@
+#+title: Vector Reduction Experiments book
+#+author: Henrique Silva
+#+email: hcpsilva@inf.ufrgs.br
+#+infojs_opt:
+#+property: session *R*
+#+property: cache yes
+#+property: results graphics
+#+property: exports both
+#+property: tangle yes
+
+It reduces a vector, that's it.
+
+* Table of contents                                                   :TOC_3:
+- [[#1---the-basics][1 - The basics]]
+
+* 1 - The basics                                                        :EXP:
+
+The test experiment.
+
+#+begin_src R :tangle yes :session :results none
+library(DoE.base)
+library(tidyverse)
+
+size = c("P", "M", "G")
+nb = c("P", "M", "G")
+fr = c("P", "M", "G")
+
+fac.design (
+    nfactors=3,
+    replications=10,
+    repeat.only=FALSE,
+    blocks=1,
+    randomize=TRUE,
+    seed=10373,
+    factor.names=list(
+        Size=size,
+        NumberOfBlocks=nb,
+        ReductionFactor=fr)) %>%
+  as_tibble %>%
+  select(-Blocks) %>%
+  write_csv("exp01/runs.csv")
+#+end_src

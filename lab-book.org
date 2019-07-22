@@ -46,6 +46,7 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
     - [[#2019-07-14][2019-07-14]]
     - [[#2019-07-15][2019-07-15]]
     - [[#2019-07-16][2019-07-16]]
+    - [[#2019-07-22][2019-07-22]]
   - [[#meetings][Meetings]]
     - [[#2019-04-30-tips-for-org-mode][2019-04-30 Tips for ORG-Mode]]
     - [[#2019-05-14-meeting][2019-05-14 Meeting]]
@@ -55,8 +56,6 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
     - [[#2019-07-03-meeting][2019-07-03 Meeting]]
     - [[#2019-07-19-meeting][2019-07-19 Meeting]]
 - [[#experiments][Experiments]]
-  - [[#vector-reduction][Vector reduction]]
-    - [[#1---the-basics][1 - The basics]]
 - [[#external-resources][External resources]]
   - [[#linux][Linux]]
     - [[#tmux][tmux]]
@@ -93,7 +92,7 @@ Here I'll write my daily tasks and to-dos so I can keep track of what I'm doing.
 
 *Active items*:
 - [-] fix the vector reduction code
-  - [ ] free all allocated memory
+  - [X] free all allocated memory <2019-07-22 seg>
   - [X] verify malloc returns (big allocs are possible) <2019-07-15 seg>
   - [X] create verbose flag (compile time!) <2019-07-15 seg>
     - only essential data should be displayed (time, #elem, block size)
@@ -101,15 +100,15 @@ Here I'll write my daily tasks and to-dos so I can keep track of what I'm doing.
   - [ ] use starpu's push and pop to tag tasks
   - [ ] see why the dag is messy
     - check [[http://starpu.gforge.inria.fr/doc/html/DataManagement.html#DataReduction][this]] out
-- [ ] experiment with the vector reduction code
-  - [ ] create a dedicated experiments folder in my home folder
-  - [ ] refer and build upon the [[experiment_design][experiment design R code]]
+- [-] experiment with the vector reduction code
+  - [X] create a dedicated experiments folder in my home folder <2019-07-21 dom>
+  - [ ] do some preliminary experiments to set ideal variable sizes and etc
+    - refer and build upon the [[experiment_design][experiment design R code]]
     - given some fixed variables, play around the free variables
-    - maybe even explore some limits of the given machine
   - [ ] create a slurm script to launch the experiments
     - given that we'll test a lot of machines, should i create a launcher
       script?
-  - [ ] collect data in =$SCRATCH= folder then move to experiments folder
+  - [ ] collect data in ~$SCRATCH~ folder then move to experiments folder
 - [ ] analyze the obtained data
   - [ ] our metric is time, look for optimized parameter choices
 
@@ -523,6 +522,11 @@ game, the malloc freeing thing shouldn't be an issue.
 *** 2019-07-16
 
 Today there was not much progress today but I did some reading of papers!
+
+*** 2019-07-22
+
+Today I advanced a little bit more. I'm doing a bit of a late shift here in the
+lab, as I prefer doing this to waking up early.
 
 ** Meetings
 
@@ -985,17 +989,9 @@ variables, in a bunch of partitions in the cluster.
 
 * Experiments
 
-Here I'll put observations and notes regarding experiments.
-Is it better to organize them based on their purpose (i.e. to WSPPD or to SIC or
-whatever) or just let them hang in here?
+Here I'll list the experiments I have or am doing at the moment.
 
-** Vector reduction
-
-It reduces a vector, that's it.
-
-*** 1 - The basics                                                    :EXP:
-
-Something goes here.
+- [[./experiments/vector_reduction/exp_book.org][Vector Reduction]]
 
 * External resources
 :PROPERTIES:

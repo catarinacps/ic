@@ -155,6 +155,8 @@ int main(int argc, char** argv)
 
         not_top_level = true;
         input_handle = output_handle; // replace inputs vector by the smaller output vector
+        free(input_vector);
+        input_vector = alloc_return;
     }
 
     //--------------------------------------------------------------------------
@@ -165,6 +167,8 @@ int main(int argc, char** argv)
     // starpu_data_unregister(vec_handle);
     // starpu_data_unregister(vec_output_handle);
     starpu_shutdown();
+
+    free(input_vector);
 
     double ts1 = get_time();
     double elapsed = ts1 - ts0;
