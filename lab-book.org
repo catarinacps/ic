@@ -54,6 +54,9 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
     - [[#2019-06-18-meeting][2019-06-18 Meeting]]
     - [[#2019-07-03-meeting][2019-07-03 Meeting]]
     - [[#2019-07-19-meeting][2019-07-19 Meeting]]
+- [[#experiments][Experiments]]
+  - [[#vector-reduction][Vector reduction]]
+    - [[#1---the-basics][1 - The basics]]
 - [[#external-resources][External resources]]
   - [[#linux][Linux]]
     - [[#tmux][tmux]]
@@ -100,7 +103,7 @@ Here I'll write my daily tasks and to-dos so I can keep track of what I'm doing.
     - check [[http://starpu.gforge.inria.fr/doc/html/DataManagement.html#DataReduction][this]] out
 - [ ] experiment with the vector reduction code
   - [ ] create a dedicated experiments folder in my home folder
-  - [ ] refer to the [[experiment_design][experiment design R code]]
+  - [ ] refer and build upon the [[experiment_design][experiment design R code]]
     - given some fixed variables, play around the free variables
     - maybe even explore some limits of the given machine
   - [ ] create a slurm script to launch the experiments
@@ -979,6 +982,20 @@ fac.design (
 For WSPPD we established that this small case study should be our object. So, we
 analyze the execution times for the experiment above, given the defined
 variables, in a bunch of partitions in the cluster.
+
+* Experiments
+
+Here I'll put observations and notes regarding experiments.
+Is it better to organize them based on their purpose (i.e. to WSPPD or to SIC or
+whatever) or just let them hang in here?
+
+** Vector reduction
+
+It reduces a vector, that's it.
+
+*** 1 - The basics                                                    :EXP:
+
+Something goes here.
 
 * External resources
 :PROPERTIES:
