@@ -10,17 +10,23 @@
 
 It reduces a vector, that's it.
 
+Preliminary library loading:
+
+#+begin_src R :session :results none
+library(DoE.base)
+library(tidyverse)
+#+end_src
+
 * Table of contents                                                   :TOC_3:
 - [[#1---the-basics][1 - The basics]]
+  - [[#slurm-script][Slurm script]]
+  - [[#scheduling][Scheduling]]
 
 * 1 - The basics                                                        :EXP:
 
 The test experiment.
 
-#+begin_src R :tangle yes :session :results none
-library(DoE.base)
-library(tidyverse)
-
+#+begin_src R :session :results none
 size = c("P", "M", "G")
 nb = c("P", "M", "G")
 fr = c("P", "M", "G")
@@ -39,4 +45,59 @@ fac.design (
   as_tibble %>%
   select(-Blocks) %>%
   write_csv("exp01/runs.csv")
+#+end_src
+
+Defined variables and names:
+
+#+name: machines
+#+begin_example
+draco hype knl orion tupi
+#+end_example
+
+#+name: experiment_id
+#+begin_example
+exp01
+#+end_example
+
+** Slurm script
+
+#+begin_src bash :tangle exp01/exp.slurm
+#!/bin/bash
+#SBATCH --time=02:00:00
+#SBATCH --workdir=.
+#SBATCH --output=%x_%j.out
+#SBATCH --error=%x_%j.err
+
+exec_name=${@[0]}
+exec_id=${@[1]}
+
+# Prepare the machine file
+machinefile="nodes.$SLURM_JOB_ID.$exec_name.$exec_id"
+
+# Compile the program
+pushd $SCRATCH
+mkdir $exec_name
+cd $exec_name
+
+# Execute the program
+#+end_src
+
+** Scheduling
+
+#+begin_src shell :var INPUT1=machines INPUT2=experiment_id
+partitions=(INPUT1)
+
+exec_id=0
+
+for name in "$partitions"; do
+    nodes=$(gppd-info --long --Node -S NODELIST -p $name -h | awk '{print $1 "_" $7}' | paste -s -d" " -)
+
+    for execution in "$nodes"; do
+        sbatch -w ${execution%%_*} INPUT2/exp.slurm $exec $exec_id
+        # launch the slurm script for this node
+
+        ((exec_id++))
+        # increment execution id
+    done
+done
 #+end_src
