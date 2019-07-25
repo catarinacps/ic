@@ -48,6 +48,7 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
     - [[#2019-07-16][2019-07-16]]
     - [[#2019-07-22][2019-07-22]]
     - [[#2019-07-24][2019-07-24]]
+    - [[#2019-07-25][2019-07-25]]
   - [[#meetings][Meetings]]
     - [[#2019-04-30-tips-for-org-mode][2019-04-30 Tips for ORG-Mode]]
     - [[#2019-05-14-meeting][2019-05-14 Meeting]]
@@ -534,6 +535,11 @@ lab, as I prefer doing this to waking up early.
 Today I'll hopefully finish the slurm script.
 
 UPDATE: I did not.
+
+*** 2019-07-25
+
+Again, a slow day. I've noticed my focus isn't on point lately. I'll try to work
+from home the next days.
 
 ** Meetings
 

@@ -71,33 +71,35 @@ exp01
 exec_name=${@[0]}
 exec_id=${@[1]}
 
-# Prepare the machine file
+# prepare the machine file
 machinefile="nodes.$SLURM_JOB_ID.$exec_name.$exec_id"
 
-# Compile the program
+# compile the program
 pushd $SCRATCH
 mkdir $exec_name
 cd $exec_name
 
-# Execute the program
+# execute the program
 #+end_src
 
 ** Scheduling
 
 #+begin_src shell :var INPUT1=machines INPUT2=experiment_id
+# i'm using org-src variable substitution
 partitions=(INPUT1)
 
-exec_id=0
+# to keep track on IDs
+job_id=0
 
 for name in "$partitions"; do
     nodes=$(gppd-info --long --Node -S NODELIST -p $name -h | awk '{print $1 "_" $7}' | paste -s -d" " -)
 
     for execution in "$nodes"; do
-        sbatch -w ${execution%%_*} INPUT2/exp.slurm $exec $exec_id
         # launch the slurm script for this node
+        sbatch -w ${execution%%_*} INPUT2/exp.slurm $exec $job_id
 
-        ((exec_id++))
         # increment execution id
+        ((job_id++))
     done
 done
 #+end_src
