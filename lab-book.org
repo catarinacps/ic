@@ -49,6 +49,7 @@ setting up my [[https://github.com/hcpsilva/dotfiles][mobile]] Linux environment
     - [[#2019-07-22][2019-07-22]]
     - [[#2019-07-24][2019-07-24]]
     - [[#2019-07-25][2019-07-25]]
+    - [[#2019-07-29][2019-07-29]]
   - [[#meetings][Meetings]]
     - [[#2019-04-30-tips-for-org-mode][2019-04-30 Tips for ORG-Mode]]
     - [[#2019-05-14-meeting][2019-05-14 Meeting]]
@@ -540,6 +541,11 @@ UPDATE: I did not.
 
 Again, a slow day. I've noticed my focus isn't on point lately. I'll try to work
 from home the next days.
+
+*** 2019-07-29
+
+Today I made some great advances to run the script that issues =sbatches=. I'll
+try to run it when I get home (of course, using just one node while I test it).
 
 ** Meetings
 

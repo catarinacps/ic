@@ -17,12 +17,62 @@ library(DoE.base)
 library(tidyverse)
 #+end_src
 
+And the partitions intended to be used in this test:
+
+#+name: machines
+#+begin_example
+draco hype knl orion tupi
+#+end_example
+
+And the scheduling of experiments is supposed to happen according to this
+script:
+
+#+begin_src bash :tangle launch.sh :var INPUT1=machines
+# i'm using org-src variable substitution
+PARTITIONS=(INPUT1)
+
+# the experiment id
+EXPERIMENT_ID=${@[0]}
+
+# the work (repo) dir
+REPO_DIR="$HOME/ic"
+EXP_DIR="$REPODIR/experiments/vector_reduction/$EXPERIMENT_ID"
+pushd $REPODIR
+
+if [ ! -d "$EXP_DIR/code" ]; then
+    git pull
+    cp -r code/starpu/vector-reduction $EXP_DIR/code
+fi
+
+# to keep track on IDs
+job_id=0
+
+for name in "$PARTITIONS"; do
+    nodes=$(gppd-info --long --Node -S NODELIST -p $name -h | awk '{print $1 "_" $7}' | paste -s -d" " -)
+
+    for execution in "$nodes"; do
+        # launch the slurm script for this node
+        sbatch -w ${execution%%_*} $EXPERIMENT_ID/exp.slurm $execution $job_id $EXP_DIR
+
+        # increment execution id
+        ((job_id++))
+    done
+done
+#+end_src
+
+Which is to be used in the following way:
+
+#+begin_src bash :tangle no
+chmod +x launch.sh
+
+./lauch.sh <experiment_id>
+#+end_src
+
 * Table of contents                                                   :TOC_3:
 - [[#1---the-basics][1 - The basics]]
   - [[#slurm-script][Slurm script]]
-  - [[#scheduling][Scheduling]]
 
-* 1 - The basics                                                        :EXP:
+* 1 - The basics                                                      :EXP01:
 
 The test experiment.
 
@@ -49,16 +99,6 @@ fac.design (
 
 Defined variables and names:
 
-#+name: machines
-#+begin_example
-draco hype knl orion tupi
-#+end_example
-
-#+name: experiment_id
-#+begin_example
-exp01
-#+end_example
-
 ** Slurm script
 
 #+begin_src bash :tangle exp01/exp.slurm
@@ -68,38 +108,40 @@ exp01
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
 
-exec_name=${@[0]}
-exec_id=${@[1]}
+# parameters
+EXEC_NAME=${@[0]}
+EXEC_ID=${@[1]}
+EXP_DIR=${@[2]}
 
 # prepare the machine file
-machinefile="nodes.$SLURM_JOB_ID.$exec_name.$exec_id"
+MACHINEFILE="nodes.$SLURM_JOB_ID.$EXEC_NAME.$EXEC_ID"
 
-# compile the program
+# source spack env variables
+source $HOME/Repositories/spack/share/spack/setup-env.sh
+
+# prepare our directory
 pushd $SCRATCH
-mkdir $exec_name
-cd $exec_name
+mkdir $EXEC_NAME
+pushd $EXEC_NAME
+
+# copy the code folder
+cp -r $EXP_DIR/code code/
+
+# compile
+cd code/
+[ ! -d build/ ] && mkdir build/
+cd build/
+cmake -DSTARPU_DIR=$(spack location -i starpu)
+make
 
 # execute the program
-#+end_src
+while read config; do
+    echo "-> Parameters set to: $config"
+    echo
+    ../bin/vector-reduction ${config[0]} ${config[1]} ${config[2]}
+    echo
+done <$EXP_DIR/run.csv
 
-** Scheduling
-
-#+begin_src shell :var INPUT1=machines INPUT2=experiment_id
-# i'm using org-src variable substitution
-partitions=(INPUT1)
-
-# to keep track on IDs
-job_id=0
-
-for name in "$partitions"; do
-    nodes=$(gppd-info --long --Node -S NODELIST -p $name -h | awk '{print $1 "_" $7}' | paste -s -d" " -)
-
-    for execution in "$nodes"; do
-        # launch the slurm script for this node
-        sbatch -w ${execution%%_*} INPUT2/exp.slurm $exec $job_id
-
-        # increment execution id
-        ((job_id++))
-    done
-done
+popd
+rm -rf $EXEC_NAME
 #+end_src
