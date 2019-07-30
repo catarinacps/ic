@@ -25,7 +25,7 @@ draco hype knl orion tupi
 #+end_example
 
 And the scheduling of experiments is supposed to happen according to this
-script:
+script (which is, by the way, surprisingly generic):
 
 #+begin_src bash :tangle launch.sh :var INPUT1=machines
 # i'm using org-src variable substitution
@@ -94,7 +94,7 @@ fac.design (
         ReductionFactor=fr)) %>%
   as_tibble %>%
   select(-Blocks) %>%
-  write_csv("exp01/runs.csv")
+  write_delim("exp01/runs.plan", delim=" ", col_names=FALSE)
 #+end_src
 
 Defined variables and names:
