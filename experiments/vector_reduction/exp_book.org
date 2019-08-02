@@ -132,8 +132,8 @@ cp -r $EXP_DIR/code code/
 cd code/
 [ ! -d build/ ] && mkdir build/
 cd build/
-cmake -DSTARPU_DIR=$(spack location -i starpu)
-cmake -DSTARPU_DIR=$(spack location -i starpu)
+cmake -DSTARPU_DIR=$(spack location -i starpu) ..
+cmake -DSTARPU_DIR=$(spack location -i starpu) ..
 make
 
 # execute the program
@@ -142,7 +142,7 @@ while read config; do
     echo
     ../bin/vector-reduction ${config[0]} ${config[1]} ${config[2]}
     echo
-done <$EXP_DIR/run.csv
+done <$EXP_DIR/runs.plan
 
 popd
 rm -rf $EXEC_NAME
