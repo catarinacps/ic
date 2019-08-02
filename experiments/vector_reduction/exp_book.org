@@ -20,17 +20,14 @@ library(tidyverse)
 And the partitions intended to be used in this test:
 
 #+name: machines
-#+begin_example
-draco hype knl orion tupi
-#+end_example
+#+begin_src bash :tangle no
+echo "draco hype knl orion tupi"
+#+end_src
 
 And the scheduling of experiments is supposed to happen according to this
 script (which is, by the way, surprisingly generic):
 
-#+begin_src bash :tangle launch.sh :var INPUT1=machines
-# i'm using org-src variable substitution
-PARTITIONS=(INPUT1)
-
+#+begin_src bash :shebang "#!/bin/bash" :tangle launch.sh :var PARTITIONS=machines
 # the experiment id
 EXPERIMENT_ID=${@[0]}
 
@@ -70,11 +67,14 @@ chmod +x launch.sh
 
 * Table of contents                                                   :TOC_3:
 - [[#1---the-basics][1 - The basics]]
+  - [[#experiment-plan][Experiment plan]]
   - [[#slurm-script][Slurm script]]
 
 * 1 - The basics                                                      :EXP01:
 
-The test experiment.
+It exists so I learn how to do stuff using R and slurm and shell scripts.
+
+** Experiment plan
 
 #+begin_src R :session :results none
 size = c("P", "M", "G")
@@ -95,9 +95,10 @@ fac.design (
   as_tibble %>%
   select(-Blocks) %>%
   write_delim("exp01/runs.plan", delim=" ", col_names=FALSE)
-#+end_src
 
-Defined variables and names:
+# the space delimited file is to help with the posterior parsing in the shell
+# script
+#+end_src
 
 ** Slurm script
 
@@ -131,6 +132,7 @@ cp -r $EXP_DIR/code code/
 cd code/
 [ ! -d build/ ] && mkdir build/
 cd build/
+cmake -DSTARPU_DIR=$(spack location -i starpu)
 cmake -DSTARPU_DIR=$(spack location -i starpu)
 make
 
