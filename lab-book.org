@@ -555,6 +555,7 @@ be creative)
 
 - [[https://dev.to/zduey/how-to-set-up-an-ssh-server-on-a-home-computer]]
 - [[https://www.makeuseof.com/tag/beginners-guide-setting-ssh-linux-testing-setup/]]
+- [[https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-1604]]
 
 ** Meetings
 
