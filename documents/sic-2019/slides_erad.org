@@ -1,3 +1,4 @@
+# -*- org-export-babel-evaluate: nil -*-
 # -*- coding: utf-8 -*-
 # -*- mode: org -*-
 #+startup: beamer overview indent
@@ -25,7 +26,7 @@
 #+LATEX_HEADER: \usepackage{palatino}
 #+LATEX_HEADER: %\usepackage{enumitem}
 #+LATEX_HEADER: %\setlist[itemize]{leftmargin=1.2em}
-#+LATEX_HEADER: \input{org-babel.tex}
+#+LATEX_HEADER: %\input{org-babel.tex}
 
 # You need at least Org 9 and Emacs 24 to make this work.
 

@@ -1,0 +1,52 @@
+# -*- org-export-babel-evaluate: nil -*-
+# -*- coding: utf-8 -*-
+# -*- mode: org -*-
+#+startup: beamer overview indent
+
+#+TITLE: teste titulo
+#+AUTHOR: teste teste
+#+EMAIL: teste@teste
+#+DATE:
+
+#+LaTeX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [american,serif]
+#+BEAMER_THEME: UiB
+#+OPTIONS: author:t title:nil
+#+OPTIONS:   H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+LANGUAGE: pt-br
+#+TAGS: noexport(n) ignore(i)
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+EXPORT_SELECT_TAGS: export
+#+LATEX_HEADER: \usepackage{microtype}
+#+LATEX_HEADER: \usepackage{mathtools}
+#+LATEX_HEADER: \usepackage[utf8]{inputenc}
+#+LATEX_HEADER: \usepackage[T1]{fontenc}
+#+LATEX_HEADER: \usepackage{palatino}
+#+LATEX_HEADER: \usepackage{amssymb}
+#+LATEX_HEADER: \usepackage{csquotes}
+#+LATEX_HEADER: \usepackage{tikz}
+#+LATEX_HEADER: \usepackage[absolute, overlay]{textpos}
+#+LATEX_HEADER: \setlength{\TPHorizModule}{\paperwidth} % Textpos units
+#+LATEX_HEADER: \setlength{\TPVertModule}{\paperwidth} % Textpos units
+#+LATEX_HEADER: \usetikzlibrary{overlay-beamer-styles}  % Overlay effects for TikZ
+
+* Intro
+:PROPERTIES:
+:UNNUMBERED:
+:END:
+** Motivação
+
+teste texto
+
+* Outra
+** Summary
+
+\tableofcontents
+
+** intro
+
+\tableofcontents[currentsubsection, sectionstyle=show/shaded]
+
+** oi
+
+asdasd

@@ -117,6 +117,20 @@ task-based parallel computing method.
 (global-set-key (kbd "<f9>") 'get-selected-text)
 #+end_src
 
+#+begin_src emacs-lisp :tangle yes
+(add-to-list 'org-latex-classes '("newlfm" "\\documentclass{newlfm}" ("\\section{%s}" . "\\section*{%s}")
+                                  ("\\subsection{%s}" . "\\subsection*{%s}") ("\\subsubsection{%s}"
+                                                                              . "\\subsubsection*{%s}") ("\\paragraph{%s}" . "\\paragraph*{%s}")  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+#+end_src
+
+#+RESULTS:
+| newlfm  | \documentclass{newlfm}               | (\section{%s} . \section*{%s}) | (\subsection{%s} . \subsection*{%s}) | (\subsubsection{%s} . \subsubsection*{%s}) | (\paragraph{%s} . \paragraph*{%s})   | (\subparagraph{%s} . \subparagraph*{%s})   |
+| newlfm  | \documentclass{newlfm}               |                                |                                      |                                            |                                      |                                            |
+| beamer  | \documentclass[presentation]{beamer} | (\section{%s} . \section*{%s}) | (\subsection{%s} . \subsection*{%s}) | (\subsubsection{%s} . \subsubsection*{%s}) |                                      |                                            |
+| article | \documentclass[11pt]{article}        | (\section{%s} . \section*{%s}) | (\subsection{%s} . \subsection*{%s}) | (\subsubsection{%s} . \subsubsection*{%s}) | (\paragraph{%s} . \paragraph*{%s})   | (\subparagraph{%s} . \subparagraph*{%s})   |
+| report  | \documentclass[11pt]{report}         | (\part{%s} . \part*{%s})       | (\chapter{%s} . \chapter*{%s})       | (\section{%s} . \section*{%s})             | (\subsection{%s} . \subsection*{%s}) | (\subsubsection{%s} . \subsubsection*{%s}) |
+| book    | \documentclass[11pt]{book}           | (\part{%s} . \part*{%s})       | (\chapter{%s} . \chapter*{%s})       | (\section{%s} . \section*{%s})             | (\subsection{%s} . \subsection*{%s}) | (\subsubsection{%s} . \subsubsection*{%s}) |
+
 ** 2019-06-11 Meeting
 
 *Roteiro*:
