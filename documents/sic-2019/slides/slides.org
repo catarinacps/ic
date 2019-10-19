@@ -31,25 +31,11 @@
 :PROPERTIES:
 :UNNUMBERED:
 :END:
-** Motivação
+** Motivation
 
-Dentre os vários motivos para realizar essa apresentação, posso citar:
+Slight motivational talk about parallel applications and HPC scientific ones
 
-- Fui forçado pela universidade
-- Realmente é só isso
-
-mas!
-
-1. é uma boa oportunidade
-2. para aprender org mode
-
-*** código!
-
-#+begin_src shell :exports both
-echo teste
-#+end_src
-
-* Outra
+* Introduction
 ** Agenda
 
 \tableofcontents
@@ -58,25 +44,28 @@ echo teste
 
 \tableofcontents[currentsubsection, sectionstyle=show/shaded]
 
-** oi
+** Parallel programming models
 
-asdasd
+Placeholder
 
 \pause
 
-oioioi
+Placeholder
 
-* Mais outra
+* Method
 
-** teste
+** Experiment design
 
-*** testeeee                                                      :B_frame:
+*** Fully factorial                                               :B_frame:
 :PROPERTIES:
 :BEAMER_env: frame
 :END:
 
-aaaa
+Placeholder
 
-** slide
+*** Script                                                        :B_frame:
+:PROPERTIES:
+:BEAMER_env: frame
+:END:
 
-legal
+Placeholder
