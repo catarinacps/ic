@@ -175,7 +175,7 @@ popd
 
 # init the results csv
 results_csv=results/${HOST}_data.csv
-echo "node,rep_id,matrix_size,block_size,runtime,compute_time,total_time" > $results_csv
+echo "node,rep_id,vector_size,num_blocks,reduc_fac,compute_time" > $results_csv
 
 # execute the program
 while read -r id vector_size num_blocks reduc_fac; do
@@ -187,10 +187,10 @@ while read -r id vector_size num_blocks reduc_fac; do
     # execute with given configurations
     ./code/bin/vector-reduction $vector_size $num_blocks $reduc_fac > $log_file
 
-    # TODO: add the extra tested programs (naive reduction)
+    # TODO: add the extra tested programs (naive sum of elements)
 
     # add execution data to csv
-    echo ${HOST},${id},${vector_size},${num_blocks},${reduc_fac} >> $results_csv
+    echo ${HOST},${id},${vector_size},${num_blocks},${reduc_fac},${c_time} >> $results_csv
 
     # stress the memory to prevent cache influence between runs
     stress-ng --vm 3 --vm-bytes 75% -t 5s &> /dev/null
