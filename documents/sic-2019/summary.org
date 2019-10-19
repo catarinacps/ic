@@ -1,3 +1,7 @@
+# -*- org-export-babel-evaluate: nil -*-
+# -*- coding: utf-8 -*-
+# -*- mode: org -*-
+
 #+title: Computational Experiments on @@latex:\\@@  Task-Based Parallel Applications
 #+subtitle: /Salão de Iniciação Científica UFRGS 2019/
 #+options: toc:nil author:nil

@@ -3,31 +3,33 @@
 # -*- mode: org -*-
 #+startup: beamer
 
-#+BEAMER_HEADER: \title[Computational Experiments]{Computational Experiments on Task-Based Parallel Applications}
-#+BEAMER_HEADER: \author[Henrique Silva \& Lucas Schnorr]{Henrique Corrêa Pereira da Silva\\Lucas Mello Schnorr (advisor)}
-#+EMAIL: teste@teste
-#+DATE:
+#+beamer_header: \title[Task-Based Parallel Applications]{Computational Experiments on Task-Based Parallel Applications}
+#+subtitle: /Salão de Iniciação Científica UFRGS 2019/
+#+beamer_header: \author[Henrique Silva \& Lucas Schnorr]{Henrique Corrêa Pereira da Silva\\Lucas Mello Schnorr (advisor)}
+#+email: hcpsilva@inf.ufrgs.br, schnorr@inf.ufrgs.br
+#+beamer_header: \institute{Institute of Informatics}
+#+date:
 
-#+LaTeX_CLASS: beamer
-#+LaTeX_CLASS_OPTIONS: [serif,11pt]
-#+BEAMER_THEME: UiB
-#+OPTIONS: author:t title:nil H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
-#+LANGUAGE: pt-br
-#+TAGS: noexport(n) ignore(i)
-#+EXPORT_EXCLUDE_TAGS: noexport
-#+EXPORT_SELECT_TAGS: export
-#+LATEX_HEADER: \usepackage{microtype}
-#+LATEX_HEADER: \usepackage{mathtools}
-#+LATEX_HEADER: \usepackage{palatino}
-#+LATEX_HEADER: \usepackage{amssymb}
-#+LATEX_HEADER: \usepackage{csquotes}
-#+LATEX_HEADER: \usepackage{tikz}
-#+LATEX_HEADER: \usepackage[absolute, overlay]{textpos}
-#+LATEX_HEADER: \setlength{\TPHorizModule}{\paperwidth} % Textpos units
-#+LATEX_HEADER: \setlength{\TPVertModule}{\paperwidth} % Textpos units
-#+LATEX_HEADER: \usetikzlibrary{overlay-beamer-styles}  % Overlay effects for TikZ
+#+latex_class: beamer
+#+latex_class_options: [serif,11pt]
+#+beamer_theme: UiB
+#+options: author:t title:nil H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+language: pt-br
+#+tags: noexport(n) ignore(i)
+#+export_exclude_tags: noexport
+#+export_select_tags: export
+#+latex_header: \usepackage{microtype}
+#+latex_header: \usepackage{mathtools}
+#+latex_header: \usepackage{palatino}
+#+latex_header: \usepackage{amssymb}
+#+latex_header: \usepackage{csquotes}
+#+latex_header: \usepackage{tikz}
+#+latex_header: \usepackage[absolute, overlay]{textpos}
+#+latex_header: \setlength{\TPHorizModule}{\paperwidth} % Textpos units
+#+latex_header: \setlength{\TPVertModule}{\paperwidth} % Textpos units
+#+latex_header: \usetikzlibrary{overlay-beamer-styles}  % Overlay effects for TikZ
 
-* Intro
+* Preamble
 :PROPERTIES:
 :UNNUMBERED:
 :END:
@@ -69,3 +71,19 @@ Placeholder
 :END:
 
 Placeholder
+
+* Questions                                                 :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+
+\setbeamercolor{background canvas}{bg = uibgray}
+
+** Thanks                                                      :B_fullframe:
+:PROPERTIES:
+:BEAMER_OPT: b, plain, noframenumbering
+:BEAMER_env: fullframe
+:END:
+
+\title{Questions?}
+\titlepage
