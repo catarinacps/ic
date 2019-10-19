@@ -1,26 +1,23 @@
 # -*- org-export-babel-evaluate: nil -*-
 # -*- coding: utf-8 -*-
 # -*- mode: org -*-
-#+startup: beamer overview indent
+#+startup: beamer
 
-#+TITLE: teste titulo
-#+AUTHOR: teste teste
+#+BEAMER_HEADER: \title[Computational Experiments]{Computational Experiments on Task-Based Parallel Applications}
+#+BEAMER_HEADER: \author[Henrique Silva \& Lucas Schnorr]{Henrique Corrêa Pereira da Silva\\Lucas Mello Schnorr (advisor)}
 #+EMAIL: teste@teste
 #+DATE:
 
 #+LaTeX_CLASS: beamer
-#+LaTeX_CLASS_OPTIONS: [american,serif]
+#+LaTeX_CLASS_OPTIONS: [serif,11pt]
 #+BEAMER_THEME: UiB
-#+OPTIONS: author:t title:nil
-#+OPTIONS:   H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS: author:t title:nil H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
 #+LANGUAGE: pt-br
 #+TAGS: noexport(n) ignore(i)
 #+EXPORT_EXCLUDE_TAGS: noexport
 #+EXPORT_SELECT_TAGS: export
 #+LATEX_HEADER: \usepackage{microtype}
 #+LATEX_HEADER: \usepackage{mathtools}
-#+LATEX_HEADER: \usepackage[utf8]{inputenc}
-#+LATEX_HEADER: \usepackage[T1]{fontenc}
 #+LATEX_HEADER: \usepackage{palatino}
 #+LATEX_HEADER: \usepackage{amssymb}
 #+LATEX_HEADER: \usepackage{csquotes}
@@ -36,17 +33,50 @@
 :END:
 ** Motivação
 
-teste texto
+Dentre os vários motivos para realizar essa apresentação, posso citar:
+
+- Fui forçado pela universidade
+- Realmente é só isso
+
+mas!
+
+1. é uma boa oportunidade
+2. para aprender org mode
+
+*** código!
+
+#+begin_src shell :exports both
+echo teste
+#+end_src
 
 * Outra
-** Summary
+** Agenda
 
 \tableofcontents
 
-** intro
+** Agenda
 
 \tableofcontents[currentsubsection, sectionstyle=show/shaded]
 
 ** oi
 
 asdasd
+
+\pause
+
+oioioi
+
+* Mais outra
+
+** teste
+
+*** testeeee                                                      :B_frame:
+:PROPERTIES:
+:BEAMER_env: frame
+:END:
+
+aaaa
+
+** slide
+
+legal

@@ -10,7 +10,7 @@
 \WarningFilter{remreset}{The remreset package}
 \RequirePackage{calc}
 \RequirePackage{etoolbox}
-\RequirePackage[LGR, T1]{fontenc}
+\RequirePackage[T1]{fontenc}
 \RequirePackage[utf8]{inputenx}
 \RequirePackage{thmtools}
 \RequirePackage{tikz}
@@ -182,7 +182,7 @@
                                      bg = uibblue}
 \setbeamercolor{block body alerted} {bg = uibgray}
 \setbeamercolor{alerted text} {fg = uibblue}
-\setbeamercolor{footnote mark}{fg = uiored}
+\setbeamercolor{footnote mark}{fg = uibred}
 \setbeamercolor{section in head/foot}{fg = white,
                                       bg = uibred}
 \setbeamercolor{section in toc}{fg = black}
@@ -196,19 +196,15 @@
 
 
 %% Standard fonts:
-\setbeamerfont{author}    {size   = \large,
-                           series = \normalfont\rmfamily}
-\setbeamerfont{title}     {size   = \Huge,
-                           series = \upshape}
-\setbeamerfont{subtitle}  {size   = \normalsize,
-                           series = \normalfont\rmfamily}
-\setbeamerfont{frametitle}{size = \LARGE,
-                           series = \itshape}
-\setbeamerfont{title in head/foot} {series = \mdseries}
-\setbeamerfont{author in head/foot}{series = \mdseries}
-\setbeamerfont{date in head/foot}  {series = \mdseries}
+\setbeamerfont{author}    {size   = \large, series = \normalfont\rmfamily}
+\setbeamerfont{title}     {size   = \Huge, series = \upshape}
+\setbeamerfont{subtitle}  {size   = \normalsize, series = \normalfont\rmfamily}
+\setbeamerfont{frametitle}{size = \LARGE, series = \itshape}
+\setbeamerfont{title in head/foot} {size = \tiny, series = \mdseries}
+\setbeamerfont{author in head/foot}{size = \tiny, series = \mdseries}
+\setbeamerfont{date in head/foot}  {size = \tiny, series = \mdseries}
 \setbeamerfont{section in toc}     {series = \mdseries}
-\setbeamerfont{subsection in toc}  {size = \footnotesize, series = \mdseries}
+\setbeamerfont{subsection in toc}  {size = \small, series = \mdseries}
 
 
 %% Custom fonts:
@@ -216,7 +212,7 @@
                                         series = \bfseries}
 \setbeamerfont{title in final frame}   {size   = \LARGE,
                                         series = \bfseries}
-\setbeamerfont{subtitle in final frame}{  size = \Large,
+\setbeamerfont{subtitle in final frame}{size = \Large,
                                         series = \normalfont\rmfamily}
 
 
@@ -233,18 +229,18 @@
         \insertsubtitle
     \end{center}
     \begin{beamercolorbox}[wd        = \paperwidth,
-                           ht        = 11 mm,
-                           dp        = \dimexpr 0.4\paperheight - 11 mm \relax,
-                           leftskip  = 1 em,
-                           rightskip = 1 em]
+                           ht        = 7 mm,
+                           dp        = \dimexpr 0.4\paperheight - 6 mm \relax,
+                           leftskip  = 1.2 em,
+                           rightskip = 1.2 em]
                           {section in head/foot}
-        \begin{minipage}[t][0.28\paperheight]{\textwidth}
+        \begin{minipage}[t][0.35\paperheight]{\textwidth}
             \centering
             \usebeamerfont{author}
             \insertauthor
             \vfill
             \hfill
-            \includegraphics[scale = 0.12]{UiB-images/ufrgs-long}
+            \includegraphics[scale = 0.11]{images/ufrgs-long}
         \end{minipage}
     \end{beamercolorbox}
     \vspace*{-1.3em}
@@ -328,7 +324,7 @@
 
 \logo
 {
-    \includegraphics[height = 0.13\paperheight]{UiB-images/ufrgs-emblem}
+    \includegraphics[height = 0.12\paperheight]{images/ufrgs-emblem}
 }
 
 \newcommand{\nologo}{ \setbeamertemplate{logo}{} }
