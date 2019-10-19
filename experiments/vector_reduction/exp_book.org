@@ -21,40 +21,45 @@ And the partitions intended to be used in this test:
 
 #+name: machines
 #+begin_src bash :tangle no
-echo "draco hype knl orion tupi"
+echo "draco hype tupi"
 #+end_src
 
 And the scheduling of experiments is supposed to happen according to this
 script (which is, by the way, surprisingly generic):
 
-#+begin_src bash :shebang "#!/bin/bash" :tangle launch.sh :var PARTITIONS=machines
+#+begin_src bash :shebang "#!/bin/bash" :tangle launch.sh :var PARTITIONS=machines :results none
 # the experiment id
-EXPERIMENT_ID=${@[0]}
+EXPERIMENT_ID=$1
 
 # the work (repo) dir
-REPO_DIR="$HOME/ic"
-EXP_DIR="$REPODIR/experiments/vector_reduction/$EXPERIMENT_ID"
-pushd $REPODIR
+REPO_DIR=$2
 
-if [ ! -d "$EXP_DIR/code" ]; then
-    git pull
-    cp -r code/starpu/vector-reduction $EXP_DIR/code
+if [[ $REPO_DIR != /* ]]; then
+    echo "Path to repository is not absolute, please use the absolute path..."
+    exit
 fi
 
-# to keep track on IDs
-job_id=0
+EXP_DIR=$REPO_DIR/experiments/vector_reduction/$EXPERIMENT_ID
+pushd $REPO_DIR
 
-for name in "$PARTITIONS"; do
-    nodes=$(gppd-info --long --Node -S NODELIST -p $name -h | awk '{print $1 "_" $7}' | paste -s -d" " -)
+# always update and overwrite the code dir
+git pull
+cp -r code $EXP_DIR/code
 
-    for execution in "$nodes"; do
+for name in $PARTITIONS; do
+    nodes=$(gppd-info --long --Node -S NODELIST -p $name -h | awk '{print $1 "_" $5}' | paste -s -d" " -)
+
+    for execution in $nodes; do
         # launch the slurm script for this node
-        sbatch -w ${execution%%_*} $EXPERIMENT_ID/exp.slurm $execution $job_id $EXP_DIR
-
-        # increment execution id
-        ((job_id++))
+        sbatch \
+            -w ${execution%%_*} \
+            -c ${execution#*_} \
+            -J ${EXPERIMENT_ID}_${execution}_${USER} \
+            $EXPERIMENT_ID/exp.slurm $EXPERIMENT_ID $EXP_DIR
     done
 done
+
+popd
 #+end_src
 
 Which is to be used in the following way:
@@ -62,88 +67,140 @@ Which is to be used in the following way:
 #+begin_src bash :tangle no
 chmod +x launch.sh
 
-./lauch.sh <experiment_id>
+./lauch.sh <experiment_id> <path_to_repo>
 #+end_src
 
 * Table of contents                                                   :TOC_3:
 - [[#1---the-basics][1 - The basics]]
-  - [[#experiment-plan][Experiment plan]]
-  - [[#slurm-script][Slurm script]]
+  - [[#design][Design]]
+  - [[#script][Script]]
 
 * 1 - The basics                                                      :EXP01:
 
 It exists so I learn how to do stuff using R and slurm and shell scripts.
 
-** Experiment plan
+** Design
+
+The random seed will be:
+
+#+begin_src R :session :results value :exports results
+floor(runif(1,1,99999))
+#+end_src
+
+#+RESULTS:
+: 60485
 
 #+begin_src R :session :results none
-size = c("70000000", "300000000", "1100000000")
-nb = c("7000", "25000", "82000")
-fr = c("2", "10", "1000")
+size = c(70000000, 300000000, 1100000000)
+nb = c(7000, 25000, 82000)
+fr = c(2, 10, 1000)
 
-fac.design (
+fac.design(
     nfactors=3,
     replications=10,
     repeat.only=FALSE,
     blocks=1,
     randomize=TRUE,
-    seed=10373,
+    seed=60485,
     factor.names=list(
-        Size=size,
-        NumberOfBlocks=nb,
-        ReductionFactor=fr)) %>%
+        vec_size=size,
+        num_blocks=nb,
+        reduction_factor=fr)) %>%
   as_tibble %>%
-  select(-Blocks) %>%
+  transmute(id=as.numeric(Blocks), vec_size, num_blocks, reduction_factor) %>%
   write_delim("exp01/runs.plan", delim=" ", col_names=FALSE)
 
 # the space delimited file is to help with the posterior parsing in the shell
 # script
 #+end_src
 
-** Slurm script
+** Script
 
-#+begin_src bash :tangle exp01/exp.slurm
-#!/bin/bash
-#SBATCH --time=02:00:00
+#+begin_src bash :shebang "#!/bin/bash" :tangle exp01/exp.slurm
+#SBATCH --time=72:00:00
 #SBATCH --workdir=.
-#SBATCH --output=%x_%j.out
-#SBATCH --error=%x_%j.err
+#SBATCH --output=/home/users/hcpsilva/slurm_outputs/%x_%j.out
+#SBATCH --error=/home/users/hcpsilva/slurm_outputs/%x_%j.err
+#SBATCH --mail-type=END,FAIL
+#SBATCH --mail-user=hcpsilva@inf.ufrgs.br
 
 # parameters
-EXEC_NAME=${@[0]}
-EXEC_ID=${@[1]}
-EXP_DIR=${@[2]}
+# the experiment ID, defined in the lab-book
+EXP_ID=$1
+# the experiment directory
+EXP_DIR=$2
 
-# prepare the machine file
-MACHINEFILE="nodes.$SLURM_JOB_ID.$EXEC_NAME.$EXEC_ID"
+# experiment name (which is the ID and the machine and its core count)
+EXP_NAME=${EXP_ID}_${HOST}_${SLURM_CPUS_ON_NODE}
 
+# seed generated in project design
+RAND_SEED=60485
+
+# go to the scratch dir to execute our operations
+cd $SCRATCH
+
+# clean up my scratch dir
+rm -rf *
+
+# install spack
+git clone https://github.com/spack/spack.git
 # source spack env variables
-source $HOME/Repositories/spack/share/spack/setup-env.sh
+. spack/share/spack/setup-env.sh
+
+# install starpu and cia
+spack install starpu@develop+fxt+poti~examples~mpi~openmp &> /dev/null
+echo "StarPU installed!"
+
+# set up path and ld path
+export LD_LIBRARY_PATH=$(spack location -i starpu)/lib
+export PATH=$PATH:$(spack location -i starpu)/bin
 
 # prepare our directory
-pushd $SCRATCH
-mkdir $EXEC_NAME
-pushd $EXEC_NAME
+mkdir $EXP_NAME
+pushd $EXP_NAME
 
 # copy the code folder
-cp -r $EXP_DIR/code code/
+cp -r $EXP_DIR/code code
+mkdir results
 
 # compile
-cd code/
-[ ! -d build/ ] && mkdir build/
-cd build/
+pushd code
+[ ! -d build/ ] && mkdir build
+pushd build
 cmake -DSTARPU_DIR=$(spack location -i starpu) ..
 cmake -DSTARPU_DIR=$(spack location -i starpu) ..
 make
+popd
+popd
+
+# init the results csv
+results_csv=results/${HOST}_data.csv
+echo "node,rep_id,matrix_size,block_size,runtime,compute_time,total_time" > $results_csv
 
 # execute the program
-while read config; do
-    echo "-> Parameters set to: $config"
+while read -r id vector_size num_blocks reduc_fac; do
+    echo "-> Parameters set to: $vector_size $num_blocks $reduc_fac"
+
+    # output log file
+    log_file=results/${vector_size}_${num_blocks}_${reduc_fac}_${id}.log
+
+    # execute with given configurations
+    ./code/bin/vector-reduction $vector_size $num_blocks $reduc_fac > $log_file
+
+    # TODO: add the extra tested programs (naive reduction)
+
+    # add execution data to csv
+    echo ${HOST},${id},${vector_size},${num_blocks},${reduc_fac} >> $results_csv
+
+    # stress the memory to prevent cache influence between runs
+    stress-ng --vm 3 --vm-bytes 75% -t 5s &> /dev/null
+
     echo
-    ../bin/vector-reduction ${config[0]} ${config[1]} ${config[2]}
-    echo
-done <$EXP_DIR/runs.plan
+done < $EXP_DIR/runs.plan
+
+# zip everything and commit to EXP_DIR
+tar czf $EXP_DIR/${EXP_NAME}_data.tar.gz *
 
 popd
-rm -rf $EXEC_NAME
+rm -rf $SCRATCH/*
 #+end_src
