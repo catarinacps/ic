@@ -13,7 +13,7 @@
 #+latex_class: beamer
 #+latex_class_options: [serif,11pt]
 #+beamer_theme: UiB
-#+options: author:t title:nil H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+options: author:t title:nil H:3 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
 #+language: pt-br
 #+tags: noexport(n) ignore(i)
 #+export_exclude_tags: noexport
@@ -33,26 +33,34 @@
 :PROPERTIES:
 :UNNUMBERED:
 :END:
-** Motivation
+** Motivation                                                      :B_frame:
+:PROPERTIES:
+:BEAMER_env: frame
+:END:
 
 Slight motivational talk about parallel applications and HPC scientific ones
 
-** Agenda
+** Agenda                                                          :B_frame:
 :PROPERTIES:
 :BEAMER_OPT: plain, noframenumbering
+:BEAMER_env: frame
 :END:
 
 \tableofcontents
 
 * Introduction
-** Agenda
+** Agenda                                                          :B_frame:
 :PROPERTIES:
 :BEAMER_OPT: plain, noframenumbering
+:BEAMER_env: frame
 :END:
 
 \tableofcontents[currentsubsection, sectionstyle=show/shaded]
 
-** Parallel programming models
+** Parallel programming models                                     :B_frame:
+:PROPERTIES:
+:BEAMER_env: frame
+:END:
 
 Placeholder
 
@@ -62,51 +70,41 @@ Placeholder
 
 * Method
 
-** Agenda
+** Agenda                                                          :B_frame:
 :PROPERTIES:
 :BEAMER_OPT: plain, noframenumbering
+:BEAMER_env: frame
 :END:
 
 \tableofcontents[currentsubsection, sectionstyle=show/shaded]
 
 ** Experiment design
 
-*** Agenda                                                        :B_frame:
+*** Agenda
 :PROPERTIES:
-:BEAMER_env: frame
 :BEAMER_OPT: plain, noframenumbering
 :END:
 
 \tableofcontents[currentsubsection, sectionstyle=show/shaded]
 
-*** Fully factorial                                               :B_frame:
-:PROPERTIES:
-:BEAMER_env: frame
-:END:
+*** Fully factorial
 
 Placeholder
 
-*** Script                                                        :B_frame:
-:PROPERTIES:
-:BEAMER_env: frame
-:END:
+*** Script
 
 Placeholder
 
 ** Algorithm design
 
-*** Agenda                                                        :B_frame:
+*** Agenda
 :PROPERTIES:
-:BEAMER_env: frame
 :BEAMER_OPT: plain, noframenumbering
 :END:
 
 \tableofcontents[currentsubsection, sectionstyle=show/shaded]
 
-*** Task-based                                                    :B_frame:
-:PROPERTIES:
-:BEAMER_env: frame
-:END:
+*** Task-based
 
 Placeholder
 

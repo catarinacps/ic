@@ -1,57 +1,15 @@
-#include "vector_reduc.h"
+#include <math.h>
+#include <starpu.h>
 
-int debug = 0;
-
-double get_time(void)
-{
-    struct timeval tr;
-    gettimeofday(&tr, NULL);
-    return (double)tr.tv_sec + (double)tr.tv_usec / 1000000;
-}
-
-int generate_random_int(const int max, const int min)
-{
-    return rand() % (max + 1 - min) + min;
-}
-
-void reduc_sum(void** buffers, void* cl_arg)
-{
-    int* vec_input = (int*)STARPU_VECTOR_GET_PTR(buffers[0]);
-    int* output = (int*)STARPU_VARIABLE_GET_PTR(buffers[1]);
-    unsigned nx_input = STARPU_VECTOR_GET_NX(buffers[0]);
-
-    double t0 = get_time();
-    /* printf("%f Task started %p - %p, begin=%d, end=%d\n", */
-    /* 	   t0, vec_input, vec_output, par->begin, par->end); */
-
-    // do the job
-    for (int i = 0; i < nx_input; i++)
-        *output += vec_input[i];
-
-    double t1 = get_time();
-
-    V_PRINTF("SUM = %d\n"
-             "Task finished work with elapsed time %f\n",
-        *output, t1 - t0);
-}
-
-int submit_reduction_task(starpu_data_handle_t* input_handle, starpu_data_handle_t* output_handle)
-{
-    struct starpu_task* task = starpu_task_create();
-
-    task->synchronous = 0;
-    task->cl = &reduc_cl;
-    task->handles[0] = *input_handle;
-    task->handles[1] = *output_handle;
-
-    return starpu_task_submit(task);
-}
+#include "helpers/starpu_helpers.h"
+#include "reduc/vector_reduc.h"
+#include "utils/utils.h"
 
 int main(int argc, char** argv)
 {
-    if (argc != 4) {
-        printf("Please provide the following parameters:\n"
-               "%s <problem_size> <number_blocks> <decay_factor>\n",
+    if (argc != 5) {
+        V_PRINTF("Please provide the following parameters:\n"
+               "%s <problem_size> <number_blocks> <decay_factor> <max_rand_value>\n",
             argv[0]);
         exit(-1);
     }
@@ -62,30 +20,29 @@ int main(int argc, char** argv)
 
     const ullint original_n_elements = atoll(argv[1]);
     ullint n_blocks = atoi(argv[2]);
-    const ullint decay_factor = atoi(argv[3]);
+    const ullint decay_factor = atoll(argv[3]);
+    const uint max_value = atoi(argv[4]); // max random value for vector init
 
-    ullint block_size = (long long)ceil((double)original_n_elements / n_blocks);
+    ullint block_size = (ullint)ceil((double)original_n_elements / n_blocks);
 
-    printf("number of blocks = %d\n", n_blocks);
+    V_PRINTF("number of blocks = %d\n", n_blocks);
 
     ullint n_elements = n_blocks * block_size;
 
     if (n_blocks < 1 || n_blocks > n_elements) {
-        printf("Please provide a number of blocks bigger than 0 and smaller than the number of elements\n");
+        V_PRINTF("Please provide a number of blocks bigger than 0 and smaller than the number of elements\n");
         exit(-1);
     }
 
     if (decay_factor > n_blocks || decay_factor <= 1) {
-        printf("the decay factor must be smaller or equal to the number of blocks and bigger than 1\n");
+        V_PRINTF("the decay factor must be smaller or equal to the number of blocks and bigger than 1\n");
         exit(-1);
     }
 
-    printf("There are %d blocks, each one with %d elements.\n", n_blocks, block_size);
+    V_PRINTF("There are %llu blocks, each one with %llu elements.\n", n_blocks, block_size);
 
     int ec = starpu_init(NULL);
     starpu_profiling_status_set(STARPU_PROFILING_DISABLE);
-
-    double ts0 = get_time();
 
     //--------------------------------------------------------------------------
     // the algorithm actually starts here
@@ -96,13 +53,16 @@ int main(int argc, char** argv)
     int* input_vector = alloc_and_register_integer_vector(&input_handle, n_elements);
 
     if (!input_vector) {
-        perror("Bad malloc");
-        exit(2);
+        V_PERROR("Bad malloc");
+        exit(-2);
     }
 
     // initialize the vector
-    for (int i = 0; i < original_n_elements; i++)
-        input_vector[i] = INITIAL_VALUE;
+    for (ullint i = 0; i < original_n_elements; i++)
+        input_vector[i] = generate_random_int(max_value, 0);
+
+    // start timestamp
+    double ts0 = get_time();
 
     // OUTPUT
     starpu_data_handle_t output_handle;
@@ -119,8 +79,8 @@ int main(int argc, char** argv)
             depth++, block_size, n_blocks, n_elements);
 
         n_elements = n_blocks;
-        n_blocks = (long long)ceil((double)n_blocks / decay_factor);
-        block_size = (long long)ceil((double)n_elements / n_blocks);
+        n_blocks = (ullint)ceil((double)n_blocks / decay_factor);
+        block_size = (ullint)ceil((double)n_elements / n_blocks);
         n_elements = n_blocks * block_size;
 
         // here we don't need the actual vector as we won't be initializing it
@@ -128,8 +88,8 @@ int main(int argc, char** argv)
         int* alloc_return = alloc_and_register_integer_vector(&output_handle, n_elements);
 
         if (!alloc_return) {
-            perror("Bad malloc");
-            exit(2);
+            V_PERROR("Bad malloc");
+            exit(-2);
         }
 
         starpu_data_filter_t f_b = { .filter_func = starpu_vector_filter_block, .nchildren = n_blocks };
@@ -168,9 +128,12 @@ int main(int argc, char** argv)
     // starpu_data_unregister(vec_output_handle);
     starpu_shutdown();
 
-    free(input_vector);
-
     double ts1 = get_time();
     double elapsed = ts1 - ts0;
-    printf("start: %.4f\nend: %.4f\nelapsed: %.4f\n", ts0, ts1, elapsed);
+    V_PRINTF("start: %.5f\nend: %.5f\n", ts0, ts1);
+    printf("%.5f", elapsed);
+
+    free(input_vector);
+
+    return 0;
 }
