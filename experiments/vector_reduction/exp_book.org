@@ -15,6 +15,7 @@ Preliminary library loading:
 #+begin_src R :session :results none
 library(DoE.base)
 library(tidyverse)
+options(scipen = 999)
 #+end_src
 
 And the partitions intended to be used in this test:
@@ -90,6 +91,8 @@ floor(runif(1,1,99999))
 #+RESULTS:
 : 60485
 
+Now the StarPU executions plan:
+
 #+begin_src R :session :results none
 size = c(70000000, 300000000, 1100000000)
 nb = c(7000, 25000, 82000)
@@ -97,18 +100,42 @@ fr = c(2, 10, 1000)
 
 fac.design(
     nfactors=3,
-    replications=10,
+    replications=30,
     repeat.only=FALSE,
     blocks=1,
     randomize=TRUE,
     seed=60485,
     factor.names=list(
-        vec_size=size,
-        num_blocks=nb,
-        reduction_factor=fr)) %>%
+      vec_size=size,
+      num_blocks=nb,
+      reduction_factor=fr)) %>%
   as_tibble %>%
   transmute(id=as.numeric(Blocks), vec_size, num_blocks, reduction_factor) %>%
-  write_delim("exp01/runs.plan", delim=" ", col_names=FALSE)
+  write_delim("exp01/runs.starpu.plan", delim=" ", col_names=FALSE)
+
+# the space delimited file is to help with the posterior parsing in the shell
+# script
+#+end_src
+
+And the other versions:
+
+#+begin_src R :session :results none
+size = c(70000000, 300000000, 1100000000)
+ver= c("reduce", "accumulate", "naive")
+
+fac.design(
+    nfactors=2,
+    replications=30,
+    repeat.only=FALSE,
+    blocks=1,
+    randomize=TRUE,
+    seed=60485,
+    factor.names=list(
+      vec_size=size,
+      version=ver)) %>%
+  as_tibble %>%
+  transmute(id=as.numeric(Blocks), version, vec_size) %>%
+  write_delim("exp01/runs.varied.plan", delim=" ", col_names=FALSE)
 
 # the space delimited file is to help with the posterior parsing in the shell
 # script
@@ -116,7 +143,17 @@ fac.design(
 
 ** Script
 
-#+begin_src bash :shebang "#!/bin/bash" :tangle exp01/exp.slurm
+The maximum value for each element will be:
+
+#+name: max_val
+#+begin_src bash :tangle no :results value :exports results
+echo 100
+#+end_src
+
+#+RESULTS: max_val
+: 100
+
+#+begin_src bash :shebang "#!/bin/bash" :tangle exp01/exp.slurm :var MAX_VALUE=max_val
 #SBATCH --time=72:00:00
 #SBATCH --workdir=.
 #SBATCH --output=/home/users/hcpsilva/slurm_outputs/%x_%j.out
@@ -133,9 +170,6 @@ EXP_DIR=$2
 # experiment name (which is the ID and the machine and its core count)
 EXP_NAME=${EXP_ID}_${HOST}_${SLURM_CPUS_ON_NODE}
 
-# seed generated in project design
-RAND_SEED=60485
-
 # go to the scratch dir to execute our operations
 cd $SCRATCH
 
@@ -146,14 +180,25 @@ rm -rf *
 git clone https://github.com/spack/spack.git
 # source spack env variables
 . spack/share/spack/setup-env.sh
+# add the solverstack INRIA repo
+git clone https://gitlab.inria.fr/solverstack/spack-repo.git solverstack
+# and add it to spack
+spack repo add solverstack
 
 # install starpu and cia
-spack install starpu@develop+fxt+poti~examples~mpi~openmp &> /dev/null
+spack install starpu@develop+fxt+poti~examples~mpi~openmp
 echo "StarPU installed!"
 
+# create install dir and put StarPU in it
+mkdir install
+spack view soft install starpu
+
+STARPU_PATH=$(readlink -f install)
+
 # set up path and ld path
-export LD_LIBRARY_PATH=$(spack location -i starpu)/lib
-export PATH=$PATH:$(spack location -i starpu)/bin
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$STARPU_PATH/lib
+export PATH=$PATH:$STARPU_PATH/bin
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$STARPU_PATH/lib/pkconfig
 
 # prepare our directory
 mkdir $EXP_NAME
@@ -165,38 +210,52 @@ mkdir results
 
 # compile
 pushd code
-[ ! -d build/ ] && mkdir build
-pushd build
-cmake -DSTARPU_DIR=$(spack location -i starpu) ..
-cmake -DSTARPU_DIR=$(spack location -i starpu) ..
 make
 popd
-popd
+
+# STARPU
 
 # init the results csv
-results_csv=results/${HOST}_data.csv
-echo "node,rep_id,vector_size,num_blocks,reduc_fac,compute_time" > $results_csv
+starpu_csv=results/${HOST}_starpu_data.csv
+echo "node,rep_id,vector_size,num_blocks,reduc_fac,compute_time" > $starpu_csv
 
 # execute the program
 while read -r id vector_size num_blocks reduc_fac; do
     echo "-> Parameters set to: $vector_size $num_blocks $reduc_fac"
 
-    # output log file
-    log_file=results/${vector_size}_${num_blocks}_${reduc_fac}_${id}.log
-
     # execute with given configurations
-    ./code/bin/vector-reduction $vector_size $num_blocks $reduc_fac > $log_file
-
-    # TODO: add the extra tested programs (naive sum of elements)
+    c_time=$(./code/build/starpu $vector_size $num_blocks $reduc_fac $MAX_VALUE)
 
     # add execution data to csv
-    echo ${HOST},${id},${vector_size},${num_blocks},${reduc_fac},${c_time} >> $results_csv
+    echo ${HOST},${id},${vector_size},${num_blocks},${reduc_fac},${c_time} >> $starpu_csv
 
     # stress the memory to prevent cache influence between runs
     stress-ng --vm 3 --vm-bytes 75% -t 5s &> /dev/null
 
     echo
-done < $EXP_DIR/runs.plan
+done < $EXP_DIR/runs.starpu.plan
+
+# REST
+
+# init the results csv
+varied_csv=results/${HOST}_varied_data.csv
+echo "node,rep_id,version,vector_size,compute_time" > $varied_csv
+
+# execute the program
+while read -r id version vector_size; do
+    echo "-> Parameters set to: $version $vector_size"
+
+    # execute with given configurations
+    c_time=$(./code/build/$version $vector_size $MAX_VALUE)
+
+    # add execution data to csv
+    echo ${HOST},${id},${version},${vector_size},${c_time} >> $varied_csv
+
+    # stress the memory to prevent cache influence between runs
+    stress-ng --vm 3 --vm-bytes 75% -t 5s &> /dev/null
+
+    echo
+done < $EXP_DIR/runs.varied.plan
 
 # zip everything and commit to EXP_DIR
 tar czf $EXP_DIR/${EXP_NAME}_data.tar.gz *

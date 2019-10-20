@@ -36,9 +36,6 @@ DEBUG :=
 #	Add defines through this variable in the command line
 DEF :=
 
-LIB_EXTRA :=
-INC_EXTRA :=
-
 #	- Compilation flags:
 #	Compiler and language version
 CC := gcc -std=c17
@@ -56,8 +53,10 @@ LFLAGS :=\
 	-shared \
 	-fPIC
 OPT := $(if $(DEBUG),-O0,-O2 -march=native)
-LIB := -L$(LIB_DIR) $(LIB_EXTRA)
-INC := -I$(INC_DIR) -I$(SRC_DIR) $(INC_EXTRA)
+LIB := -L$(LIB_DIR)\
+	$(shell pkg-config starpu --libs)
+INC := -I$(INC_DIR) -I$(SRC_DIR)\
+	$(shell pkg-config starpu --cflags)
 
 ################################################################################
 #	Files:
@@ -71,7 +70,7 @@ MAIN_CPP := $(notdir $(wildcard $(SRC_DIR)/*.cpp))
 #	- Path to all final binaries:
 TARGET_EXE := $(patsubst %.c, $(OUT_DIR)/%, $(MAIN))
 
-TARGET_EXE_CPP := $(patsubst %.cpp, $(OUT_DIR)/%, $(MAIN))
+TARGET_EXE_CPP := $(patsubst %.cpp, $(OUT_DIR)/%, $(MAIN_CPP))
 
 #	- Library files:
 LIBS := $(shell basename $(wildcard $(LIB_DIR)/*/))

@@ -1,0 +1,109 @@
+#!/bin/bash
+MAX_VALUE='100'
+#SBATCH --time=72:00:00
+#SBATCH --workdir=.
+#SBATCH --output=/home/users/hcpsilva/slurm_outputs/%x_%j.out
+#SBATCH --error=/home/users/hcpsilva/slurm_outputs/%x_%j.err
+#SBATCH --mail-type=END,FAIL
+#SBATCH --mail-user=hcpsilva@inf.ufrgs.br
+
+# parameters
+# the experiment ID, defined in the lab-book
+EXP_ID=$1
+# the experiment directory
+EXP_DIR=$2
+
+# experiment name (which is the ID and the machine and its core count)
+EXP_NAME=${EXP_ID}_${HOST}_${SLURM_CPUS_ON_NODE}
+
+# seed generated in project design
+RAND_SEED=60485
+
+# go to the scratch dir to execute our operations
+cd $SCRATCH
+
+# clean up my scratch dir
+rm -rf *
+
+# install spack
+git clone https://github.com/spack/spack.git
+# source spack env variables
+. spack/share/spack/setup-env.sh
+# add the solverstack INRIA repo
+git clone https://gitlab.inria.fr/solverstack/spack-repo.git solverstack
+# and add it to spack
+spack repo add solverstack
+
+# install starpu and cia
+spack install starpu@develop+fxt+poti~examples~mpi~openmp
+echo "StarPU installed!"
+
+# create install dir and put StarPU in it
+mkdir install
+spack view soft install starpu
+
+STARPU_PATH=$(readlink -f install)
+
+# set up path and ld path
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$STARPU_PATH/lib
+export PATH=$PATH:$STARPU_PATH/bin
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$STARPU_PATH/lib/pkconfig
+
+# prepare our directory
+mkdir $EXP_NAME
+pushd $EXP_NAME
+
+# copy the code folder
+cp -r $EXP_DIR/code code
+mkdir results
+
+# compile
+pushd code
+make
+popd
+
+# init the results csv
+starpu_csv=results/${HOST}_starpu_data.csv
+echo "node,rep_id,vector_size,num_blocks,reduc_fac,compute_time" > $starpu_csv
+
+# execute the program
+while read -r id vector_size num_blocks reduc_fac; do
+    echo "-> Parameters set to: $vector_size $num_blocks $reduc_fac"
+
+    # execute with given configurations
+    c_time=$(./code/build/starpu $vector_size $num_blocks $reduc_fac $MAX_VALUE)
+
+    # add execution data to csv
+    echo ${HOST},${id},${vector_size},${num_blocks},${reduc_fac},${c_time} >> $starpu_csv
+
+    # stress the memory to prevent cache influence between runs
+    stress-ng --vm 3 --vm-bytes 75% -t 5s &> /dev/null
+
+    echo
+done < $EXP_DIR/runs.starpu.plan
+
+# init the results csv
+varied_csv=results/${HOST}_varied_data.csv
+echo "node,rep_id,version,vector_size,compute_time" > $varied_csv
+
+# execute the program
+while read -r id version vector_size; do
+    echo "-> Parameters set to: $version $vector_size"
+
+    # execute with given configurations
+    c_time=$(./code/build/$version $vector_size $MAX_VALUE)
+
+    # add execution data to csv
+    echo ${HOST},${id},${version},${vector_size},${c_time} >> $varied_csv
+
+    # stress the memory to prevent cache influence between runs
+    stress-ng --vm 3 --vm-bytes 75% -t 5s &> /dev/null
+
+    echo
+done < $EXP_DIR/runs.varied.plan
+
+# zip everything and commit to EXP_DIR
+tar czf $EXP_DIR/${EXP_NAME}_data.tar.gz *
+
+popd
+rm -rf $SCRATCH/*
