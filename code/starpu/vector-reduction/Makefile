@@ -52,6 +52,7 @@ CFLAGS :=\
 LFLAGS :=\
 	-shared \
 	-fPIC
+FUN := -fopenmp
 OPT := $(if $(DEBUG),-O0,-O2 -march=native)
 LIB := -L$(LIB_DIR)\
 	$(shell pkg-config starpu --libs)
@@ -89,14 +90,14 @@ OBJ := $(patsubst %.c, $(OBJ_DIR)/%.o, $(notdir $(SRC)))
 
 #	- Executables:
 $(TARGET_EXE): $(OUT_DIR)/%: $(SRC_DIR)/%.c $(OBJ)
-	$(CC) -o $@ $^ $(INC) $(LIB) $(DEBUGF) $(OPT) $(DEF)
+	$(CC) -o $@ $^ $(INC) $(LIB) $(DEBUGF) $(OPT) $(DEF) $(FUN)
 
 $(TARGET_EXE_CPP): $(OUT_DIR)/%: $(SRC_DIR)/%.cpp $(OBJ)
-	$(CXX) -o $@ $^ $(INC) $(LIB) $(DEBUGF) $(OPT) $(DEF)
+	$(CXX) -o $@ $^ $(INC) $(LIB) $(DEBUGF) $(OPT) $(DEF) $(FUN)
 
 #	- Objects:
 $(OBJ_DIR)/%.o:
-	$(CC) -c -o $@ $(filter %/$*.c, $(SRC)) $(INC) $(CFLAGS) $(DEBUGF) $(OPT) $(DEF)
+	$(CC) -c -o $@ $(filter %/$*.c, $(SRC)) $(INC) $(CFLAGS) $(DEBUGF) $(OPT) $(DEF) $(FUN)
 
 #	- Shared Libraries:
 $(TARGET_LIB): $(LIB_DIR)/lib%.so:
@@ -121,4 +122,4 @@ redo: clean all
 print-%:
 	@echo $* = $($*)
 
-.PHONY: all clean redo help print-% deps
+.PHONY: all clean redo print-%

@@ -71,10 +71,23 @@ chmod +x launch.sh
 ./lauch.sh <experiment_id> <path_to_repo>
 #+end_src
 
+The maximum value for each element will be:
+
+#+name: max_val
+#+begin_src bash :tangle no :results value :exports results
+echo 100
+#+end_src
+
+#+RESULTS: max_val
+: 100
+
 * Table of contents                                                   :TOC_3:
 - [[#1---the-basics][1 - The basics]]
   - [[#design][Design]]
   - [[#script][Script]]
+- [[#2---comparing-extra-implementations][2 - Comparing extra implementations]]
+  - [[#design-1][Design]]
+  - [[#script-1][Script]]
 
 * 1 - The basics                                                      :EXP01:
 
@@ -91,7 +104,7 @@ floor(runif(1,1,99999))
 #+RESULTS:
 : 60485
 
-Now the StarPU executions plan:
+Now the executions plan:
 
 #+begin_src R :session :results none
 size = c(70000000, 300000000, 1100000000)
@@ -111,47 +124,14 @@ fac.design(
       reduction_factor=fr)) %>%
   as_tibble %>%
   transmute(id=as.numeric(Blocks), vec_size, num_blocks, reduction_factor) %>%
-  write_delim("exp01/runs.starpu.plan", delim=" ", col_names=FALSE)
+  write_delim("exp01/runs.plan", delim=" ", col_names=FALSE)
 
 # the space delimited file is to help with the posterior parsing in the shell
 # script
 #+end_src
 
-And the other versions:
-
-#+begin_src R :session :results none
-size = c(70000000, 300000000, 1100000000)
-ver= c("reduce", "accumulate", "naive")
-
-fac.design(
-    nfactors=2,
-    replications=30,
-    repeat.only=FALSE,
-    blocks=1,
-    randomize=TRUE,
-    seed=60485,
-    factor.names=list(
-      vec_size=size,
-      version=ver)) %>%
-  as_tibble %>%
-  transmute(id=as.numeric(Blocks), version, vec_size) %>%
-  write_delim("exp01/runs.varied.plan", delim=" ", col_names=FALSE)
-
-# the space delimited file is to help with the posterior parsing in the shell
-# script
-#+end_src
 
 ** Script
-
-The maximum value for each element will be:
-
-#+name: max_val
-#+begin_src bash :tangle no :results value :exports results
-echo 100
-#+end_src
-
-#+RESULTS: max_val
-: 100
 
 #+begin_src bash :shebang "#!/bin/bash" :tangle exp01/exp.slurm :var MAX_VALUE=max_val
 #SBATCH --time=72:00:00
@@ -213,11 +193,9 @@ pushd code
 make
 popd
 
-# STARPU
-
 # init the results csv
-starpu_csv=results/${HOST}_starpu_data.csv
-echo "node,rep_id,vector_size,num_blocks,reduc_fac,compute_time" > $starpu_csv
+results_csv=results/${HOST}_data.csv
+echo "node,rep_id,vector_size,num_blocks,reduc_fac,compute_time" > $results_csv
 
 # execute the program
 while read -r id vector_size num_blocks reduc_fac; do
@@ -227,19 +205,125 @@ while read -r id vector_size num_blocks reduc_fac; do
     c_time=$(./code/build/starpu $vector_size $num_blocks $reduc_fac $MAX_VALUE)
 
     # add execution data to csv
-    echo ${HOST},${id},${vector_size},${num_blocks},${reduc_fac},${c_time} >> $starpu_csv
+    echo ${HOST},${id},${vector_size},${num_blocks},${reduc_fac},${c_time} >> $results_csv
 
     # stress the memory to prevent cache influence between runs
     stress-ng --vm 3 --vm-bytes 75% -t 5s &> /dev/null
 
     echo
-done < $EXP_DIR/runs.starpu.plan
+done < $EXP_DIR/runs.plan
 
-# REST
+# zip everything and commit to EXP_DIR
+tar czf $EXP_DIR/${EXP_NAME}_data.tar.gz *
+
+popd
+rm -rf $SCRATCH/*
+#+end_src
+
+* 2 - Comparing extra implementations
+
+Because it's never enough.
+
+** Design
+
+The random seed will be:
+
+#+begin_src R :session :results value :exports results
+floor(runif(1,1,99999))
+#+end_src
+
+#+RESULTS:
+: 95099
+
+And the execution plan (same sizes as before):
+
+#+begin_src R :session :results none
+size = c(70000000, 300000000, 1100000000)
+ver= c("naive", "cpp_reduce", "cpp_accumulate", "openmp")
+
+fac.design(
+    nfactors=2,
+    replications=30,
+    repeat.only=FALSE,
+    blocks=1,
+    randomize=TRUE,
+    seed=95099,
+    factor.names=list(
+      vec_size=size,
+      version=ver)) %>%
+  as_tibble %>%
+  transmute(id=as.numeric(Blocks), version, vec_size) %>%
+  write_delim("exp02/runs.plan", delim=" ", col_names=FALSE)
+
+# the space delimited file is to help with the posterior parsing in the shell
+# script
+#+end_src
+
+** Script
+
+#+begin_src bash :shebang "#!/bin/bash" :tangle exp02/exp.slurm :var MAX_VALUE=max_val
+#SBATCH --time=72:00:00
+#SBATCH --workdir=.
+#SBATCH --output=/home/users/hcpsilva/slurm_outputs/%x_%j.out
+#SBATCH --error=/home/users/hcpsilva/slurm_outputs/%x_%j.err
+#SBATCH --mail-type=END,FAIL
+#SBATCH --mail-user=hcpsilva@inf.ufrgs.br
+
+# parameters
+# the experiment ID, defined in the lab-book
+EXP_ID=$1
+# the experiment directory
+EXP_DIR=$2
+
+# experiment name (which is the ID and the machine and its core count)
+EXP_NAME=${EXP_ID}_${HOST}_${SLURM_CPUS_ON_NODE}
+
+# go to the scratch dir to execute our operations
+cd $SCRATCH
+
+# clean up my scratch dir
+rm -rf *
+
+# install spack
+git clone https://github.com/spack/spack.git
+# source spack env variables
+. spack/share/spack/setup-env.sh
+# add the solverstack INRIA repo
+git clone https://gitlab.inria.fr/solverstack/spack-repo.git solverstack
+# and add it to spack
+spack repo add solverstack
+
+# install starpu and cia
+spack install starpu@develop+fxt+poti~examples~mpi~openmp
+echo "StarPU installed!"
+
+# create install dir and put StarPU in it
+mkdir install
+spack view soft install starpu
+
+STARPU_PATH=$(readlink -f install)
+
+# set up path and ld path
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$STARPU_PATH/lib
+export PATH=$PATH:$STARPU_PATH/bin
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$STARPU_PATH/lib/pkconfig
+
+# prepare our directory
+mkdir $EXP_NAME
+pushd $EXP_NAME
+
+# copy the code folder
+cp -r $EXP_DIR/code code
+mkdir results
+
+# compile
+pushd code
+make
+popd
 
 # init the results csv
-varied_csv=results/${HOST}_varied_data.csv
-echo "node,rep_id,version,vector_size,compute_time" > $varied_csv
+results_csv=results/${HOST}_data.csv
+echo "node,rep_id,version,vector_size,compute_time" > $results_csv
 
 # execute the program
 while read -r id version vector_size; do
@@ -249,13 +333,13 @@ while read -r id version vector_size; do
     c_time=$(./code/build/$version $vector_size $MAX_VALUE)
 
     # add execution data to csv
-    echo ${HOST},${id},${version},${vector_size},${c_time} >> $varied_csv
+    echo ${HOST},${id},${version},${vector_size},${c_time} >> $results_csv
 
     # stress the memory to prevent cache influence between runs
     stress-ng --vm 3 --vm-bytes 75% -t 5s &> /dev/null
 
     echo
-done < $EXP_DIR/runs.varied.plan
+done < $EXP_DIR/runs.plan
 
 # zip everything and commit to EXP_DIR
 tar czf $EXP_DIR/${EXP_NAME}_data.tar.gz *

@@ -61,17 +61,17 @@ popd
 
 # init the results csv
 results_csv=results/${HOST}_data.csv
-echo "node,rep_id,vector_size,num_blocks,reduc_fac,compute_time" > $results_csv
+echo "node,rep_id,version,vector_size,compute_time" > $results_csv
 
 # execute the program
-while read -r id vector_size num_blocks reduc_fac; do
-    echo "-> Parameters set to: $vector_size $num_blocks $reduc_fac"
+while read -r id version vector_size; do
+    echo "-> Parameters set to: $version $vector_size"
 
     # execute with given configurations
-    c_time=$(./code/build/starpu $vector_size $num_blocks $reduc_fac $MAX_VALUE)
+    c_time=$(./code/build/$version $vector_size $MAX_VALUE)
 
     # add execution data to csv
-    echo ${HOST},${id},${vector_size},${num_blocks},${reduc_fac},${c_time} >> $results_csv
+    echo ${HOST},${id},${version},${vector_size},${c_time} >> $results_csv
 
     # stress the memory to prevent cache influence between runs
     stress-ng --vm 3 --vm-bytes 75% -t 5s &> /dev/null
