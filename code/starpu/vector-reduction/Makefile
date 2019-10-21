@@ -38,8 +38,8 @@ DEF :=
 
 #	- Compilation flags:
 #	Compiler and language version
-CC := gcc -std=gnu17
-CXX := g++ -std=c++2a
+CC := gcc -std=gnu11
+CXX := g++ -std=c++17
 #	If DEBUG is defined, we'll turn on the debug flag and attach address
 #	sanitizer on the executables.
 DEBUGF := $(if $(DEBUG),-g -fsanitize=address)
