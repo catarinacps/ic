@@ -53,6 +53,7 @@ for name in $PARTITIONS; do
     for execution in $nodes; do
         # launch the slurm script for this node
         sbatch \
+            -p ${execution%%[0-9]*} \
             -w ${execution%%_*} \
             -c ${execution#*_} \
             -J ${EXPERIMENT_ID}_${execution}_${USER} \
