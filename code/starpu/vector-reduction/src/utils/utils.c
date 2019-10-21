@@ -7,7 +7,7 @@ double get_time(void)
     return (double)tr.tv_sec + (double)tr.tv_usec / 1000000;
 }
 
-int generate_random_int(const int max, const int min)
+llint generate_random_int(const int max, const int min)
 {
     return rand() % (max + 1 - min) + min;
 }

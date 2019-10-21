@@ -1,8 +1,10 @@
-#include <vector>
 #include <execution>
 #include <numeric>
+#include <vector>
 
+extern "C" {
 #include "utils/utils.h"
+}
 
 int main(int argc, char** argv)
 {

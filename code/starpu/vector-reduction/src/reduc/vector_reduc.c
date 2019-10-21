@@ -1,5 +1,13 @@
 #include "vector_reduc.h"
 
+struct starpu_codelet reduct_cl = {
+    .name = "Reduction",
+    .where = STARPU_CPU,
+    .cpu_funcs = { reduc_sum },
+    .nbuffers = 2,
+    .modes = { STARPU_R, STARPU_W }
+};
+
 void reduc_sum(void** buffers, void* cl_arg)
 {
     ullint* vec_input = (ullint*)STARPU_VECTOR_GET_PTR(buffers[0]);
@@ -24,7 +32,7 @@ int submit_reduction_task(starpu_data_handle_t* input_handle, starpu_data_handle
     struct starpu_task* task = starpu_task_create();
 
     task->synchronous = 0;
-    task->cl = &reduc_cl;
+    task->cl = &reduct_cl;
     task->handles[0] = *input_handle;
     task->handles[1] = *output_handle;
 

@@ -1,5 +1,6 @@
 #include <math.h>
 #include <starpu.h>
+#include <stdbool.h>
 
 #include "helpers/starpu_helpers.h"
 #include "reduc/vector_reduc.h"
@@ -9,7 +10,7 @@ int main(int argc, char** argv)
 {
     if (argc != 5) {
         V_PRINTF("Please provide the following parameters:\n"
-               "%s <problem_size> <number_blocks> <decay_factor> <max_rand_value>\n",
+                 "%s <problem_size> <number_blocks> <decay_factor> <max_rand_value>\n",
             argv[0]);
         exit(-1);
     }
@@ -50,7 +51,7 @@ int main(int argc, char** argv)
 
     // INPUT
     starpu_data_handle_t input_handle;
-    int* input_vector = alloc_and_register_integer_vector(&input_handle, n_elements);
+    llint* input_vector = alloc_and_register_integer_vector(&input_handle, n_elements);
 
     if (!input_vector) {
         V_PERROR("Bad malloc");
@@ -85,7 +86,7 @@ int main(int argc, char** argv)
 
         // here we don't need the actual vector as we won't be initializing it
         // to any arbitrary value
-        int* alloc_return = alloc_and_register_integer_vector(&output_handle, n_elements);
+        llint* alloc_return = alloc_and_register_integer_vector(&output_handle, n_elements);
 
         if (!alloc_return) {
             V_PERROR("Bad malloc");
@@ -97,7 +98,7 @@ int main(int argc, char** argv)
 
         starpu_data_map_filters(output_handle, 2, &f_b, &f_e);
 
-        for (int i = 0, j = 0, k = 0; i < starpu_data_get_nb_children(input_handle); i++) {
+        for (ullint i = 0, j = 0, k = 0; (int) i < starpu_data_get_nb_children(input_handle); i++) {
             starpu_data_handle_t sub_input = starpu_data_get_sub_data(input_handle, 1, i);
             if (not_top_level)
                 starpu_data_unpartition(sub_input, STARPU_MAIN_RAM);

@@ -2,7 +2,9 @@
 #include <execution>
 #include <numeric>
 
+extern "C" {
 #include "utils/utils.h"
+}
 
 int main(int argc, char** argv)
 {

@@ -38,8 +38,8 @@ DEF :=
 
 #	- Compilation flags:
 #	Compiler and language version
-CC := gcc -std=c17
-CXX := g++ -std=c++20
+CC := gcc -std=gnu17
+CXX := g++ -std=c++2a
 #	If DEBUG is defined, we'll turn on the debug flag and attach address
 #	sanitizer on the executables.
 DEBUGF := $(if $(DEBUG),-g -fsanitize=address)
@@ -48,36 +48,30 @@ CFLAGS :=\
 	-Wextra \
 	-Wpedantic \
 	-Wshadow \
-	-Wunreachable-code
-LFLAGS :=\
-	-shared \
-	-fPIC
+	-Wunreachable-code \
+	-lpthread
 FUN := -fopenmp
 OPT := $(if $(DEBUG),-O0,-O2 -march=native)
 LIB := -L$(LIB_DIR)\
-	$(shell pkg-config starpu --libs)
+	$(shell pkg-config starpu-1.3 --libs) \
+	-lm \
+	-ltbb
 INC := -I$(INC_DIR) -I$(SRC_DIR)\
-	$(shell pkg-config starpu --cflags)
+	$(shell pkg-config starpu-1.3 --cflags)
 
 ################################################################################
 #	Files:
 
 #	- Main source files:
 #	Presumes that all "main" source files are in the root of SRC_DIR
-MAIN := $(notdir $(wildcard $(SRC_DIR)/*.c))
+MAIN := $(wildcard $(SRC_DIR)/*.c)
 
-MAIN_CPP := $(notdir $(wildcard $(SRC_DIR)/*.cpp))
+MAIN_CPP := $(wildcard $(SRC_DIR)/*.cpp)
 
 #	- Path to all final binaries:
-TARGET_EXE := $(patsubst %.c, $(OUT_DIR)/%, $(MAIN))
+TARGET_EXE := $(patsubst %.c, $(OUT_DIR)/%, $(notdir $(MAIN)))
 
-TARGET_EXE_CPP := $(patsubst %.cpp, $(OUT_DIR)/%, $(MAIN_CPP))
-
-#	- Library files:
-LIBS := $(shell basename $(wildcard $(LIB_DIR)/*/))
-
-#	- Path to all final libraries:
-TARGET_LIB := $(patsubst %, $(LIB_DIR)/lib%.so, $(LIBS))
+TARGET_EXE_CPP := $(patsubst %.cpp, $(OUT_DIR)/%, $(notdir $(MAIN_CPP)))
 
 #	- Other source files:
 SRC := $(filter-out $(MAIN), $(shell find $(SRC_DIR) -name '*.c'))
@@ -99,19 +93,15 @@ $(TARGET_EXE_CPP): $(OUT_DIR)/%: $(SRC_DIR)/%.cpp $(OBJ)
 $(OBJ_DIR)/%.o:
 	$(CC) -c -o $@ $(filter %/$*.c, $(SRC)) $(INC) $(CFLAGS) $(DEBUGF) $(OPT) $(DEF) $(FUN)
 
-#	- Shared Libraries:
-$(TARGET_LIB): $(LIB_DIR)/lib%.so:
-	$(CC) -o $@ $(wildcard $(LIB_DIR)/$*/*.c) $(LFLAGS) $(FUN) $(INC) $(CFLAGS) $(OPT)
-
 ################################################################################
 #	Targets:
 
 .DEFAULT_GOAL = all
 
-all: $(TARGET_LIB) $(TARGET_EXE)
+all: $(TARGET_EXE) $(TARGET_EXE_CPP)
 
 clean:
-	rm -f $(OBJ_DIR)/*.o $(INC_DIR)/*~ $(TARGET_EXE) $(TARGET_LIB) *~ *.o
+	rm -f $(OBJ_DIR)/*.o $(INC_DIR)/*~ $(TARGET_EXE) *~ *.o
 
 redo: clean all
 
