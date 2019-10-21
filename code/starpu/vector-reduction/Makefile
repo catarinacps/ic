@@ -35,6 +35,9 @@ DEBUG :=
 
 #	Add defines through this variable in the command line
 DEF :=
+#	and extra stuff through here
+LIB_EXTRA :=
+INC_EXTRA :=
 
 #	- Compilation flags:
 #	Compiler and language version
@@ -52,11 +55,10 @@ CFLAGS :=\
 	-lpthread
 FUN := -fopenmp
 OPT := $(if $(DEBUG),-O0,-O2 -march=native)
-LIB := -L$(LIB_DIR)\
+LIB := -L$(LIB_DIR) $(LIB_EXTRA)\
 	$(shell pkg-config starpu-1.3 --libs) \
-	-lm \
-	-ltbb
-INC := -I$(INC_DIR) -I$(SRC_DIR)\
+	-lm
+INC := -I$(INC_DIR) -I$(SRC_DIR) $(INC_EXTRA)\
 	$(shell pkg-config starpu-1.3 --cflags)
 
 ################################################################################

@@ -36,15 +36,21 @@ spack repo add solverstack
 # install starpu and cia
 spack install starpu@develop+fxt+poti~examples~mpi~openmp
 echo "StarPU installed!"
+spack install intel-tbb
+echo "TBB intalled!"
 
 # create install dir and put StarPU in it
 mkdir install
-spack view soft install starpu
+mkdir install/starpu
+mkdir install/tbb
+spack view soft install/starpu starpu
+spack view soft install/tbb intel-tbb
 
-STARPU_PATH=$(readlink -f install)
+STARPU_PATH=$(readlink -f install/starpu)
+TBB_PATH=$(readlink -f install/tbb)
 
 # set up path and ld path
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$STARPU_PATH/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$STARPU_PATH/lib:$TBB_PATH/lib
 export PATH=$PATH:$STARPU_PATH/bin
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$STARPU_PATH/lib/pkgconfig
 
@@ -58,7 +64,7 @@ mkdir results
 
 # compile
 pushd code
-make
+make LIB_EXTRA="-L$TBB_PATH/lib" INC_EXTRA="-I$TBB_PATH/include"
 popd
 
 # init the results csv
