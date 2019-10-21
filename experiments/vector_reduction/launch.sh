@@ -16,7 +16,7 @@ pushd $REPO_DIR
 
 # always update and overwrite the code dir
 git pull
-cp -r code $EXP_DIR/code
+cp -r code/starpu/vector-reduction $EXP_DIR/code
 
 for name in $PARTITIONS; do
     nodes=$(gppd-info --long --Node -S NODELIST -p $name -h | awk '{print $1 "_" $5}' | paste -s -d" " -)
@@ -27,7 +27,7 @@ for name in $PARTITIONS; do
             -w ${execution%%_*} \
             -c ${execution#*_} \
             -J ${EXPERIMENT_ID}_${execution}_${USER} \
-            $EXPERIMENT_ID/exp.slurm $EXPERIMENT_ID $EXP_DIR
+            $EXP_DIR/exp.slurm $EXPERIMENT_ID $EXP_DIR
     done
 done
 

@@ -44,7 +44,7 @@ STARPU_PATH=$(readlink -f install)
 # set up path and ld path
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$STARPU_PATH/lib
 export PATH=$PATH:$STARPU_PATH/bin
-export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$STARPU_PATH/lib/pkconfig
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$STARPU_PATH/lib/pkgconfig
 
 # prepare our directory
 mkdir $EXP_NAME
