@@ -16,6 +16,7 @@ pushd $REPO_DIR
 
 # always update and overwrite the code dir
 git pull
+rm -rf $EXP_DIR/code
 cp -r code/starpu/vector-reduction $EXP_DIR/code
 
 for name in $PARTITIONS; do
@@ -27,7 +28,7 @@ for name in $PARTITIONS; do
             -p ${execution%%[0-9]*} \
             -w ${execution%%_*} \
             -c ${execution#*_} \
-            -J ${EXPERIMENT_ID}_${execution}_${USER} \
+            -J vector_reduction_${EXPERIMENT_ID} \
             $EXP_DIR/exp.slurm $EXPERIMENT_ID $EXP_DIR
     done
 done
