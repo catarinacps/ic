@@ -1,5 +1,5 @@
 #!/bin/bash
-PARTITIONS='draco hype tupi'
+PARTITIONS='draco'
 # the experiment id
 EXPERIMENT_ID=$1
 

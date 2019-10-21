@@ -1,5 +1,4 @@
 #!/bin/bash
-MAX_VALUE='100'
 #SBATCH --time=72:00:00
 #SBATCH --workdir=.
 #SBATCH --output=/home/users/hcpsilva/slurm_outputs/%x_%j.out
@@ -13,6 +12,9 @@ EXP_ID=$1
 # the experiment directory
 EXP_DIR=$2
 
+# as defined in the experiment design
+MAX_VALUE=100
+
 # experiment name (which is the ID and the machine and its core count)
 EXP_NAME=${EXP_ID}_${HOST}_${SLURM_CPUS_ON_NODE}
 
@@ -20,7 +22,7 @@ EXP_NAME=${EXP_ID}_${HOST}_${SLURM_CPUS_ON_NODE}
 cd $SCRATCH
 
 # clean up my scratch dir
-rm -rf *
+rm -rf $SCRATCH/*
 
 # install spack
 git clone https://github.com/spack/spack.git
