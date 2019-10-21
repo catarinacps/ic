@@ -57,6 +57,7 @@ FUN := -fopenmp
 OPT := $(if $(DEBUG),-O0,-O2 -march=native)
 LIB := -L$(LIB_DIR) $(LIB_EXTRA)\
 	$(shell pkg-config starpu-1.3 --libs) \
+	-ltbb \
 	-lm
 INC := -I$(INC_DIR) -I$(SRC_DIR) $(INC_EXTRA)\
 	$(shell pkg-config starpu-1.3 --cflags)
