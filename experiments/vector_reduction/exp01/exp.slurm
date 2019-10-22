@@ -67,7 +67,7 @@ mkdir results
 
 # compile
 pushd code
-make LIB_EXTRA="-L$TBB_PATH/lib" INC_EXTRA="-I$TBB_PATH/include"
+make LIB_EXTRA="-L$TBB_PATH/lib" INC_EXTRA="-I$TBB_PATH/include" DEF="-DVERBOSE"
 popd
 
 # init the results csv
@@ -79,7 +79,9 @@ while read -r id vector_size num_blocks reduc_fac; do
     echo "-> Parameters set to: $vector_size $num_blocks $reduc_fac"
 
     # execute with given configurations
-    c_time=$(./code/build/starpu $vector_size $num_blocks $reduc_fac $MAX_VALUE)
+    ./code/build/starpu $vector_size $num_blocks $reduc_fac $MAX_VALUE
+
+    c_time=oi
 
     # add execution data to csv
     echo ${HOST},${id},${vector_size},${num_blocks},${reduc_fac},${c_time} >> $results_csv
