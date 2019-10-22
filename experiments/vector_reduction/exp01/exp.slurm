@@ -15,6 +15,9 @@ EXP_DIR=$2
 # as defined in the experiment design
 MAX_VALUE=100
 
+# set the hosname as for some god forsaken reason it isn't
+HOST=$(hostname)
+
 # experiment name (which is the ID and the machine and its core count)
 EXP_NAME=${EXP_ID}_${HOST}_${SLURM_CPUS_ON_NODE}
 
