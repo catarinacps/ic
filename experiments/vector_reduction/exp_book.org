@@ -264,6 +264,11 @@ And now lets plot a histogram for the =draco1= data:
 
 #+begin_src R :tangle yes :session :results output graphics :file analysis/images/test1.png
 df <- read_csv("exp01/data/draco1_data.csv")
+
+# are the times conformant to a normal distribution
+df %>%
+  group_by(vector_size, num_blocks, reduc_fac) %>%
+  summarise(t_student = t.test(compute_time))
 #+end_src
 
 * 2 - Comparing extra implementations                                 :EXP02:
