@@ -30,7 +30,7 @@ int main(int argc, char** argv)
 
     double end = get_time();
 
-    double elapsed = start - end;
+    double elapsed = end - start;
     V_PRINTF("start: %.5f\nend: %.5f\n", start, end);
     V_PRINTF("result: %llu\n", result);
     printf("%.5f", elapsed);

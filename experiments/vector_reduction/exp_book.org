@@ -87,9 +87,11 @@ echo 100
 - [[#1---the-basics][1 - The basics]]
   - [[#design][Design]]
   - [[#script][Script]]
+  - [[#data-analysis][Data analysis]]
 - [[#2---comparing-extra-implementations][2 - Comparing extra implementations]]
   - [[#design-1][Design]]
   - [[#script-1][Script]]
+  - [[#data-analysis-1][Data analysis]]
 
 * 1 - The basics                                                      :EXP01:
 
@@ -234,6 +236,36 @@ popd
 rm -rf $SCRATCH/*
 #+end_src
 
+** Data analysis
+
+Let's first start by getting only the CSVs
+
+#+begin_src bash :tangle no :results none
+#!/usr/bin/bash
+
+cd exp01
+
+for zip in *.tar.gz; do
+    temp_dir=${zip%%.*}
+
+    mkdir $temp_dir
+    tar xzf $zip -C $temp_dir
+
+    host=$(awk -F "_" '{print $2}' <<$temp_dir)
+
+    mkdir data/$host
+    mv $temp_dir/results/*.csv data/$host
+
+    rm -rf $temp_dir
+done
+#+end_src
+
+And now lets plot a histogram for the =draco1= data:
+
+#+begin_src R :tangle yes :session :results output graphics :file analysis/images/test1.png
+df <- read_csv("exp01/data/draco1_data.csv")
+#+end_src
+
 * 2 - Comparing extra implementations                                 :EXP02:
 
 Because it's never enough.
@@ -372,4 +404,28 @@ tar czf $EXP_DIR/${EXP_NAME}_data.tar.gz *
 
 popd
 rm -rf $SCRATCH/*
+#+end_src
+
+** Data analysis
+
+Let's first start by getting only the CSVs
+
+#+begin_src bash :tangle no :results output
+#!/usr/bin/bash
+
+cd ../exp02
+
+for zip in *.tar.gz; do
+    temp_dir=${zip%%.*}
+
+    mkdir $temp_dir
+    tar xzf $zip -C $temp_dir
+
+    host=$(awk -F "_" '{print $2}' <<$temp_dir)
+
+    mkdir data/$host
+    mv $temp_dir/results/*.csv data/$host
+
+    rm -rf $temp_dir
+done
 #+end_src
