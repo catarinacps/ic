@@ -29,54 +29,172 @@
 #+latex_header: \setlength{\TPVertModule}{\paperwidth} % Textpos units
 #+latex_header: \usetikzlibrary{overlay-beamer-styles}  % Overlay effects for TikZ
 
-* Preamble
+* Preamble                                                  :B_ignoreheading:
 :PROPERTIES:
-:UNNUMBERED:
+:BEAMER_env: ignoreheading
 :END:
-** Motivation                                                      :B_frame:
-:PROPERTIES:
-:BEAMER_env: frame
-:END:
+*** Context
 
-Slight motivational talk about parallel applications and HPC scientific ones
+In the last few years, we saw the continuation of a decades long trend in
+computing: ever-growing *parallelism*
 
-** Agenda                                                          :B_frame:
+\pause \vfill
+
+Said trend followed suit in both *hardware* and *software* spheres
+
+*** Tradition
+
+Applications made use of, traditionally, multiple *homogeneous* hardware
+
+\pause \vfill
+
+In order to gain even more performance in their fields of application, the
+hardware naturally specialized over time
+
+\pause \vfill
+
+While every gain is welcome, this made buying highly performant and specialized
+systems considerably expensive
+
+*** Reality
+
+Thus, more common realities consisting of *heterogeneous* hardware became
+notoriously hard to extract their full potential
+
+\pause \vfill
+
+Applications running on them can't rely on single hardware types if they seek
+true /high performance/
+
+\pause \vfill
+
+Given this demand, considerable effort has been poured into the development of
+/middleware/ capable of distributing applications workloads into these hybrid
+systems
+
+*** Agenda
 :PROPERTIES:
 :BEAMER_OPT: plain, noframenumbering
-:BEAMER_env: frame
 :END:
 
 \tableofcontents
 
 * Introduction
-** Agenda                                                          :B_frame:
+** Parallel programming models
+
+*** Agenda
 :PROPERTIES:
 :BEAMER_OPT: plain, noframenumbering
-:BEAMER_env: frame
 :END:
 
 \tableofcontents[currentsubsection, sectionstyle=show/shaded]
 
-** Parallel programming models                                     :B_frame:
+*** Most popular
+
+There are several popular parallel programming models, be it on /HPC/ or not
+
+\pause \vfill
+
+Examples: \pause
+
+- Message passing \pause
+- Shared memory \pause
+- Hybrid model
+
+\vfill \pause
+
+In any of those models, their implementation is a manual, complex,
+time-consuming and, therefore, error-prone process
+
+*** Implementations
+
+Most popular implementations seek to alleviate the burden of programmers
+
+\vfill \pause
+
+Of those implementations the most popular are: \pause
+
+- OpenMP
+- OpenMPI
+- OpenACC
+- CUDA
+etc...
+
+\vfill \pause
+
+And those do a excellent job, but they *can't* completely conform to
+heterogeneous systems
+
+*** Domain decomposition
+
+When programming parallel solutions, one must, sooner or later, decompose the
+problem domain
+
+\vfill \pause
+
+Utilizing the previously cited APIs, the domain decomposition is fixes to the
+number of resources\pause /, even though you can utilize heterogeneous resources/
+
+\vfill \pause
+
+As you can't personalize each execution grain, your solution will be victim to
+dynamic load imbalances
+
+** Middleware
+
+*** Agenda
 :PROPERTIES:
-:BEAMER_env: frame
+:BEAMER_OPT: plain, noframenumbering
 :END:
 
-Placeholder
+\tableofcontents[currentsubsection, sectionstyle=show/shaded]
 
-\pause
+*** StarPU
 
-Placeholder
+One of the efforts into creating a middleware capable of overcoming said
+limitations is called *StarPU*
+
+\vfill \pause
+
+Its approach is by defining the problem by tasks, and those tasks into a
+/Directed Acyclic Graph/ (or /DAG/ for short)
+
+\vfill \pause
+
+#+attr_latex: :width 5cm
+[[./images/dag.png]]
+
+*** Task-based
+
+\vfill
+
+#+attr_latex: :width 11cm
+[[./images/simple_1.pdf]]
+
+*** Task-based
+:PROPERTIES:
+:BEAMER_OPT:  noframenumbering
+:END:
+
+\vfill
+
+#+attr_latex: :width 11cm
+[[./images/simple_2.pdf]]
 
 * Method
 
-** Agenda                                                          :B_frame:
+** Algorithm design
+
+*** Agenda
 :PROPERTIES:
 :BEAMER_OPT: plain, noframenumbering
-:BEAMER_env: frame
 :END:
 
 \tableofcontents[currentsubsection, sectionstyle=show/shaded]
+
+*** Task-based
+
+Placeholder
 
 ** Experiment design
 
@@ -95,18 +213,11 @@ Placeholder
 
 Placeholder
 
-** Algorithm design
+* Results
 
-*** Agenda
-:PROPERTIES:
-:BEAMER_OPT: plain, noframenumbering
-:END:
+** Visualizations
 
-\tableofcontents[currentsubsection, sectionstyle=show/shaded]
-
-*** Task-based
-
-Placeholder
+** Conclusions
 
 * Questions                                                 :B_ignoreheading:
 :PROPERTIES:
@@ -114,12 +225,12 @@ Placeholder
 :END:
 
 \setbeamercolor{background canvas}{bg = uibgray}
+\title{Questions?}
 
-** Thanks                                                      :B_fullframe:
+*** Thanks                                                    :B_fullframe:
 :PROPERTIES:
 :BEAMER_OPT: b, plain, noframenumbering
 :BEAMER_env: fullframe
 :END:
 
-\title{Questions?}
 \titlepage
