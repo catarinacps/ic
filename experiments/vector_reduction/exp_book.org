@@ -250,7 +250,7 @@ And the execution plan (same sizes as before):
 
 #+begin_src R :session :results none
 size = c(70000000, 300000000, 1100000000)
-ver= c("naive", "cpp_reduce", "cpp_accumulate", "openmp")
+ver= c("naive", "accumulate", "openmp")
 
 fac.design(
     nfactors=2,

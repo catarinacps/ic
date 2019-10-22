@@ -1,4 +1,3 @@
-#include <execution>
 #include <numeric>
 #include <vector>
 
@@ -36,5 +35,9 @@ int main(int argc, char** argv)
     V_PRINTF("result: %llu\n", result);
     printf("%.5f", elapsed);
 
-    return 0;
+    if (result > 0) {
+        return 0;
+    } else {
+        return -3;
+    }
 }

@@ -40,5 +40,9 @@ int main(int argc, char** argv)
     V_PRINTF("result: %llu\n", output);
     printf("%.5f", elapsed);
 
-    return 0;
+    if (output > 0) {
+        return 0;
+    } else {
+        return -3;
+    }
 }
