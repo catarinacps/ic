@@ -14,6 +14,7 @@ Preliminary library loading:
 
 #+begin_src R :session :results none
 library(DoE.base)
+options(crayon.enabled = FALSE)
 library(tidyverse)
 options(scipen = 999)
 #+end_src
@@ -240,7 +241,7 @@ rm -rf $SCRATCH/*
 
 Let's first start by getting only the CSVs
 
-#+begin_src bash :tangle no :results none
+#+begin_src shell :results output
 #!/usr/bin/bash
 
 cd exp01
@@ -260,16 +261,207 @@ for zip in *.tar.gz; do
 done
 #+end_src
 
-And now lets plot a histogram for the =draco1= data:
+#+RESULTS:
 
-#+begin_src R :tangle yes :session :results output graphics :file analysis/images/test1.png
-df <- read_csv("exp01/data/draco1_data.csv")
+Read the data
 
-# are the times conformant to a normal distribution
-df %>%
-  group_by(vector_size, num_blocks, reduc_fac) %>%
-  summarise(p_value = shapiro.test(compute_time)$p.value)
+#+begin_src R :results output :session :exports both
+df <- read_csv("exp01/data/draco1_data.csv") %>%
+    print
 #+end_src
+
+#+RESULTS:
+#+begin_example
+
+Parsed with column specification:
+cols(
+  node = col_character(),
+  rep_id = col_double(),
+  vector_size = col_double(),
+  num_blocks = col_double(),
+  reduc_fac = col_double(),
+  compute_time = col_double()
+)
+# A tibble: 810 x 6
+   node   rep_id vector_size num_blocks reduc_fac compute_time
+   <chr>   <dbl>       <dbl>      <dbl>     <dbl>        <dbl>
+ 1 draco1      1    70000000      82000      1000        20.1 
+ 2 draco1      1   300000000      82000      1000        20.2 
+ 3 draco1      1  1100000000       7000        10         6.05
+ 4 draco1      1   300000000       7000         2         6.01
+ 5 draco1      1    70000000      25000        10         5.84
+ 6 draco1      1  1100000000      82000         2        38.0 
+ 7 draco1      1  1100000000      25000         2        11.6 
+ 8 draco1      1    70000000       7000      1000         1.82
+ 9 draco1      1   300000000      25000         2        11.8 
+10 draco1      1    70000000      82000        10        18.5 
+# … with 800 more rows
+#+end_example
+
+Now, let's do the shapiro test to check normality:
+
+Are the times conformant to a normal distribution?
+
+#+begin_src R :results output :session :exports both
+df %>%
+    group_by(vector_size, num_blocks, reduc_fac) %>%
+    summarise(N=n(), MeanTime = mean(compute_time), p_value = shapiro.test(compute_time)$p.value) %>%
+    arrange(p_value) %>%
+    as.data.frame
+#+end_src
+
+#+RESULTS:
+#+begin_example
+
+   vector_size num_blocks reduc_fac  N  MeanTime     p_value
+1   1100000000       7000      1000 30  4.594647 0.003164781
+2    300000000       7000        10 30  3.890675 0.003773316
+3    300000000       7000         2 30  5.700543 0.013497913
+4    300000000       7000      1000 30  3.522460 0.013761107
+5   1100000000       7000         2 30  5.841058 0.017641414
+6   1100000000       7000        10 30  4.765092 0.018148999
+7     70000000       7000      1000 30  1.303133 0.022394600
+8     70000000      25000         2 30 13.615184 0.028352232
+9    300000000      25000      1000 30  7.612575 0.029788209
+10   300000000      25000        10 30  8.539796 0.036558323
+11  1100000000      25000        10 30  7.906801 0.060296884
+12  1100000000      25000      1000 30  6.450960 0.097830024
+13  1100000000      25000         2 30 13.940253 0.113799315
+14  1100000000      82000         2 30 39.021747 0.129786305
+15   300000000      25000         2 30 15.432226 0.195135678
+16   300000000      82000        10 30 21.560584 0.210911456
+17   300000000      82000         2 30 38.404493 0.211928470
+18    70000000      82000         2 30 40.101594 0.295462727
+19    70000000       7000        10 30  1.580933 0.397691217
+20    70000000       7000         2 30  3.496167 0.479513826
+21  1100000000      82000      1000 30 17.183202 0.686061637
+22    70000000      82000        10 30 20.199258 0.752221337
+23    70000000      25000        10 30  6.233050 0.805414325
+24    70000000      82000      1000 30 17.517267 0.819914985
+25  1100000000      82000        10 30 19.980348 0.823937994
+26    70000000      25000      1000 30  5.080383 0.893796703
+27   300000000      82000      1000 30 18.467808 0.923618902
+#+end_example
+
+Conclusion
+- If it is greater than 0.05, then it is normal.
+- Let's that 30% may be considered not normal
+
+Let's do the histogram.
+
+- for 1000
+
+#+begin_src R :results output graphics :file (org-babel-temp-file "figure" ".png") :exports both :width 600 :height 400 :session
+df %>%
+    filter(reduc_fac == 1000) %>%
+    ggplot(aes(x=compute_time)) +
+    geom_histogram(binwidth=0.5) +
+    facet_grid(vector_size~num_blocks)
+#+end_src
+
+#+RESULTS:
+[[file:/tmp/babel-sj50zX/figurejiClgf.png]]
+
+- for 10
+
+#+begin_src R :results output graphics :file (org-babel-temp-file "figure" ".png") :exports both :width 600 :height 400 :session
+df %>%
+    filter(reduc_fac == 10) %>%
+    ggplot(aes(x=compute_time)) +
+    geom_histogram(binwidth=0.5) +
+    facet_grid(vector_size~num_blocks)
+#+end_src
+
+#+RESULTS:
+[[file:/tmp/babel-sj50zX/figureng9nmD.png]]
+
+
+- for 2
+
+#+begin_src R :results output graphics :file (org-babel-temp-file "figure" ".png") :exports both :width 600 :height 400 :session
+df %>%
+    filter(reduc_fac == 2) %>%
+    ggplot(aes(x=compute_time)) +
+    geom_histogram(binwidth=0.5) +
+    facet_grid(vector_size~num_blocks)
+#+end_src
+
+#+RESULTS:
+[[file:/tmp/babel-sj50zX/figureh84kLH.png]]
+
+
+#+begin_src R :results output :session :exports both
+df %>%
+    group_by(vector_size, num_blocks, reduc_fac) %>%
+    summarise(N=n(),
+              MeanTime = mean(compute_time),
+              SE = 3*sd(compute_time)/sqrt(N)) %>%
+    as.data.frame
+#+end_src
+
+#+RESULTS:
+#+begin_example
+
+   vector_size num_blocks reduc_fac  N  MeanTime         SE
+1     70000000       7000         2 30  3.496167 0.14004833
+2     70000000       7000        10 30  1.580933 0.08507475
+3     70000000       7000      1000 30  1.303133 0.12848962
+4     70000000      25000         2 30 13.615184 0.80895838
+5     70000000      25000        10 30  6.233050 0.37859280
+6     70000000      25000      1000 30  5.080383 0.22732792
+7     70000000      82000         2 30 40.101594 1.68835458
+8     70000000      82000        10 30 20.199258 1.16571309
+9     70000000      82000      1000 30 17.517267 1.01353185
+10   300000000       7000         2 30  5.700543 0.88157222
+11   300000000       7000        10 30  3.890675 0.55050488
+12   300000000       7000      1000 30  3.522460 0.60607674
+13   300000000      25000         2 30 15.432226 1.30460550
+14   300000000      25000        10 30  8.539796 0.98848439
+15   300000000      25000      1000 30  7.612575 0.89199800
+16   300000000      82000         2 30 38.404493 1.91787513
+17   300000000      82000        10 30 21.560584 1.47803147
+18   300000000      82000      1000 30 18.467808 1.42089492
+19  1100000000       7000         2 30  5.841058 1.39846391
+20  1100000000       7000        10 30  4.765092 1.34070884
+21  1100000000       7000      1000 30  4.594647 1.26545327
+22  1100000000      25000         2 30 13.940253 1.52019790
+23  1100000000      25000        10 30  7.906801 1.33685862
+24  1100000000      25000      1000 30  6.450960 1.40355702
+25  1100000000      82000         2 30 39.021747 1.68049247
+26  1100000000      82000        10 30 19.980348 1.37349250
+27  1100000000      82000      1000 30 17.183202 1.50195493
+#+end_example
+
+Do a plot
+- with dots and 
+
+#+begin_src R :results output graphics :file (org-babel-temp-file "figure" ".png") :exports both :width 600 :height 400 :session
+df %>%
+    group_by(vector_size, num_blocks, reduc_fac) %>%
+    summarise(N=n(),
+              MeanTime = mean(compute_time),
+              SE = 3*sd(compute_time)/sqrt(N)) %>%
+    ungroup %>%
+    mutate(Reduction = as.factor(reduc_fac),
+           NBlocks = as.factor(num_blocks)) %>%
+    mutate(vector_size = vector_size/10000000) %>%
+    ggplot(aes(x=as.factor(vector_size),
+               y=MeanTime,
+               #color=Reduction,
+               color=NBlocks)) +
+    ylim(0,NA) +
+    theme_bw(base_size=16) +
+    xlab("Vector Size [x10^7]") +
+    ylab("Average Compute Time [s]") +
+    geom_point(size=3, position=position_dodge(width = .25)) + #position = position_dodge2(preserve = "single")) + #position = "dodge") +
+    geom_errorbar(aes(ymin=MeanTime-SE, ymax=MeanTime+SE), width=.5, position=position_dodge(width = .25)) +
+    theme(legend.position = "top") +
+    facet_wrap(~Reduction)
+#+end_src
+
+#+RESULTS:
+[[file:/tmp/babel-sj50zX/figureH4UVni.png]]
+
 
 * 2 - Comparing extra implementations                                 :EXP02:
 
@@ -415,9 +607,7 @@ rm -rf $SCRATCH/*
 
 Let's first start by getting only the CSVs
 
-#+begin_src bash :tangle no :results none
-#!/usr/bin/bash
-
+#+begin_src shell :results output
 cd exp02
 
 mkdir data
@@ -435,3 +625,195 @@ for zip in *.tar.gz; do
     rm -rf $temp_dir
 done
 #+end_src
+
+#+RESULTS:
+
+Read the data
+
+#+begin_src R :results output :session :exports both
+df <- read_csv("exp02/data/draco1_data.csv") %>%
+    print
+#+end_src
+
+#+RESULTS:
+#+begin_example
+
+Parsed with column specification:
+cols(
+  node = col_character(),
+  rep_id = col_double(),
+  version = col_character(),
+  vector_size = col_double(),
+  compute_time = col_double()
+)
+# A tibble: 270 x 5
+   node   rep_id version    vector_size compute_time
+   <chr>   <dbl> <chr>            <dbl>        <dbl>
+ 1 draco1      1 naive         70000000       0.0568
+ 2 draco1      1 naive        300000000       0.242 
+ 3 draco1      1 openmp       300000000       0.162 
+ 4 draco1      1 accumulate    70000000       0.0576
+ 5 draco1      1 accumulate   300000000       0.245 
+ 6 draco1      1 naive       1100000000       0.895 
+ 7 draco1      1 openmp        70000000       0.0412
+ 8 draco1      1 accumulate  1100000000       0.924 
+ 9 draco1      1 openmp      1100000000       0.583 
+10 draco1     12 naive         70000000       0.0569
+# … with 260 more rows
+#+end_example
+
+#+begin_src R :results output :session :exports both
+df %>%
+    group_by(node, version, vector_size) %>%
+    summarise(N=n(),
+              MeanTime = mean(compute_time),
+              SE = 3*sd(compute_time)/sqrt(N)) %>%
+    ungroup %>%
+    as.data.frame
+#+end_src
+
+#+RESULTS:
+#+begin_example
+
+    node    version vector_size  N   MeanTime           SE
+1 draco1 accumulate    70000000 30 0.05804833 0.0004338173
+2 draco1 accumulate   300000000 30 0.24678100 0.0017265984
+3 draco1 accumulate  1100000000 30 0.91754033 0.0026951184
+4 draco1      naive    70000000 30 0.05760000 0.0006570246
+5 draco1      naive   300000000 30 0.24257000 0.0004419627
+6 draco1      naive  1100000000 30 0.89073467 0.0015300999
+7 draco1     openmp    70000000 30 0.04260167 0.0012368063
+8 draco1     openmp   300000000 30 0.16297967 0.0014036441
+9 draco1     openmp  1100000000 30 0.58503367 0.0021530878
+#+end_example
+
+#+begin_src R :results output graphics :file (org-babel-temp-file "figure" ".png") :exports both :width 600 :height 400 :session
+df %>%
+    group_by(node, version, vector_size) %>%
+    summarise(N=n(),
+              MeanTime = mean(compute_time),
+              SE = 3*sd(compute_time)/sqrt(N)) %>%
+    ungroup %>%
+    mutate(vector_size = vector_size/10000000) %>%
+    ggplot(aes(x=as.factor(vector_size),
+               y=MeanTime,
+               color=version)) +
+    ylim(0,NA) +
+    theme_bw(base_size=16) +
+    xlab("Vector Size [x10^7]") +
+    ylab("Average Compute Time [s]") +
+    geom_point(size=3, position=position_dodge(width = .25)) + #position = position_dodge2(preserve = "single")) + #position = "dodge") +
+    geom_errorbar(aes(ymin=MeanTime-SE, ymax=MeanTime+SE), width=.5, position=position_dodge(width = .25)) +
+    theme(legend.position = "top")
+#+end_src
+
+#+RESULTS:
+[[file:/tmp/babel-sj50zX/figurebUmnac.png]]
+
+Let's mix exp01 and exp02
+
+#+begin_src R :results output :session :exports both
+df.exp1 <- read_csv("exp01/data/draco1_data.csv") %>%
+    filter(num_blocks == 7000) %>%
+    filter(reduc_fac == 1000) %>%
+    group_by(node, vector_size, num_blocks, reduc_fac) %>%
+    summarise(N=n(),
+              MeanTime = mean(compute_time),
+              SE = 3*sd(compute_time)/sqrt(N)) %>%
+    ungroup %>%
+    mutate(Reduction = as.factor(reduc_fac),
+           NBlocks = as.factor(num_blocks)) %>%
+    mutate(vector_size = vector_size/10000000) %>%
+    select(-contains("educ"), -contains("locks")) %>%
+    mutate(version = "starpu") %>%
+    print
+
+df.exp2 <- read_csv("exp02/data/draco1_data.csv") %>%
+    group_by(node, version, vector_size) %>%
+    summarise(N=n(),
+              MeanTime = mean(compute_time),
+              SE = 3*sd(compute_time)/sqrt(N)) %>%
+    mutate(vector_size = vector_size/10000000) %>%
+    print
+
+df.exp1exp2 <- df.exp1 %>%
+    bind_rows(df.exp2) %>%
+    print
+#+end_src
+
+#+RESULTS:
+#+begin_example
+
+Parsed with column specification:
+cols(
+  node = col_character(),
+  rep_id = col_double(),
+  vector_size = col_double(),
+  num_blocks = col_double(),
+  reduc_fac = col_double(),
+  compute_time = col_double()
+)
+# A tibble: 3 x 6
+  node   vector_size     N MeanTime    SE version
+  <chr>        <dbl> <int>    <dbl> <dbl> <chr>  
+1 draco1           7    30     1.30 0.128 starpu 
+2 draco1          30    30     3.52 0.606 starpu 
+3 draco1         110    30     4.59 1.27  starpu
+
+Parsed with column specification:
+cols(
+  node = col_character(),
+  rep_id = col_double(),
+  version = col_character(),
+  vector_size = col_double(),
+  compute_time = col_double()
+)
+# A tibble: 9 x 6
+# Groups:   node, version [3]
+  node   version    vector_size     N MeanTime       SE
+  <chr>  <chr>            <dbl> <int>    <dbl>    <dbl>
+1 draco1 accumulate           7    30   0.0580 0.000434
+2 draco1 accumulate          30    30   0.247  0.00173 
+3 draco1 accumulate         110    30   0.918  0.00270 
+4 draco1 naive                7    30   0.0576 0.000657
+5 draco1 naive               30    30   0.243  0.000442
+6 draco1 naive              110    30   0.891  0.00153 
+7 draco1 openmp               7    30   0.0426 0.00124 
+8 draco1 openmp              30    30   0.163  0.00140 
+9 draco1 openmp             110    30   0.585  0.00215
+
+# A tibble: 12 x 6
+   node   vector_size     N MeanTime       SE version   
+   <chr>        <dbl> <int>    <dbl>    <dbl> <chr>     
+ 1 draco1           7    30   1.30   0.128    starpu    
+ 2 draco1          30    30   3.52   0.606    starpu    
+ 3 draco1         110    30   4.59   1.27     starpu    
+ 4 draco1           7    30   0.0580 0.000434 accumulate
+ 5 draco1          30    30   0.247  0.00173  accumulate
+ 6 draco1         110    30   0.918  0.00270  accumulate
+ 7 draco1           7    30   0.0576 0.000657 naive     
+ 8 draco1          30    30   0.243  0.000442 naive     
+ 9 draco1         110    30   0.891  0.00153  naive     
+10 draco1           7    30   0.0426 0.00124  openmp    
+11 draco1          30    30   0.163  0.00140  openmp    
+12 draco1         110    30   0.585  0.00215  openmp
+#+end_example
+
+Let's plot my final sadness
+
+#+begin_src R :results output graphics :file (org-babel-temp-file "figure" ".png") :exports both :width 600 :height 400 :session
+df.exp1exp2 %>%
+    ggplot(aes(x=as.factor(vector_size),
+               y=MeanTime,
+               color=version)) +
+    ylim(0,NA) +
+    theme_bw(base_size=16) +
+    xlab("Vector Size [x10^7]") +
+    ylab("Average Compute Time [s]") +
+    geom_point(size=3, position=position_dodge(width = .25)) +
+    geom_errorbar(aes(ymin=MeanTime-SE, ymax=MeanTime+SE), width=.5, position=position_dodge(width = .25)) +
+    theme(legend.position = "top")
+#+end_src
+
+#+RESULTS:
+[[file:/tmp/babel-sj50zX/figure4CrkPU.png]]
