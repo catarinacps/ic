@@ -28,6 +28,8 @@
 #+latex_header: \setlength{\TPHorizModule}{\paperwidth} % Textpos units
 #+latex_header: \setlength{\TPVertModule}{\paperwidth} % Textpos units
 #+latex_header: \usetikzlibrary{overlay-beamer-styles}  % Overlay effects for TikZ
+#+latex_header: \usemintedstyle{manni}
+
 
 * Preamble                                                  :B_ignoreheading:
 :PROPERTIES:
@@ -35,42 +37,33 @@
 :END:
 *** Context
 
-In the last few years, we saw the continuation of a decades long trend in
-computing: ever-growing *parallelism*
+\vfill
+
+In the last few years, we saw the continuation of a decades long trend:
+ever-growing *parallelism* in search of performance
 
 \pause \vfill
 
-Said trend followed suit in both *hardware* and *software* spheres
-
-*** Tradition
-
-Applications made use of, traditionally, multiple *homogeneous* hardware
-
-\pause \vfill
-
-In order to gain even more performance in their fields of application, the
-hardware naturally specialized over time
+Also we saw that... \pause
+- the hardware naturally specialized over time \pause
+- buying highly performant systems became very expensive \pause
+- more common systems configurations became hard to extract their full potential
 
 \pause \vfill
 
-While every gain is welcome, this made buying highly performant and specialized
-systems considerably expensive
+Applications running on them can't rely on homogeneous hardware if they seek
+/high performance/
 
 *** Reality
 
-Thus, more common realities consisting of *heterogeneous* hardware became
-notoriously hard to extract their full potential
+\vfill
+
+Thus, a solution is needed in face of this demand...
 
 \pause \vfill
 
-Applications running on them can't rely on single hardware types if they seek
-true /high performance/
-
-\pause \vfill
-
-Given this demand, considerable effort has been poured into the development of
-/middleware/ capable of distributing applications workloads into these hybrid
-systems
+Some sort of *middleware* capable of distributing applications workloads into
+these hybrid systems!
 
 *** Agenda
 :PROPERTIES:
@@ -80,8 +73,6 @@ systems
 \tableofcontents
 
 * Introduction
-** Parallel programming models
-
 *** Agenda
 :PROPERTIES:
 :BEAMER_OPT: plain, noframenumbering
@@ -91,7 +82,9 @@ systems
 
 *** Most popular
 
-There are several popular parallel programming models, be it on /HPC/ or not
+\vfill
+
+There are several popular parallel programming models
 
 \pause \vfill
 
@@ -108,6 +101,8 @@ time-consuming and, therefore, error-prone process
 
 *** Implementations
 
+\vfill
+
 Most popular implementations seek to alleviate the burden of programmers
 
 \vfill \pause
@@ -117,39 +112,18 @@ Of those implementations the most popular are: \pause
 - OpenMP
 - OpenMPI
 - OpenACC
-- CUDA
-etc...
+- etc..
 
 \vfill \pause
 
-And those do a excellent job, but they *can't* completely conform to
-heterogeneous systems
+**** Attention!
 
-*** Domain decomposition
-
-When programming parallel solutions, one must, sooner or later, decompose the
-problem domain
-
-\vfill \pause
-
-Utilizing the previously cited APIs, the domain decomposition is fixes to the
-number of resources\pause /, even though you can utilize heterogeneous resources/
-
-\vfill \pause
-
-As you can't personalize each execution grain, your solution will be victim to
-dynamic load imbalances
-
-** Middleware
-
-*** Agenda
-:PROPERTIES:
-:BEAMER_OPT: plain, noframenumbering
-:END:
-
-\tableofcontents[currentsubsection, sectionstyle=show/shaded]
+If only utilizing the previously cited APIs, the domain decomposition is fixed
+to the number of resources \pause *you'll be victim to dynamic load imbalances*
 
 *** StarPU
+
+\vfill
 
 One of the efforts into creating a middleware capable of overcoming said
 limitations is called *StarPU*
@@ -183,7 +157,7 @@ Its approach is by defining the problem by tasks, and those tasks into a
 
 * Method
 
-** Algorithm design
+** Proof-of-concept implementation
 
 *** Agenda
 :PROPERTIES:
@@ -192,11 +166,56 @@ Its approach is by defining the problem by tasks, and those tasks into a
 
 \tableofcontents[currentsubsection, sectionstyle=show/shaded]
 
-*** Task-based
+*** Intent
 
-Placeholder
+\vfill
 
-** Experiment design
+Our objectives where to:
+
+\vfill \pause
+
+1. Use the task-based approach \pause
+2. Learn the StarPU API \pause
+3. Analyze its behavior while executing the application
+
+*** Object of study
+
+\vfill
+
+A simple vector accumulation
+
+\vfill \pause
+
+#+attr_latex: :width 8.3cm
+[[./images/impl.pdf]]
+
+*** Example kernel
+
+\vfill
+
+#+attr_latex: :options fontsize=\scriptsize
+#+begin_src c :tangle no
+void reduc_sum(void** buffers, void* cl_arg)
+{
+    ullint* vec_input = (ullint*)STARPU_VECTOR_GET_PTR(buffers[0]);
+    ullint* output = (ullint*)STARPU_VARIABLE_GET_PTR(buffers[1]);
+    unsigned nx_input = STARPU_VECTOR_GET_NX(buffers[0]);
+
+    double t0 = get_time();
+
+    // do the job
+    for (uint i = 0; i < nx_input; i++)
+        *output += vec_input[i];
+
+    double t1 = get_time();
+
+    V_PRINTF("SUM = %d\n"
+             "Task finished work with elapsed time %f\n",
+        *output, t1 - t0);
+}
+#+end_src
+
+** Experiment
 
 *** Agenda
 :PROPERTIES:
@@ -205,13 +224,34 @@ Placeholder
 
 \tableofcontents[currentsubsection, sectionstyle=show/shaded]
 
-*** Fully factorial
+*** Basis of comparison
 
-Placeholder
+\vfill
 
-*** Script
+Other simple implementations of vector accumulations
 
-Placeholder
+\vfill \pause
+
+1. Naive
+2. C++ STL
+3. OpenMP
+
+\vfill \pause
+
+Not intended as a goal to beat, but as a basis
+
+*** Methodological approach
+
+\vfill
+
+A fully factorial, random order experiment design
+
+\vfill \pause
+
+Parameters:
+- /Vector size/: =7*10^7, 3*10^8 and 1.1*10^9=
+- /Number of blocks/: =7000, 25000 and 82000=
+- /Reduction factor/: =2, 10 and 1000=
 
 * Results
 
