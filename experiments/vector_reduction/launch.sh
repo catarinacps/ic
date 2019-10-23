@@ -1,5 +1,5 @@
 #!/bin/bash
-PARTITIONS='draco'
+PARTITIONS='draco tupi'
 # the experiment id
 EXPERIMENT_ID=$1
 
@@ -25,7 +25,7 @@ for name in $PARTITIONS; do
     for execution in $nodes; do
         # launch the slurm script for this node
         sbatch \
-            -p ${execution%%[0-9]*} \
+            -p ${name} \
             -w ${execution%%_*} \
             -c ${execution#*_} \
             -J vector_reduction_${EXPERIMENT_ID} \

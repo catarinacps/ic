@@ -116,7 +116,7 @@ int main(int argc, char** argv)
 
         not_top_level = true;
         input_handle = output_handle; // replace inputs vector by the smaller output vector
-        free(input_vector);
+        // free(input_vector);
         input_vector = alloc_return;
     }
 
