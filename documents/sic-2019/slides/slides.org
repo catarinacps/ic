@@ -199,7 +199,7 @@ void reduc_sum(void** buffers, void* cl_arg)
 {
     ullint* vec_input = (ullint*)STARPU_VECTOR_GET_PTR(buffers[0]);
     ullint* output = (ullint*)STARPU_VARIABLE_GET_PTR(buffers[1]);
-    unsigned nx_input = STARPU_VECTOR_GET_NX(buffers[0]);
+    uint nx_input = STARPU_VECTOR_GET_NX(buffers[0]);
 
     double t0 = get_time();
 
@@ -215,7 +215,7 @@ void reduc_sum(void** buffers, void* cl_arg)
 }
 #+end_src
 
-** Experiment
+** Experimental validation
 
 *** Agenda
 :PROPERTIES:
@@ -244,7 +244,7 @@ Not intended as a goal to beat, but as a basis
 
 \vfill
 
-A fully factorial, random order experiment design
+A fully factorial, randomly ordered experiment design
 
 \vfill \pause
 
@@ -258,6 +258,20 @@ Parameters:
 ** Visualizations
 
 ** Conclusions
+
+*** Feasibility
+
+\vfill
+
+Even with a simple implementation, we have shown that *StarPU* is a very capable
+API
+
+\vfill \pause
+
+Can easily aggregate the other APIs into our computation kernel \pause
+
+- OpenMP :: use the directives inside the kernels
+- OpenMPI :: distribute the workload across a wholes cluster
 
 * Questions                                                 :B_ignoreheading:
 :PROPERTIES:
