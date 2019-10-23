@@ -51,8 +51,8 @@ Also we saw that... \pause
 
 \pause \vfill
 
-Applications running on them can't rely on homogeneous hardware if they seek
-/high performance/
+Applications running on them can no longer rely on homogeneous hardware if they
+seek /high performance/
 
 *** Reality
 
@@ -62,7 +62,7 @@ Thus, a solution is needed in face of this demand...
 
 \pause \vfill
 
-Some sort of *middleware* capable of distributing applications workloads into
+Some sort of *middleware* capable of partitioning applications workloads into
 these hybrid systems!
 
 *** Agenda
@@ -118,8 +118,9 @@ Of those implementations the most popular are: \pause
 
 **** Attention!
 
-If only utilizing the previously cited APIs, the domain decomposition is fixed
-to the number of resources \pause *you'll be victim to dynamic load imbalances*
+If only utilizing the previously cited APIs, the domain decomposition is
+normally fixed to the number of resources \pause *you'll be victim to dynamic
+load imbalances*
 
 *** StarPU
 
@@ -170,7 +171,7 @@ Its approach is by defining the problem by tasks, and those tasks into a
 
 \vfill
 
-Our objectives where to:
+Our objectives were to
 
 \vfill \pause
 
@@ -244,7 +245,7 @@ Not intended as a goal to beat, but as a basis
 
 \vfill
 
-A fully factorial, randomly ordered experiment design
+A full factorial, randomly ordered experiment design
 
 \vfill \pause
 
