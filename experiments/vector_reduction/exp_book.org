@@ -284,17 +284,22 @@ cols(
 )
 # A tibble: 810 x 6
    node   rep_id vector_size num_blocks reduc_fac compute_time
-   <chr>   <dbl>       <dbl>      <dbl>     <dbl>        <dbl>
- 1 draco1      1    70000000      82000      1000        20.1 
- 2 draco1      1   300000000      82000      1000        20.2 
+   <
+  <
+      <
+     <
+    <
+       <dbl>
+ 1 draco1      1    70000000      82000      1000        20.1
+ 2 draco1      1   300000000      82000      1000        20.2
  3 draco1      1  1100000000       7000        10         6.05
  4 draco1      1   300000000       7000         2         6.01
  5 draco1      1    70000000      25000        10         5.84
- 6 draco1      1  1100000000      82000         2        38.0 
- 7 draco1      1  1100000000      25000         2        11.6 
+ 6 draco1      1  1100000000      82000         2        38.0
+ 7 draco1      1  1100000000      25000         2        11.6
  8 draco1      1    70000000       7000      1000         1.82
- 9 draco1      1   300000000      25000         2        11.8 
-10 draco1      1    70000000      82000        10        18.5 
+ 9 draco1      1   300000000      25000         2        11.8
+10 draco1      1    70000000      82000        10        18.5
 # … with 800 more rows
 #+end_example
 
@@ -360,7 +365,7 @@ df %>%
 #+end_src
 
 #+RESULTS:
-[[file:/tmp/babel-sj50zX/figurejiClgf.png]]
+[[file:/tmp/babel-VntAgR/figurebyarF4.png]]
 
 - for 10
 
@@ -373,7 +378,7 @@ df %>%
 #+end_src
 
 #+RESULTS:
-[[file:/tmp/babel-sj50zX/figureng9nmD.png]]
+[[file:/tmp/babel-VntAgR/figureJRMvKd.png]]
 
 
 - for 2
@@ -433,9 +438,9 @@ df %>%
 #+end_example
 
 Do a plot
-- with dots and 
+- with dots and
 
-#+begin_src R :results output graphics :file (org-babel-temp-file "figure" ".png") :exports both :width 600 :height 400 :session
+#+begin_src R :results output graphics :file exp01/images/all_parameters.png :exports both :width 1080 :height 720 :session
 df %>%
     group_by(vector_size, num_blocks, reduc_fac) %>%
     summarise(N=n(),
@@ -447,20 +452,21 @@ df %>%
     mutate(vector_size = vector_size/10000000) %>%
     ggplot(aes(x=as.factor(vector_size),
                y=MeanTime,
-               #color=Reduction,
                color=NBlocks)) +
+    geom_point(size=4, position=position_dodge(width = .325)) +
+    geom_errorbar(aes(ymin=MeanTime-SE, ymax=MeanTime+SE), size=0.8, width=.4, position=position_dodge(width = .325)) +
+    facet_wrap(. ~ Reduction) +
+    scale_color_discrete(name = "Number of Blocks") +
     ylim(0,NA) +
-    theme_bw(base_size=16) +
     xlab("Vector Size [x10^7]") +
     ylab("Average Compute Time [s]") +
-    geom_point(size=3, position=position_dodge(width = .25)) + #position = position_dodge2(preserve = "single")) + #position = "dodge") +
-    geom_errorbar(aes(ymin=MeanTime-SE, ymax=MeanTime+SE), width=.5, position=position_dodge(width = .25)) +
-    theme(legend.position = "top") +
-    facet_wrap(~Reduction)
+    theme_bw(base_size=22) +
+    theme(text = element_text(family = "Palatino"),
+          legend.position = "top")
 #+end_src
 
 #+RESULTS:
-[[file:/tmp/babel-sj50zX/figureH4UVni.png]]
+[[file:exp01/images/all_parameters.png]]
 
 
 * 2 - Comparing extra implementations                                 :EXP02:
@@ -608,7 +614,7 @@ rm -rf $SCRATCH/*
 Let's first start by getting only the CSVs
 
 #+begin_src shell :results output
-cd exp02
+cd ../exp02
 
 mkdir data
 
@@ -627,6 +633,25 @@ done
 #+end_src
 
 #+RESULTS:
+#+begin_example
+cd ../exp02[32mc[32md[39m ../exp02[?2004l
+[36mhenrique[00m@[32mhenrique-note[00m:[34m~/Repositories/ic/experiments/vector_reduction/exp02[00m$ [?2004h[?2004l
+[36mhenrique[00m@[32mhenrique-note[00m:[34m~/Repositories/ic/experiments/vector_reduction/exp02[00m$ [?2004hmkdir data[32mm[32mk[32md[32mi[32mr[39m data[?2004l
+mkdir: cannot create directory ‘data’: File exists
+[36mhenrique[00m@[32mhenrique-note[00m:[34m~/Repositories/ic/experiments/vector_reduction/exp02[00m$ [?2004h[?2004l
+[36mhenrique[00m@[32mhenrique-note[00m:[34m~/Repositories/ic/experiments/vector_reduction/exp02[00m$ [?2004hfor zip in *.tar.gz; do[33mf[33mo[33mr[39m zip in [34m*[39m.tar.gz; [33md[33mo[39m[?2004l
+[?2004h    temp_dir=${zip%%.*}then elif cmdand>     temp_dir=${zip%%.*}[?2004l
+[?2004h[?2004l
+[?2004h    mkdir $temp_dir         [32mm[32mk[32md[32mi[32mr[39m $temp_dir[?2004l
+[?2004h    tar xzf $zip -C $temp_dir         [32mt[32ma[32mr[39m xzf $zip -C $temp_dir[?2004l
+[?2004h[?2004l
+[?2004h    host=$(awk '{print $2}' <<<$temp_dir)         host=[35m$[35m([39m[32ma[32mw[32mk[39m [33m'[33m{[33mp[33mr[33mi[33mn[33mt[33m [33m$[33m2[33m}[33m'[39m <<<$temp_dir[35m)[39m[?2004l
+[?2004h[?2004l
+[?2004h    mv $temp_dir/results/*.csv data         [32mm[32mv[39m $temp_dir/results/[34m*[39m.csv data[?2004l
+[?2004h[?2004l
+[?2004h    rm -rf $temp_dir         [32mr[32mm[39m -rf $temp_dir[?2004l
+[?2004hdone[33md[33mo[33mn[33me[39m[?2004l
+#+end_example
 
 Read the data
 
@@ -648,16 +673,20 @@ cols(
 )
 # A tibble: 270 x 5
    node   rep_id version    vector_size compute_time
-   <chr>   <dbl> <chr>            <dbl>        <dbl>
+   <
+  <
+<
+           <
+       <dbl>
  1 draco1      1 naive         70000000       0.0568
- 2 draco1      1 naive        300000000       0.242 
- 3 draco1      1 openmp       300000000       0.162 
+ 2 draco1      1 naive        300000000       0.242
+ 3 draco1      1 openmp       300000000       0.162
  4 draco1      1 accumulate    70000000       0.0576
- 5 draco1      1 accumulate   300000000       0.245 
- 6 draco1      1 naive       1100000000       0.895 
+ 5 draco1      1 accumulate   300000000       0.245
+ 6 draco1      1 naive       1100000000       0.895
  7 draco1      1 openmp        70000000       0.0412
- 8 draco1      1 accumulate  1100000000       0.924 
- 9 draco1      1 openmp      1100000000       0.583 
+ 8 draco1      1 accumulate  1100000000       0.924
+ 9 draco1      1 openmp      1100000000       0.583
 10 draco1     12 naive         70000000       0.0569
 # … with 260 more rows
 #+end_example
@@ -708,7 +737,7 @@ df %>%
 #+end_src
 
 #+RESULTS:
-[[file:/tmp/babel-sj50zX/figurebUmnac.png]]
+[[file:/tmp/babel-VntAgR/figuresWMXP9.png]]
 
 Let's mix exp01 and exp02
 
@@ -755,9 +784,15 @@ cols(
 )
 # A tibble: 3 x 6
   node   vector_size     N MeanTime    SE version
-  <chr>        <dbl> <int>    <dbl> <dbl> <chr>  
-1 draco1           7    30     1.30 0.128 starpu 
-2 draco1          30    30     3.52 0.606 starpu 
+  <
+       <
+<
+   <
+<
+<
+
+1 draco1           7    30     1.30 0.128 starpu
+2 draco1          30    30     3.52 0.606 starpu
 3 draco1         110    30     4.59 1.27  starpu
 
 Parsed with column specification:
@@ -771,49 +806,63 @@ cols(
 # A tibble: 9 x 6
 # Groups:   node, version [3]
   node   version    vector_size     N MeanTime       SE
-  <chr>  <chr>            <dbl> <int>    <dbl>    <dbl>
+  <
+ <
+           <
+<
+   <
+   <dbl>
 1 draco1 accumulate           7    30   0.0580 0.000434
-2 draco1 accumulate          30    30   0.247  0.00173 
-3 draco1 accumulate         110    30   0.918  0.00270 
+2 draco1 accumulate          30    30   0.247  0.00173
+3 draco1 accumulate         110    30   0.918  0.00270
 4 draco1 naive                7    30   0.0576 0.000657
 5 draco1 naive               30    30   0.243  0.000442
-6 draco1 naive              110    30   0.891  0.00153 
-7 draco1 openmp               7    30   0.0426 0.00124 
-8 draco1 openmp              30    30   0.163  0.00140 
+6 draco1 naive              110    30   0.891  0.00153
+7 draco1 openmp               7    30   0.0426 0.00124
+8 draco1 openmp              30    30   0.163  0.00140
 9 draco1 openmp             110    30   0.585  0.00215
 
 # A tibble: 12 x 6
-   node   vector_size     N MeanTime       SE version   
-   <chr>        <dbl> <int>    <dbl>    <dbl> <chr>     
- 1 draco1           7    30   1.30   0.128    starpu    
- 2 draco1          30    30   3.52   0.606    starpu    
- 3 draco1         110    30   4.59   1.27     starpu    
+   node   vector_size     N MeanTime       SE version
+   <
+       <
+<
+   <
+   <
+<
+
+ 1 draco1           7    30   1.30   0.128    starpu
+ 2 draco1          30    30   3.52   0.606    starpu
+ 3 draco1         110    30   4.59   1.27     starpu
  4 draco1           7    30   0.0580 0.000434 accumulate
  5 draco1          30    30   0.247  0.00173  accumulate
  6 draco1         110    30   0.918  0.00270  accumulate
- 7 draco1           7    30   0.0576 0.000657 naive     
- 8 draco1          30    30   0.243  0.000442 naive     
- 9 draco1         110    30   0.891  0.00153  naive     
-10 draco1           7    30   0.0426 0.00124  openmp    
-11 draco1          30    30   0.163  0.00140  openmp    
+ 7 draco1           7    30   0.0576 0.000657 naive
+ 8 draco1          30    30   0.243  0.000442 naive
+ 9 draco1         110    30   0.891  0.00153  naive
+10 draco1           7    30   0.0426 0.00124  openmp
+11 draco1          30    30   0.163  0.00140  openmp
 12 draco1         110    30   0.585  0.00215  openmp
 #+end_example
 
 Let's plot my final sadness
 
-#+begin_src R :results output graphics :file (org-babel-temp-file "figure" ".png") :exports both :width 600 :height 400 :session
+#+begin_src R :results output graphics :file exp02/images/combined.png :exports both :width 960 :height 720 :session
 df.exp1exp2 %>%
-    ggplot(aes(x=as.factor(vector_size),
-               y=MeanTime,
-               color=version)) +
-    ylim(0,NA) +
-    theme_bw(base_size=16) +
-    xlab("Vector Size [x10^7]") +
-    ylab("Average Compute Time [s]") +
-    geom_point(size=3, position=position_dodge(width = .25)) +
-    geom_errorbar(aes(ymin=MeanTime-SE, ymax=MeanTime+SE), width=.5, position=position_dodge(width = .25)) +
-    theme(legend.position = "top")
+  ggplot(aes(x=as.factor(vector_size),
+             y=MeanTime,
+             color=version)) +
+  geom_point(size=4, position=position_dodge(width = .3)) +
+  geom_errorbar(aes(ymin=MeanTime-SE, ymax=MeanTime+SE), size=0.8, width=.4, position=position_dodge(width = .3)) +
+  ylim(0,NA) +
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 5)) +
+  scale_color_discrete(name = "Implementation Version") +
+  xlab("Vector Size [x10^7]") +
+  ylab("Average Compute Time [s]") +
+  theme_bw(base_size=22) +
+  theme(text = element_text(family = "Palatino"),
+        legend.position = "top")
 #+end_src
 
 #+RESULTS:
-[[file:/tmp/babel-sj50zX/figure4CrkPU.png]]
+[[file:exp02/images/combined.png]]

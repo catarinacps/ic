@@ -58,11 +58,11 @@ seek /high performance/
 
 \vfill
 
-Thus, a solution is needed in face of this demand...
+Thus, a solution is needed in face of this demand\dots
 
 \pause \vfill
 
-Some sort of *middleware* capable of partitioning applications workloads into
+Some sort of *middle layer* capable of partitioning applications workloads into
 these hybrid systems!
 
 *** Agenda
@@ -258,7 +258,35 @@ Parameters:
 
 ** Visualizations
 
+*** Agenda
+:PROPERTIES:
+:BEAMER_OPT: plain, noframenumbering
+:END:
+
+\tableofcontents[currentsubsection, sectionstyle=show/shaded]
+
+*** StarPU
+
+\vfill
+
+#+attr_latex: :height 8cm
+[[./images/all_parameters.png]]
+
+*** Combined graph
+
+\vfill
+
+#+attr_latex: :height 8cm
+[[./images/combined.png]]
+
 ** Conclusions
+
+*** Agenda
+:PROPERTIES:
+:BEAMER_OPT: plain, noframenumbering
+:END:
+
+\tableofcontents[currentsubsection, sectionstyle=show/shaded]
 
 *** Feasibility
 
@@ -269,10 +297,10 @@ API
 
 \vfill \pause
 
-Can easily aggregate the other APIs into our computation kernel \pause
+Furthermore, we can aggregate the other APIs into our computation kernel \pause
 
-- OpenMP :: use the directives inside the kernels
-- OpenMPI :: distribute the workload across a wholes cluster
+- OpenMP :: therefore, utilizing /parallel tasks/
+- OpenMPI :: distribute the execution graph across a whole cluster
 
 * Questions                                                 :B_ignoreheading:
 :PROPERTIES:
@@ -289,3 +317,4 @@ Can easily aggregate the other APIs into our computation kernel \pause
 :END:
 
 \titlepage
+\vspace*{1.3em}
