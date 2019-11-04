@@ -1,0 +1,306 @@
+#+AUTHOR: HCPSILVA
+
+#+STARTUP: overview indent
+#+LANGUAGE: pt-br
+#+OPTIONS: H:3 creator:nil timestamp:nil skip:nil toc:nil num:t ^:nil ~:~
+#+OPTIONS: author:nil title:nil date:nil
+#+TAGS: noexport(n) deprecated(d) ignore(i)
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+DESCRIPTION: Proposta de Projeto de Pesquisa INF/UFRGS para Petrobras
+#+KEYWORDS: inf ufrgs petrobras
+
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS: [a4paper,12pt,portuguese]
+#+LATEX_HEADER: \usepackage{palatino}
+#+LATEX_HEADER: \usepackage{tabularx}
+#+LATEX_HEADER: \usepackage{booktabs}
+#+LATEX_HEADER: \usepackage{multirow}
+#+LATEX_HEADER: \usepackage{booktabs}
+#+LATEX_HEADER: \usepackage[margin=1cm,top=0cm,bottom=4cm]{geometry}
+#+Latex_HEADER: \usepackage[utf8]{inputenc}
+#+Latex_HEADER: \usepackage[rubberchapters,clearempty,pagestyles]{titlesec}
+#+Latex_HEADER: \usepackage{xspace}
+#+Latex_HEADER: \usepackage[portuguese]{babel}
+#+latex_header: \usepackage{hyperref}
+#+latex_header: \usepackage{fancyhdr}
+
+* Contents                                                           :ignore:
+** Header                                                           :ignore:
+
+#+BEGIN_EXPORT latex
+\setlength{\headheight}{3cm}
+\titlespacing*{\section}{0pt}{10pt}{-.3\parskip}
+\setlength{\parskip}{3pt}
+
+\pagestyle{fancyplain}
+
+\chead{}
+\rhead{}
+\lhead{UFRGS -- Departamento de Informática Aplicada \\
+Prof. Lucas M. Schnorr -- http://www.inf.ufrgs.br/{\raise.17ex\hbox{$\scriptstyle\sim$}}schnorr/}
+#+END_EXPORT
+** Title                                                            :ignore:
+
+#+Latex: {\Large
+
+#+BEGIN_CENTER
+Programa de Iniciação Científica da UFRGS -- 2019/2020
+#+END_CENTER
+
+#+BEGIN_CENTER
+-- Relatório Parcial do Bolsista --
+
+*Investigação e Aprendizado de Ferramentas para*
+
+*Boas Práticas de Experimentos Computacionais*
+
+#+latex: {\normalsize
+
+Bolsista: Henrique Corrêa Pereira da Silva (Cartão 262508)
+
+Período: 01/08/2019 -- 31/10/2019
+
+#+latex: }
+#+END_CENTER
+
+#+Latex: }
+
+** Contexto e apresentação do problema
+
+Atualmente toda e qualquer área da ciência produz uma enorme
+quantidade de dados. Na Ciência da Computação, por exemplo, ao
+construir um modelo do comportamento de um bloco de código, se faz
+necessário coletar milhares de medições de tempos de execução em
+experimentos que são potencialmente difíceis de controlar totalmente
+devido a variabilidade natural do sistema. Frequentemente, a
+reprodutibilidade dos resultados científicos é comprometida devido ao
+pouco controle sobre as variáveis que interferem o fenômeno sob
+investigação e ao manejo inadequado dos resultado experimentais.
+
+Os alicerces da reprodutibilidade dos resultados cientificos são
+qualidade e amplidade dos dados brutos coletados e a posterior análise
+dos mesmos.  No primeiro ponto, sobre qualidade e amplitude, o
+problema principal é na transformação de dados que deve ser feita para
+levá-los até uma situação onde a análise pode acontecer. Isso envolve
+a limpeza dos dados, como por exemplo, a decisão do que fazer sobre
+observações incompletas, o que fazer quando medições ficam fora de
+parâmetro, etc. O universo de problemas que pode aparecer e que são
+suscetíveis a limpeza é bastante grande. O problema do segundo ponto
+diz respeito na escolha da melhor metodologia de análise para um
+conjunto de dados, ou seja, na definição da sequência de passos que
+deve ser realizado para produzir uma informação sucinta e útil que
+permita tomada de decisão.
+
+** Objetivos
+
+O objetivo da investigação a ser realizada pelo bolsista consiste em
+explorar e incorporar boas práticas a serem aplicadas desde o projeto
+e subsequente realização de experimentos computacionais em ambientes
+de alto desempenho até a transformação e análise dos dados para
+posterior apresentação. As estratégias a serem estudadas são
+estruturadas em (1) *controle e coleta* referente ao controle de
+ambientes computacionais de alto desempenho baseados em Linux,
+avaliação do comportamento de aplicações paralelas híbridas, e
+elaboração de projeto experimental para realização de experimentos; e
+(2) *análise de dados* referente ao emprego de ferramentas modernas de
+análise em linguagem R com apoio em conceitos de programação
+literária.
+
+** Relatório de atividades
+
+TODO:
+- Escreva o relatório aqui, nas seções abaixo.
+- Crie outras seções caso aches pertinente.
+
+*** Estudo de Caso: Fatoração QR densa
+
+Citar artigo do Marcelo no WSCAD.
+
+*** Projeto Experimental
+
+*** Execução do Projeto Experimental
+
+** Descrição do trabalho e metodologia                            :noexport:
+
+Inicialmente serão estudados os principais fatores que controlam ou
+interferem na execução de experimentos em sistemas computacionais
+focados em processamento de alto desempenho (SO Linux, múltiplos nós,
+redes de baixa latência, recursos de processamento heterogêneos).  Em
+segundo momento, serão estudadas ferramentas para elaboração de
+projeto experimental que auxiliem tanto na identificação de fatores
+relevantes quanto na aleatorização que permite absorver anomalias
+inesperadas durante a execução da bateria experimental.  O próximo
+passo consiste na seleção e estudo de aplicação paralela que execute
+em /hardware/ de alto desempenho contemporâneo. Esta aplicação será
+usada como estudo de caso, para ilustrar a aplicação das etapas
+anteriores.
+
+O segundo momento, que envolve a fase pós-execução do experimento,
+será dedicado a etapa de análise de dados. Esta etapa consite em um
+processo iterativo, onde uma análise anterior em alto nível permite
+identificar e delimitar cenários e configurações que alimentam uma
+nova execução da etapade controle e coleta, passos que se sucedem
+levando a elaboração de hipóteses e conclusões científicas. Nesta
+etapa serão combinadas ferramentas de programação literária (Emacs e
+org-mode) com pacotes de análise e visualização de dados fornecidos
+pela linguagem R.
+
+Espera-se que este trabalho culmine na escrita de artigos técnicos e
+científicos que apresentem e discutam os conceitos estudados bem como
+os resultados observados na investigação realizada como estudo de
+caso.  Este trabalho tem forte intersecção com trabalhos já sendo
+conduzidos por outros alunos (em nível de pós-graduação) dentro do
+grupo de pesquisa, portanto um trabalho em equipe é esperado com
+envolvimento do bolsista em assuntos periféricos no contexto da
+investigação.
+
+Em coerência com os temas aboradados, será dedicado significativo
+esforço com relação a reprodutibilidade da pesquisa em si. Sendo
+assim, pretende-se disponibilizar material complementar, dados brutos
+e análise produzidas em complementação aos textos científicos
+elaborados. Acredita-se que isso contribuirá para a formação
+científica do aluno bolsista, bem como para a disseminação de práticas
+reprodutíveis no ambiente acadêmico. 
+
+** Ambiente de desenvolvimento                                    :noexport:
+
+| Ambiente               | Linux (desktop e servidor) |
+| Programação            | R, lisp, shell, C          |
+| Gestão do projeto      | git                        |
+| Ferramentas auxiliares | rstudio                    |
+| Relatório e artigos    | emacs, org-mode, latex     |
+
+** Cronograma                                                     :noexport:
+
+A tabela [[tab.cronograma]] descreve as atividades previstas neste projeto
+de pesquisa. As atividades de estudo, implementação, experimentação e
+avaliação ocorrem permanentemente devido às melhoras realizadas a
+partir das soluções propostas durante o projeto. É obrigatório que o
+bolsista apresente os resultados do seu processo de investigação
+durante o Salão de Iniciação Científica em Outubro de 2020.
+
+#+CAPTION: Cronograma do Projeto de Pesquisa
+#+LABEL: tab.cronograma
+#+ATTR_LATEX: :booktabs :environment longtable :align p{8cm}cccccccccccc
+| *Atividade* / *Mês*                            | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+|--------------------------------------------+---+---+---+---+---+---+---+---+---+----+----+----|
+| 1. Estudo de fatores                       | \bullet | \bullet |   |   |   |   |   |   |   |    |    |    |
+| 2. Controle, Coleta e Projeto Experimental |   | \bullet | \bullet |   |   |   |   |   |   |    |    |    |
+| 3. Aplicação Paralela                      |   |   | \bullet | \bullet | \bullet |   |   | \bullet | \bullet | \bullet  |    |    |
+| 4. Ferramentas de Análise de Dados         |   |   |   |   | \bullet | \bullet | \bullet | \bullet | \bullet | \bullet  | \bullet  |    |
+| 5. Estudo de Caso                          |   |   |   | \bullet | \bullet |   | \bullet | \bullet | \bullet | \bullet  |    |    |
+| 6. Redação de Artigo                       |   |   |   |   |   | \bullet |   |   |   |    | \bullet  | \bullet  |
+| 7. Redação de Relatório                    |   |   |   |   |   |   |   |   |   |    |    | \bullet  |
+
+** Refs                                                             :ignore:
+
+#+LATEX: \bibliographystyle{plain}
+#+LATEX: \bibliography{refs}
+
+* BIBTEX file is HERE                                              :noexport:
+
+Tangle this file with C-c C-v t; the =make= command tangle it automatically.
+
+#+begin_src bib :tangle refs.bib
+% Only BIBTEX entries here
+
+@article{cpe4472,
+author = {Garcia Pinto Vinícius and Mello Schnorr Lucas and Stanisic Luka and Legrand Arnaud and Thibault Samuel and Danjean Vincent},
+title = {A visual performance analysis framework for task‐based parallel applications running on hybrid clusters},
+journal = {Concurrency and Computation: Practice and Experience},
+volume = {0},
+number = {0},
+year = 2018,
+pages = {e4472},
+keywords = {Cholesky, heterogeneous platforms, high‐performance computing, task‐based applications, trace visualization},
+doi = {10.1002/cpe.4472},
+url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/cpe.4472},
+eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/cpe.4472},
+note = {Early View, check https://doi.org/10.1002/cpe.4472},
+}
+
+@article{Stanisic:2015:EGO:2723872.2723881,
+ author = {Stanisic, Luka and Legrand, Arnaud and Danjean, Vincent},
+ title = {An Effective Git And Org-Mode Based Workflow For Reproducible Research},
+ journal = {SIGOPS Oper. Syst. Rev.},
+ issue_date = {January 2015},
+ volume = {49},
+ number = {1},
+ month = jan,
+ year = {2015},
+ issn = {0163-5980},
+ pages = {61--70},
+ numpages = {10},
+ url = {http://doi.acm.org/10.1145/2723872.2723881},
+ doi = {10.1145/2723872.2723881},
+ acmid = {2723881},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+} 
+
+@article{Knuth1984,
+  author =	 {Knuth, D. E.},
+  doi =		 {10.1093/comjnl/27.2.97},
+  issn =	 {0010-4620},
+  journal =	 {The Computer Journal},
+  month =	 2,
+  number =	 2,
+  pages =	 {97--111},
+  publisher =	 {Oxford University Press},
+  title =	 {{Literate Programming}},
+  volume =	 27,
+  year =	 1984
+}
+
+@book{Dominik:2010:OMR:1952135,
+  author =	 {Dominik, Carsten},
+  title =	 {The Org Mode 7 Reference Manual - Organize Your Life
+                  with GNU Emacs},
+  year =	 2010,
+  isbn =	 9781906966089,
+  publisher =	 {Network Theory Ltd.},
+}
+
+@book{emacsManual,
+  address =	 {Boston, USA},
+  author =	 {Richard Stallman and others},
+  edition =	 17,
+  pages =	 635,
+  publisher =	 {Free Software Foundation},
+  title =	 {{GNU Emacs Manual}},
+  url =
+                  {https://www.gnu.org/software/emacs/manual/pdf/emacs.pdf},
+  urldate =	 {2017-12-04},
+  year =	 2017
+}
+
+@Manual{rmanual,
+    title = {R: A Language and Environment for Statistical Computing},
+    author = {{R Core Team}},
+    organization = {R Foundation for Statistical Computing},
+    address = {Vienna, Austria},
+    year = {2018},
+    url = {https://www.R-project.org/},
+  }
+@inproceedings{gamblin2015spack,
+  title =	 {The Spack package manager: Bringing order to HPC
+                  software chaos},
+  author =	 {Gamblin, Todd and LeGendre, Matthew and Collette,
+                  Michael R and Lee, Gregory L and Moody, Adam and de
+                  Supinski, Bronis R and Futral, Scott},
+  booktitle =	 {High Performance Computing, Networking, Storage and
+                  Analysis, 2015 SC-International Conference for},
+  pages =	 {1--12},
+  year =	 2015,
+  organization = {IEEE}
+}
+
+#+end_src
+* Emacs setup                                                      :noexport:
+# Local Variables:
+# eval: (add-to-list 'load-path ".")
+# eval: (require 'ox-extra)
+# eval: (ox-extras-activate '(ignore-headlines))
+# End:
+
