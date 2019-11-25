@@ -49,7 +49,7 @@ Programa de Iniciação Científica da UFRGS -- 2019/2020
 #+END_CENTER
 
 #+BEGIN_CENTER
--- Relatório Parcial do Bolsista --
+-- Relatório de Atividades do Bolsista --
 
 *Investigação e Aprendizado de Ferramentas para*
 
@@ -59,7 +59,7 @@ Programa de Iniciação Científica da UFRGS -- 2019/2020
 
 Bolsista: Henrique Corrêa Pereira da Silva (Cartão 262508)
 
-Período: 01/08/2019 -- 31/10/2019
+Período: 01/08/2019 -- 30/11/2019
 
 #+latex: }
 #+END_CENTER
