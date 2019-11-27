@@ -193,10 +193,6 @@ ferramenta /Slurm/ \cite{yoo2003slurm}. Os experimentos foram, dessa maneira,
 realizados de maneira a reduzir a influência da variabilidade natural de
 sistemas computacionais.
 
-*** Coleta e Análise dos Dados Coletados
-
-# Após a execução e posterior coleta dos dados experimentais,
-
 ** Descrição do trabalho e metodologia                            :noexport:
 
 Inicialmente serão estudados os principais fatores que controlam ou
