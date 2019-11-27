@@ -12,6 +12,7 @@
 
 #+LATEX_CLASS: article
 #+LATEX_CLASS_OPTIONS: [a4paper,12pt,portuguese]
+#+Latex_HEADER: \usepackage[portuguese]{babel}
 #+LATEX_HEADER: \usepackage{palatino}
 #+LATEX_HEADER: \usepackage{tabularx}
 #+LATEX_HEADER: \usepackage{booktabs}
@@ -21,7 +22,6 @@
 #+Latex_HEADER: \usepackage[utf8]{inputenc}
 #+Latex_HEADER: \usepackage[rubberchapters,clearempty,pagestyles]{titlesec}
 #+Latex_HEADER: \usepackage{xspace}
-#+Latex_HEADER: \usepackage[portuguese]{babel}
 #+latex_header: \usepackage{hyperref}
 #+latex_header: \usepackage{fancyhdr}
 
