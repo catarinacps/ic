@@ -109,17 +109,93 @@ literária.
 
 ** Relatório de atividades
 
+#+begin_comment
+
 TODO:
 - Escreva o relatório aqui, nas seções abaixo.
 - Crie outras seções caso aches pertinente.
 
+#+end_comment
+
 *** Estudo de Caso: Fatoração QR densa
 
-Citar artigo do Marcelo no WSCAD.
+Como plataforma para a aplicação dos pricípios e disciplinas previamente
+citados, foi realizado o estudo de implementações de uma fatoração QR que
+utilizava diversas APIs para paralelizar seu processamento. O estudo foi baseado
+num trabalho previamnte conduzido pelo grupo de pesquisa
+\cite{miletto2019abrest}, que analisava o impacto dos diferentes /runtimes/ de
+programação paralela baseada em tarefas.
+
+O trabalho debruçou-se sobre essa questão utilizando como seu estudo de caso uma
+fatoração QR de matriz densa. Tal operação, assim como muitas outras operações
+de decomposição de matrizes, é amplamente utilizada para a resolução de sistemas
+de equações matriciais, muito comuns em problemas desde o processamento de
+imagens até transmissão de sinais eletromagnéticos.
+
+*** Organização do Trabalho
+
+Para organização de uma análise pervasiva do estudo conduzido, a nossa abordagem
+utilizou princípios da programação literária \cite{knuth1984} através da
+linguagem estilo /markdown/ chamada /org-mode/ \cite{dominik2010}, intercalando
+ambas prosa e programação para alcançar um estudo sistemático e reprodutível do
+assunto em questão. Utilizamos o editor de texto Emacs \cite{stallman2017emacs},
+que da suporte e facilidade de uso desde ao /org-mode/ até a execução remota
+através de /SSH/.
+
+O versionamento de tal documento e da base de código a partir dele escrita foi
+realizada através da ferramenta distribuída de versionamento /git/
+\cite{stanisic2015}, permitindo, assim, fácil revisão do trabalho realizado pelo
+bolsista.
+
+Dessa maneira, listamos e definimos como objetivo algumas possíveis extensões do
+estudo, a fim de explorar detalhes não tão relevantes para o escopo inicial
+desse estudo. Para isso, reproduzimos alguns dos resultados obtidos, processo
+que contou com o reforço e incremento da documentação já presente no trabalho em
+análise e com a criação de procedimentos para facilitar a reprodução da maneira
+que coletamos os dados.
 
 *** Projeto Experimental
 
+Na criação dos projetos experimentais para a replicação dos experimentos já
+existentes do estudo de caso utilizamos uma abordagem completamente fatorial
+\cite{jain1990art} sempre que possível, a fim de analisar os efeitos dos fatores
+em análise.
+
+Tal abordagem nem sempre foi seguida, dado o grande custo computacional de
+certas combinações dos fatores analisados, como o tamanho do bloco da computação
+e o tamanho total da matriz. Isto é, retiramos de alguns designs experimentais
+combinações que levavam a uma grande quantidade de tarefas sendo criadas, já
+que, quando em excesso, levavam a um grande /overhead/ de tempo de CPU sendo
+dedicado a gerência dessa grande quantidade de tarefas. Essa escolha foi tomada
+levando em conta a necessidade de, além do exercício de criação de projetos
+experimentais, exercitar também a análise e apresentação de dados coletados
+nesses processos. Claro, ao realizar a retirada de certas configurações de
+teste, o processo era documentado e justificado, além de planejados futuros
+experimentos que complementariam essas faltas executando o projeto original
+completo.
+
 *** Execução do Projeto Experimental
+
+Essencial em qualquer processo experimental, tomamos especial cuidado para que
+as dependências para a execução da base de código fossem obtidas e instaladas, o
+que auxilia no processo de reprodução dos /scripts/ experimentais. Dito isso,
+alcançamos esse objetivo através da ferramenta de distribuição de pacotes
+/Spack/ \cite{gamblin2015spack}, que opera sem necessitar de direitos de
+administrador, o que é essencial para a execução em ambientes controlados como
+/clusters/ de alto desempenho.
+
+Tais preocupações são, cada vez mais, de grande importância na produção de
+quaisquer artefatos científicos \cite{stanisic2015}, principalmente na área da
+computação, como previamente citado na motivação desse trabalho. Garantidas
+quaisquer dependências, os projetos experimentais foram executados no /cluster/
+de alto desempenho do grupo \cite{nesi2019pcad}, gerenciado utilizando a
+ferramenta /Slurm/ \cite{yoo2003slurm}. Os experimentos foram, dessa maneira,
+realizados de maneira a reduzir a influência da variabilidade natural de
+sistemas computacionais.
+
+*** Coleta e Análise dos Dados Coletados
+
+# Após a execução e posterior coleta dos dados experimentais,
 
 ** Descrição do trabalho e metodologia                            :noexport:
 
@@ -161,7 +237,7 @@ assim, pretende-se disponibilizar material complementar, dados brutos
 e análise produzidas em complementação aos textos científicos
 elaborados. Acredita-se que isso contribuirá para a formação
 científica do aluno bolsista, bem como para a disseminação de práticas
-reprodutíveis no ambiente acadêmico. 
+reprodutíveis no ambiente acadêmico.
 
 ** Ambiente de desenvolvimento                                    :noexport:
 
@@ -183,19 +259,19 @@ durante o Salão de Iniciação Científica em Outubro de 2020.
 #+CAPTION: Cronograma do Projeto de Pesquisa
 #+LABEL: tab.cronograma
 #+ATTR_LATEX: :booktabs :environment longtable :align p{8cm}cccccccccccc
-| *Atividade* / *Mês*                            | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
-|--------------------------------------------+---+---+---+---+---+---+---+---+---+----+----+----|
-| 1. Estudo de fatores                       | \bullet | \bullet |   |   |   |   |   |   |   |    |    |    |
-| 2. Controle, Coleta e Projeto Experimental |   | \bullet | \bullet |   |   |   |   |   |   |    |    |    |
-| 3. Aplicação Paralela                      |   |   | \bullet | \bullet | \bullet |   |   | \bullet | \bullet | \bullet  |    |    |
-| 4. Ferramentas de Análise de Dados         |   |   |   |   | \bullet | \bullet | \bullet | \bullet | \bullet | \bullet  | \bullet  |    |
-| 5. Estudo de Caso                          |   |   |   | \bullet | \bullet |   | \bullet | \bullet | \bullet | \bullet  |    |    |
-| 6. Redação de Artigo                       |   |   |   |   |   | \bullet |   |   |   |    | \bullet  | \bullet  |
-| 7. Redação de Relatório                    |   |   |   |   |   |   |   |   |   |    |    | \bullet  |
+| *Atividade* / *Mês*                        |       1 | 2       | 3       | 4       | 5       | 6       | 7       | 8       | 9       | 10      | 11      | 12      |
+|--------------------------------------------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
+| 1. Estudo de fatores                       | \bullet | \bullet |         |         |         |         |         |         |         |         |         |         |
+| 2. Controle, Coleta e Projeto Experimental |         | \bullet | \bullet |         |         |         |         |         |         |         |         |         |
+| 3. Aplicação Paralela                      |         |         | \bullet | \bullet | \bullet |         |         | \bullet | \bullet | \bullet |         |         |
+| 4. Ferramentas de Análise de Dados         |         |         |         |         | \bullet | \bullet | \bullet | \bullet | \bullet | \bullet | \bullet |         |
+| 5. Estudo de Caso                          |         |         |         | \bullet | \bullet |         | \bullet | \bullet | \bullet | \bullet |         |         |
+| 6. Redação de Artigo                       |         |         |         |         |         | \bullet |         |         |         |         | \bullet | \bullet |
+| 7. Redação de Relatório                    |         |         |         |         |         |         |         |         |         |         |         | \bullet |
 
 ** Refs                                                             :ignore:
 
-#+LATEX: \bibliographystyle{plain}
+#+LATEX: \bibliographystyle{apalike}
 #+LATEX: \bibliography{refs}
 
 * BIBTEX file is HERE                                              :noexport:
@@ -204,6 +280,53 @@ Tangle this file with C-c C-v t; the =make= command tangle it automatically.
 
 #+begin_src bib :tangle refs.bib
 % Only BIBTEX entries here
+
+@inproceedings{yoo2003slurm,
+ author = {Yoo, Andy B. and Jette, Morris A. and Grondona, Mark},
+ title = {SLURM: Simple Linux Utility for Resource Management},
+ booktitle = {Job Scheduling Strategies for Parallel Processing},
+ year = {2003},
+ publisher = {Springer Berlin Heidelberg},
+ address = {Berlin, Heidelberg},
+ pages = {44--60},
+ abstract = {A new cluster resource management system called Simple Linux Utility Resource Management (SLURM) is described in this paper. SLURM, initially developed for large Linux clusters at the Lawrence Livermore National Laboratory (LLNL), is a simple cluster manager that can scale to thousands of processors. SLURM is designed to be flexible and fault-tolerant and can be ported to other clusters of different size and architecture with minimal effort. We are certain that SLURM will benefit both users and system architects by providing them with a simple, robust, and highly scalable parallel job execution environment for their cluster system.},
+ isbn = {978-3-540-39727-4}
+}
+
+@inproceedings{nesi2019pcad,
+ author = {Lucas Leandro Nesi and Matheus S. Serpa and Lucas Mello Schnorr and Philippe Olivier Alexandre Navaux},
+ title = {HPC Resources Management Infraestruture Description and 10-month Statistics},
+ booktitle = {Anais do XVII Workshop de Processamento Paralelo e Distribuído},
+ location = {Porto Alegre},
+ year = {2019},
+ keywords = {},
+ issn = {0000-0000},
+ pages = {21--24},
+ url = {https://www.inf.ufrgs.br/gppd/wsppd/2019/papers/proceedings/WSPPDProceedings.pdf}
+}
+
+@book{jain1990art,
+  title={The Art of Computer Systems Performance Analysis: Techniques for Experimental Design, Measurement, Simulation, and Modeling},
+  author={Jain, R.},
+  isbn={9788126519057},
+  url={https://books.google.com.br/books?id=eOR0kJjgMqkC},
+  year={1990},
+  publisher={Wiley}
+
+@inproceedings{miletto2019abrest,
+ author = {Marcelo Miletto and Lucas Schnorr},
+ title = {OpenMP and StarPU Abreast: the Impact of Runtime in Task-Based Block QR Factorization Performance},
+ booktitle = {Anais do XX Simpósio em Sistemas Computacionais de Alto Desempenho},
+ location = {Campo Grande},
+ year = {2019},
+ keywords = {},
+ issn = {0000-0000},
+ pages = {25--36},
+ publisher = {SBC},
+ address = {Porto Alegre, RS, Brasil},
+ doi = {10.5753/wscad.2019.8654},
+ url = {https://sol.sbc.org.br/index.php/wscad/article/view/8654}
+}
 
 @article{cpe4472,
 author = {Garcia Pinto Vinícius and Mello Schnorr Lucas and Stanisic Luka and Legrand Arnaud and Thibault Samuel and Danjean Vincent},
@@ -220,7 +343,7 @@ eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/cpe.4472},
 note = {Early View, check https://doi.org/10.1002/cpe.4472},
 }
 
-@article{Stanisic:2015:EGO:2723872.2723881,
+@article{stanisic2015,
  author = {Stanisic, Luka and Legrand, Arnaud and Danjean, Vincent},
  title = {An Effective Git And Org-Mode Based Workflow For Reproducible Research},
  journal = {SIGOPS Oper. Syst. Rev.},
@@ -237,42 +360,40 @@ note = {Early View, check https://doi.org/10.1002/cpe.4472},
  acmid = {2723881},
  publisher = {ACM},
  address = {New York, NY, USA},
-} 
-
-@article{Knuth1984,
-  author =	 {Knuth, D. E.},
-  doi =		 {10.1093/comjnl/27.2.97},
-  issn =	 {0010-4620},
-  journal =	 {The Computer Journal},
-  month =	 2,
-  number =	 2,
-  pages =	 {97--111},
-  publisher =	 {Oxford University Press},
-  title =	 {{Literate Programming}},
-  volume =	 27,
-  year =	 1984
 }
 
-@book{Dominik:2010:OMR:1952135,
-  author =	 {Dominik, Carsten},
-  title =	 {The Org Mode 7 Reference Manual - Organize Your Life
-                  with GNU Emacs},
-  year =	 2010,
-  isbn =	 9781906966089,
-  publisher =	 {Network Theory Ltd.},
+@article{knuth1984,
+  author =   {Knuth, D. E.},
+  doi =      {10.1093/comjnl/27.2.97},
+  issn =     {0010-4620},
+  journal =  {The Computer Journal},
+  month =    2,
+  number =   2,
+  pages =    {97--111},
+  publisher =    {Oxford University Press},
+  title =    {{Literate Programming}},
+  volume =   27,
+  year =     1984
 }
 
-@book{emacsManual,
-  address =	 {Boston, USA},
-  author =	 {Richard Stallman and others},
-  edition =	 17,
-  pages =	 635,
-  publisher =	 {Free Software Foundation},
-  title =	 {{GNU Emacs Manual}},
-  url =
-                  {https://www.gnu.org/software/emacs/manual/pdf/emacs.pdf},
-  urldate =	 {2017-12-04},
-  year =	 2017
+@book{dominik2010,
+ author = {Dominik, Carsten},
+ title = {The Org Mode 7 Reference Manual - Organize Your Life with GNU Emacs},
+ year = {2010},
+ isbn = {1906966087, 9781906966089},
+ publisher = {Network Theory Ltd.},
+}
+
+@book{stallman2017emacs,
+  address =  {Boston, USA},
+  author =   {Richard Stallman and others},
+  edition =  17,
+  pages =    635,
+  publisher =    {Free Software Foundation},
+  title =    {{GNU Emacs Manual}},
+  url = {https://www.gnu.org/software/emacs/manual/pdf/emacs.pdf},
+  urldate =  {2017-12-04},
+  year =     2017
 }
 
 @Manual{rmanual,
@@ -283,19 +404,15 @@ note = {Early View, check https://doi.org/10.1002/cpe.4472},
     year = {2018},
     url = {https://www.R-project.org/},
   }
+
 @inproceedings{gamblin2015spack,
-  title =	 {The Spack package manager: Bringing order to HPC
-                  software chaos},
-  author =	 {Gamblin, Todd and LeGendre, Matthew and Collette,
-                  Michael R and Lee, Gregory L and Moody, Adam and de
-                  Supinski, Bronis R and Futral, Scott},
-  booktitle =	 {High Performance Computing, Networking, Storage and
-                  Analysis, 2015 SC-International Conference for},
-  pages =	 {1--12},
-  year =	 2015,
+  title = {The Spack package manager: Bringing order to HPC software chaos},
+  author = {Gamblin, Todd and LeGendre, Matthew and Collette, Michael R and Lee, Gregory L and Moody, Adam and de Supinski, Bronis R and Futral, Scott},
+  booktitle = {High Performance Computing, Networking, Storage and Analysis, 2015 SC-International Conference for},
+  pages = {1--12},
+  year = {2015},
   organization = {IEEE}
 }
-
 #+end_src
 * Emacs setup                                                      :noexport:
 # Local Variables:
@@ -303,4 +420,3 @@ note = {Early View, check https://doi.org/10.1002/cpe.4472},
 # eval: (require 'ox-extra)
 # eval: (ox-extras-activate '(ignore-headlines))
 # End:
-
