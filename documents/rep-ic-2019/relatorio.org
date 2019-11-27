@@ -109,6 +109,16 @@ literária.
 
 ** Relatório de atividades
 
+O bolsista de iniciação científica trabalhou em temas diversos, todos
+relacionados ao projeto no que diz respeito ao aprendizado de boas
+práticas de experimentos computacionais. Abaixo são dados detalhes a
+respeito de um estudo de caso de análise de uma aplicação paralela
+escrita em OpenMP para a fatorização QR de matrizes densas, do emprego
+de princípios da programação literária para condução dos experimentos
+e análise dos dados, e do emprego de conhecimentos a respeito de
+projeto experimental para planejamento de quais experimentos devem ser
+realizados para alcançar o máximo de informação com o menor esforço.
+
 #+begin_comment
 
 TODO:
